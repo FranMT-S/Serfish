@@ -38,7 +38,7 @@ export class SettingComponent implements OnInit {
     role    :["", [Validators.required], []],
   });
 
-  displayedColumns: string[] = ['index', 'name', 'email', 'role'];
+  displayedColumns: string[] = ['index', 'name', 'email', 'role','action'];
   dataSource = new MatTableDataSource<Usuario>();
   lengthDataSource:number=0;
   // @ViewChild('table') table!: MatTable<Element>;
@@ -52,7 +52,7 @@ export class SettingComponent implements OnInit {
   ngOnInit(): void {
     this.userServices.getUsers()
       .subscribe(res => {
-        console.log(res);
+        console.log("arreglo");
         this.dataSource.data = res;
         this.lengthDataSource = res.length;
       });

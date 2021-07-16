@@ -5,33 +5,35 @@ import { tap } from 'rxjs/operators';
 import { AuthService } from '../auth/services/auth.service';
 import { Usuario } from '../home-page/interfaces/interfaces';
 
+
+
+
 @Injectable({
   providedIn: 'root'
 })
-export class SettingGuard implements CanActivate, CanLoad {
-  
-  usuario!:Usuario;
+export class SettingGuard  implements CanActivate,CanLoad{
+  private usuario!:Usuario;
+  private roles = ["admin"]
 
   constructor( private authService: AuthService,
-               private router: Router ){
+                 private router: Router ){
                 this.usuario = this.authService.user;
-    }
-
+    };
+  
   canActivate(): boolean{
-    console.log(this.usuario.role)
-
-    if(!(this.usuario.role === "admin"))
+   
+    if(!(this.roles.includes(this.usuario.role)))
         this.router.navigateByUrl('/home-page/opening');
       
     return true
   }
 
   canLoad(): boolean{
-    console.log(this.authService.user.role)
-    if(!(this.usuario.role === "admin"))
+
+    if(!(this.roles.includes(this.usuario.role)))
         this.router.navigateByUrl('/home-page/opening');
       
     return true
   }
-  
+
 }

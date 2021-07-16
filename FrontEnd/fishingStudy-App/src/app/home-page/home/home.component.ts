@@ -5,8 +5,10 @@ import { Usuario } from '../interfaces/interfaces';
 
 export interface OptionSetting{
   name:string,
-  url :string
+  url :string,
+  role?: string[]
 }
+
 
 @Component({
   selector: 'app-home',
@@ -18,22 +20,10 @@ export class HomeComponent implements OnInit {
   typesOfShoes: string[] = ['Perfil y cuenta', 'Gestion de usuarios', 'Loafers', 'Moccasins', 'Cerrar sesion'];
   optionSetting:OptionSetting[] = [
     {name: "Editar Cuenta", url:"opening"},
-    {name: "Gestion de usuarios", url:"setting"},
+    {name: "Gestion de usuarios", url:"setting", role : ["admin"]},
     {name: "Cerrar sesion", url:"/auth/login"},
   ];
   
-  viewRolUser: { [nameRol: string]: string[] } = {
-    "admin": ["calendar","document",
-                "Editar Cuenta","Gestion de usuarios", "Cerrar sesion"
-              ],
-    
-    "biologo": ["climate","calendar","document",
-                  "zones","statistics","survey", "Cerrar sesion"
-                ],
-  }
-
-  
-
   usuario!:Usuario;
 
   constructor( private authService:AuthService,
@@ -48,8 +38,13 @@ export class HomeComponent implements OnInit {
   }
 
   isAllowed(componentName:string){
-    //console.log(componentName, " ", this.viewRolUser[this.usuario.role].includes(componentName))
-    return this.viewRolUser[this.usuario.role].includes(componentName);
+    // Obtenemos los roles que tienen permitido entrar al componente
+    let roles = this.optionSetting.find( e => e.name === componentName)?.role
+              
+    // Retorna true si es undifined (todos tienen permisos)
+    // si no es undefined comprueba que exista el rol en el arreglo de optionSettings
+    
+    return !roles || roles.includes(this.usuario.role);  
   }
 
 }

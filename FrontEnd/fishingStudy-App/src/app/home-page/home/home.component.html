@@ -15,10 +15,10 @@
         <hr class="mx-2">
         <div class="mx-3">
             <button style="width: 100%; height: 48px; text-align: left;" class="my-2" mat-button (click)="navagate('opening')"><img class="img"  src="../../../assets/sidebar/homepage.png" alt="">Inicio</button>
-            <button style="width: 100%; height: 48px; text-align: left;" class="mb-2" *ngIf="isAllowed('climate')" mat-button (click)="navagate('climate')"><img class="img" src="../../../assets/sidebar/dom.png" alt="">Clima</button>
-            <button style="width: 100%; height: 48px; text-align: left;" class="mb-2" *ngIf="isAllowed('calendar')" mat-button (click)="navagate('calendar')"><img class="img" src="../../../assets/sidebar/calendario.png" alt="">Calendario</button>
-            <button style="width: 100%; height: 48px; text-align: left;" class="mb-2" *ngIf="isAllowed('document')" mat-button (click)="navagate('document')"><img class="img" src="../../../assets/sidebar/agricultura.png" alt="">Documentos</button>
-            <mat-expansion-panel class="mb-2" *ngIf="isAllowed('zones')" (click)="navagate('map')">
+            <button style="width: 100%; height: 48px; text-align: left;" class="mb-2"  mat-button (click)="navagate('climate')"><img class="img" src="../../../assets/sidebar/dom.png" alt="">Clima</button>
+            <button style="width: 100%; height: 48px; text-align: left;" class="mb-2"  mat-button (click)="navagate('calendar')"><img class="img" src="../../../assets/sidebar/calendario.png" alt="">Calendario</button>
+            <button style="width: 100%; height: 48px; text-align: left;" class="mb-2"  mat-button (click)="navagate('document')"><img class="img" src="../../../assets/sidebar/agricultura.png" alt="">Documentos</button>
+            <mat-expansion-panel class="mb-2"  (click)="navagate('map')">
                 <mat-expansion-panel-header>
                     <mat-panel-title>
                         <img class="img" src="../../../assets/sidebar/mapa.png" alt=""> Zonas
@@ -31,7 +31,7 @@
                 </mat-selection-list>
             </mat-expansion-panel>
             <mat-accordion>
-                <mat-expansion-panel class="mb-2" *ngIf="isAllowed('statistics')" (click)="navagate('chart')">
+                <mat-expansion-panel class="mb-2"  (click)="navagate('chart')">
                     <mat-expansion-panel-header>
                         <mat-panel-title>
                             <img class="img" src="../../../assets/sidebar/estadistica.png" alt=""> Estadistica
@@ -44,7 +44,7 @@
                     </mat-selection-list>
                 </mat-expansion-panel>
 
-                <mat-expansion-panel class="mb-2" *ngIf="isAllowed('survey')" (click)="navagate('survey')">
+                <mat-expansion-panel class="mb-2" (click)="navagate('survey')">
                     <mat-expansion-panel-header>
                         <mat-panel-title>
                             <img class="img" src="../../../assets/sidebar/encuesta.png" alt=""> Encuestas
@@ -63,7 +63,7 @@
                             <img class="img" src="../../../assets/sidebar/ajuste.png" alt="">Ajustes
                         </mat-panel-title>
                     </mat-expansion-panel-header>
-                    <mat-selection-list *ngFor="let option of optionSetting"  [multiple]="false">
+                    <mat-selection-list *ngFor="let option of optionSetting" [multiple]="false">
                         <mat-list-option  *ngIf="isAllowed(option.name)" [routerLink]="option.url" [value]="option.name"   (click)="snav.close()">
                             {{option.name}}
                         </mat-list-option>
@@ -77,7 +77,8 @@
     <mat-sidenav-content>
         <mat-toolbar color="primary" class="example-toolbar toolsticky">
             <button mat-icon-button (click)="snav.toggle()"><mat-icon>menu</mat-icon></button>
-            <h1 class="example-app-name">Menu</h1>
+            
+            <h1 class="example-app-name"></h1>
         </mat-toolbar>
         <div class="ms-3 mt-2">
             <router-outlet></router-outlet>

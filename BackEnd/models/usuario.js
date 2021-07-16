@@ -28,6 +28,10 @@ const UsuarioSchema = Schema({
     google:{
         type    : Boolean,
         default : false
+    },    
+    state:{
+        type    : Boolean,
+        default : false
     }
 });
 
