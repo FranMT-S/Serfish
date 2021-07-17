@@ -18,7 +18,7 @@ export class HomeComponent implements OnInit {
   panelOpenState = false;
   typesOfShoes: string[] = ['Perfil y cuenta', 'Gestión de usuarios', 'Loafers', 'Moccasins', 'Cerrar sesión'];
   optionSetting:OptionSetting[] = [
-    {name: "Editar Cuenta", url:"opening"},
+    {name: "Editar Cuenta", url:"edit-profile"},
     {name: "Gestión de usuarios", url:"setting"},
     {name: "Cerrar sesión", url:"/auth/login"},
   ];

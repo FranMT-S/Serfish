@@ -6,6 +6,7 @@ import { HomeComponent } from './home/home.component';
 import { OpeningComponent } from './pages/opening/opening.component';
 
 import { SettingComponent } from './pages/setting/setting.component';
+import { EditProfileComponent } from './components/edit-profile/edit-profile.component';
 
 const routes: Routes = [
   {
@@ -15,6 +16,7 @@ const routes: Routes = [
       [
         { path:"opening", component:OpeningComponent },
         { path:"setting", component:SettingComponent },
+        { path:"edit-profile",component:EditProfileComponent},
         {
           path:"calendar",
           loadChildren: () => import("./pages/calendar/calendar.module").then( module => module.CalendarModule)

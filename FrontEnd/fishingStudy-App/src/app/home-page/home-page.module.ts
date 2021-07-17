@@ -9,13 +9,15 @@ import { HomePageRoutingModule } from './home-page-routing.module';
 import { HomeComponent } from './home/home.component';
 import { SettingComponent } from './pages/setting/setting.component';
 import { SharedModule } from '../shared/shared.module';
+import { EditProfileComponent } from './components/edit-profile/edit-profile.component';
 import { OpeningComponent } from './pages/opening/opening.component';
 
 @NgModule({
   declarations: [
     HomeComponent,
     SettingComponent,
-    OpeningComponent
+    OpeningComponent,
+    EditProfileComponent
   ],
   imports: [
     CommonModule,

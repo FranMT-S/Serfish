@@ -1,0 +1,36 @@
+img {
+    width: 150px;
+    align-content: flex-end;
+    border-radius: 50em;
+    border-color: #000;
+    border-style: unset;
+}
+
+.contenedor-interior {
+    background-color: #fff;
+    border-radius: 15px;
+    margin-left: 0.10rem;
+}
+
+.contenedor {
+    background: #00c6ff;
+    /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #0072ff, #00c6ff);
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #0072ff, #00c6ff);
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    border-radius: 15px;
+    margin-left: 2rem;
+    margin-top: 2rem;
+    margin-right: 2rem;
+}
+
+.contenedor-contraseña {
+    background-color: rgba(63, 81, 181, 0.065);
+    border-radius: 15px;
+    margin-left: 2rem;
+}
+
+p {
+    text-align: end;
+}
