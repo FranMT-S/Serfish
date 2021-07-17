@@ -2,7 +2,7 @@ const { request, response } = require("express");
 const { generarJWT } = require("../helpers/jwt");
 const bcrypt = require("bcryptjs");
 const Usuario = require("../models/usuario");
-const usuario = require("../models/usuario");
+
 
 const test = (req = request, res = response) => {
     res.status(200).json({
@@ -15,10 +15,11 @@ const getUsers = async(req = request, res = response) => {
     //TASK-29.
     const { skipUser, limitUser } = req.query;
     try {
-        const usuarios = await Usuario.find({}, "name email role").skip(Number(skipUser) || 0).limit(Number(limitUser) || 0);
+        const usuarios = await Usuario.find({}, "name email role state").skip(Number(skipUser) || 0).limit(Number(limitUser) || 0);
         res.status(200).json({
             ok: true,
-            usuarios
+            usuarios,
+            
         });
     } catch (error) {
         console.log(error);
@@ -102,7 +103,33 @@ const updateData = async(req = request, res = response) => {
                 msg: "El correo ya es utilizado por otro usuario."
             });
         }
+    } catch (error) {
+        console.log("CATCH", error);
+        res.status(500).json({
+            ok: false,
+            msg: "Por favor contáctese con el administrador"
+        });
+    }
+};
 
+const changeStateUser = async(req = request, res = response) => {
+
+    const { uid, state } = req.body;
+    try {
+        //Verificar que el usuario este registrado
+        const userRegister = await Usuario.findById(uid);
+        if (!userRegister) {
+            return res.status(404).json({
+                ok: false,
+                msg: "El id del usuario no se encuentra en la BD."
+            });
+        }
+
+        const userUpdate = await Usuario.findByIdAndUpdate(uid, { state }, { new: true });
+        return res.status(200).json({
+            ok: true,
+            userUpdate
+        });
     } catch (error) {
         console.log("CATCH", error);
         res.status(500).json({
@@ -143,7 +170,8 @@ module.exports = {
     getUsers,
     newUser: newUser,
     updateData,
-    deleteUser
+    deleteUser,
+    changeStateUser
 };
 
 

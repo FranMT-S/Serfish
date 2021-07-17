@@ -31,7 +31,7 @@ const UsuarioSchema = Schema({
     },    
     state:{
         type    : Boolean,
-        default : false
+        default : true
     }
 });
 

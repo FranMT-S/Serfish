@@ -17,7 +17,14 @@ interface Usuario {
   email: string;
   uid:   string;
   index?:number;
+  state:Boolean;
 }
+
+interface UserUpdate {
+  ok:  string;
+  userUpdate:Usuario;
+}
+
 
 @Injectable({
   providedIn: 'root'
@@ -40,10 +47,25 @@ export class UserService {
                       index++;
                       this.user.push({index,...value});
                     });
+                    
                   }
                   return this.user
                 })
               )
+  }
+
+  changeState(uid:string,state:boolean):Observable<Usuario>{
+    const url = `${this._baseUrl}/usuarios/changeState`;
+    const body = {uid , state};
+
+    return  this.http.post<UserUpdate>(url,body)
+              .pipe(
+                map( res => {
+                     return res.userUpdate                  
+                  }                
+                )
+              )
+            
   }
 
 }
