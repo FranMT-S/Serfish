@@ -7,9 +7,9 @@ import { UserService } from '../../services/user.service';
   templateUrl: './edit-profile.component.html',
   styleUrls: ['./edit-profile.component.css']
 })
-export class EditProfileComponent implements OnInit{
+export class EditProfileComponent{
 
-  editForm: FormGroup = this.fb.group({
+  public editForm: FormGroup = this.fb.group({
     name    :["", [Validators.required], []],
     email   :["", [Validators.required], []],
     role    :["",[Validators.required],[]],
@@ -19,10 +19,6 @@ export class EditProfileComponent implements OnInit{
   constructor(private fb : FormBuilder,
               private userService : UserService          
     ) {}
-
-    ngOnInit(){
-    }
-
 
 
 }
