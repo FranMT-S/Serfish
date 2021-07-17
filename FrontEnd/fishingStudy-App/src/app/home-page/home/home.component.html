@@ -1,40 +1,28 @@
-<mat-sidenav-container class="example-sidenav-container" fullscreen>
+<mat-sidenav-container fullscreen>
 
     <mat-sidenav #snav mode="push" style="width: 250px;">
-        <mat-toolbar color="primary">
-            <a href="">
-                <img class="me-3" style="width: 50px;" src="../../../assets/toolbar/pescado.png" alt="">
-            </a>
-            <span>SerFish</span>
-            <span class="example-spacer"></span>
-            <button mat-icon-button (click)="snav.toggle()">
-            <mat-icon>menu</mat-icon>
-          </button>
-        </mat-toolbar>
-        <!-- <h4 class="m-2">Opciones</h4> -->
-        <hr class="mx-3">
-        <div class="mx-3">
-            <button style="width: 100%; height: 48px; text-align: left;" class="my-2" mat-button (click)="navagate('opening')"><img class = "img ms-2" src="../../../assets/sidebar/homepage.png" alt="">Inicio</button>
-            <button style="width: 100%; height: 48px; text-align: left;" class="mb-2" mat-button (click)="navagate('climate')"><img class = "img ms-2" src="../../../assets/sidebar/dom.png" alt="">Clima</button>
-            <button style="width: 100%; height: 48px; text-align: left;" class="mb-2" mat-button (click)="navagate('calendar')"><img class ="img ms-2" src="../../../assets/sidebar/calendario.png" alt="">Calendario</button>
-            <button style="width: 100%; height: 48px; text-align: left;" class="mb-2" mat-button (click)="navagate('document')"><img class ="img ms-2" src="../../../assets/sidebar/agricultura.png" alt="">Documentos</button>
-            <mat-expansion-panel class="mb-2" (click)="navagate('map')">
-                <mat-expansion-panel-header>
-                    <mat-panel-title>
-                        <img class="img" src="../../../assets/sidebar/mapa.png" alt=""> Zonas
-                    </mat-panel-title>
-                </mat-expansion-panel-header>
-                <mat-selection-list [multiple]="false">
-                    <mat-list-option>
-
-                    </mat-list-option>
-                </mat-selection-list>
-            </mat-expansion-panel>
-            <mat-accordion>
-                <mat-expansion-panel class="mb-2" (click)="navagate('chart')">
+        <ng-scrollbar visibility="hover" thumbClass="prueba">
+            <mat-toolbar color="primary">
+                <a href="">
+                    <img class="me-3" style="width: 50px;" src="../../../assets/toolbar/pescado.png" alt="">
+                </a>
+                <span>SerFish</span>
+                <span class="example-spacer"></span>
+                <button mat-icon-button (click)="snav.toggle()">
+                <mat-icon>menu</mat-icon>
+              </button>
+            </mat-toolbar>
+            <!-- <h4 class="m-2">Opciones</h4> -->
+            <hr class="mx-4">
+            <div class="mx-3">
+                <button style="width: 100%; height: 48px; text-align: left;" class="my-2" mat-button (click)="navagate('opening')"><img class = "img ms-2" src="../../../assets/sidebar/homepage.png" alt="">Inicio</button>
+                <button style="width: 100%; height: 48px; text-align: left;" class="mb-2" mat-button (click)="navagate('climate')"><img class = "img ms-2" src="../../../assets/sidebar/dom.png" alt="">Clima</button>
+                <button style="width: 100%; height: 48px; text-align: left;" class="mb-2" mat-button (click)="navagate('calendar')"><img class ="img ms-2" src="../../../assets/sidebar/calendario.png" alt="">Calendario</button>
+                <button style="width: 100%; height: 48px; text-align: left;" class="mb-2" mat-button (click)="navagate('document')"><img class ="img ms-2" src="../../../assets/sidebar/agricultura.png" alt="">Documentos</button>
+                <mat-expansion-panel class="mb-2" (click)="navagate('map')">
                     <mat-expansion-panel-header>
                         <mat-panel-title>
-                            <img class="img" src="../../../assets/sidebar/estadistica.png" alt=""> Estadistica
+                            <img class="img" src="../../../assets/sidebar/mapa.png" alt=""> Zonas
                         </mat-panel-title>
                     </mat-expansion-panel-header>
                     <mat-selection-list [multiple]="false">
@@ -43,44 +31,61 @@
                         </mat-list-option>
                     </mat-selection-list>
                 </mat-expansion-panel>
+                <mat-accordion>
+                    <mat-expansion-panel class="mb-2" (click)="navagate('chart')">
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                <img class="img" src="../../../assets/sidebar/estadistica.png" alt=""> Estadística
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+                        <mat-selection-list [multiple]="false">
+                            <mat-list-option>
 
-                <mat-expansion-panel class="mb-2" (click)="navagate('survey')">
-                    <mat-expansion-panel-header>
-                        <mat-panel-title>
-                            <img class="img" src="../../../assets/sidebar/encuesta.png" alt=""> Encuestas
-                        </mat-panel-title>
-                    </mat-expansion-panel-header>
-                    <mat-selection-list [multiple]="false">
-                        <mat-list-option>
+                            </mat-list-option>
+                        </mat-selection-list>
+                    </mat-expansion-panel>
 
-                        </mat-list-option>
-                    </mat-selection-list>
-                </mat-expansion-panel>
+                    <mat-expansion-panel class="mb-2" (click)="navagate('survey')">
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                <img class="img" src="../../../assets/sidebar/encuesta.png" alt=""> Encuestas
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+                        <mat-selection-list [multiple]="false">
+                            <mat-list-option>
 
-                <mat-expansion-panel>
-                    <mat-expansion-panel-header>
-                        <mat-panel-title>
-                            <img class="img" src="../../../assets/sidebar/ajuste.png" alt="">Ajustes
-                        </mat-panel-title>
-                    </mat-expansion-panel-header>
-                    <mat-selection-list [multiple]="false">
-                        <mat-list-option *ngFor="let option of optionSetting" [routerLink]="option.url" [value]="option.name" (click)="snav.close()">
-                            {{option.name}}
-                        </mat-list-option>
-                    </mat-selection-list>
-                </mat-expansion-panel>
-            </mat-accordion>
-            <!-- <button style="width: 96%; height: 48px; text-align: left; position: absolute; bottom: 10px; left: 5px;" mat-button><img class="img" src="../../../assets/sidebar/ajuste.png" alt="">Ajustes</button> -->
-        </div>
+                            </mat-list-option>
+                        </mat-selection-list>
+                    </mat-expansion-panel>
+
+                    <mat-expansion-panel>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                <img class="img" src="../../../assets/sidebar/ajuste.png" alt="">Ajustes
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+                        <mat-selection-list [multiple]="false">
+                            <mat-list-option *ngFor="let option of optionSetting" [routerLink]="option.url" [value]="option.name" (click)="action(option.url)">
+                                {{option.name}}
+                            </mat-list-option>
+                        </mat-selection-list>
+                    </mat-expansion-panel>
+                </mat-accordion>
+                <!-- <button style="width: 96%; height: 48px; text-align: left; position: absolute; bottom: 10px; left: 5px;" mat-button><img class="img" src="../../../assets/sidebar/ajuste.png" alt="">Ajustes</button> -->
+            </div>
+        </ng-scrollbar>
     </mat-sidenav>
 
     <mat-sidenav-content>
-        <mat-toolbar color="primary" class="example-toolbar toolsticky">
-            <button mat-icon-button (click)="snav.toggle()"><mat-icon>menu</mat-icon></button>
-            <h1 class="example-app-name">Menu</h1>
-        </mat-toolbar>
-        <div class="ms-3 mt-2">
-            <router-outlet></router-outlet>
-        </div>
+        <ng-scrollbar>
+            <mat-toolbar color="primary" class="toolsticky">
+                <button mat-icon-button (click)="snav.toggle()"><mat-icon>menu</mat-icon></button>
+                <h1>Menu</h1>
+            </mat-toolbar>
+            <div class="ms-3 mt-2">
+                <router-outlet></router-outlet>
+            </div>
+        </ng-scrollbar>
     </mat-sidenav-content>
+
 </mat-sidenav-container>

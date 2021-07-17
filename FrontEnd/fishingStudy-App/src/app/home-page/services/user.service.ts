@@ -25,23 +25,26 @@ interface Usuario {
 export class UserService {
 
   private _baseUrl:string = environment.baseUrl;
-  private user:Usuario[]=[];
+  private users:Usuario[]=[];
 
+  get getUsersArray(){
+    return [...this.users];
+  }
   constructor(private http:HttpClient) { }
 
   getUsers():Observable<Usuario[]>{
     const url = `${this._baseUrl}/usuarios`;
-    this.user = [];
+    this.users = [];
     return  this.http.get<UserResponse>(url)
               .pipe(
                 map( res => {
                   if(res.ok === true){
                     res.usuarios.forEach( (value,index) =>{
                       index++;
-                      this.user.push({index,...value});
+                      this.users.push({index,...value});
                     });
                   }
-                  return this.user
+                  return this.users
                 })
               )
   }

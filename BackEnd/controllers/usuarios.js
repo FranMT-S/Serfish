@@ -29,6 +29,23 @@ const getUsers = async(req = request, res = response) => {
     }
 }
 
+const getUser = async(req = request, res = response) => {
+    try {
+        const { _doc } = await Usuario.findById(req.uid);
+        const { _id, __v, password, ...usuario } = _doc;
+        usuario.uid = _id;
+        res.status(200).json({
+            ok: true,
+            usuario
+        });
+    } catch (error) {
+        res.status(500).json({
+            ok: false,
+            msg: "Por favor contáctese con el administrador"
+        });
+    }
+}
+
 const newUser = async(req = request, res = response) => {
     const { email, password } = req.body;
     try {
@@ -141,6 +158,7 @@ const deleteUser = async(req = request, res = response) => {
 module.exports = {
     test,
     getUsers,
+    getUser,
     newUser: newUser,
     updateData,
     deleteUser

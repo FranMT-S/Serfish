@@ -50,12 +50,17 @@ export class SettingComponent implements OnInit {
                private userServices:UserService ) { }
                
   ngOnInit(): void {
-    this.userServices.getUsers()
+    if( this.userServices.getUsersArray.length===0 ){
+      this.userServices.getUsers()
       .subscribe(res => {
         console.log(res);
         this.dataSource.data = res;
         this.lengthDataSource = res.length;
       });
+    }else{
+      this.dataSource.data = this.userServices.getUsersArray;
+      this.lengthDataSource = this.dataSource.data.length;
+    }
   }
 
   ngAfterViewInit() {

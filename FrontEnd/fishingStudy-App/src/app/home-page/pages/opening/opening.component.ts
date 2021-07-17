@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Usuario } from '../../interfaces/interfaces';
 import { AuthService } from '../../../auth/services/auth.service';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-opening',
@@ -10,16 +9,14 @@ import { Router } from '@angular/router';
 })
 export class OpeningComponent implements OnInit {
   usuario!:Usuario;
-  constructor( private authService:AuthService,
-               private router:Router ) { }
+  constructor( private authService:AuthService) { }
 
   ngOnInit(): void {
     this.usuario = this.authService.user;
   }
 
   logout(){
-    localStorage.removeItem('token');
-    this.router.navigateByUrl("/auth/login")
+    this.authService.logOut()
   }
 
 }

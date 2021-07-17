@@ -3,6 +3,7 @@ import { environment } from 'src/environments/environment';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, map, tap } from "rxjs/operators";
 import { of, Observable } from 'rxjs';
+import { Router } from '@angular/router';
 
 import { Usuario, LoginResponse } from '../../home-page/interfaces/interfaces';
 import { FormGroup, FormControl, ValidationErrors } from '@angular/forms';
@@ -23,7 +24,8 @@ export class AuthService {
     return {...this._user}
   }
 
-  constructor( private http:HttpClient ) { }
+  constructor(private http: HttpClient,
+    private router: Router ) { }
 
   login( email:string, password:string ):Observable<boolean | string>{
     const url  = `${this._baseUrl}/login`
@@ -52,6 +54,11 @@ export class AuthService {
       )
   }
 
+  logOut() {
+    localStorage.removeItem('token');
+    this.router.navigateByUrl("/auth/login")
+  }
+
   register( form:FormGroup ){
     const url = `${this._baseUrl}/usuarios`
     return this.http.post<AuthResponse>(url, form.value)
@@ -62,6 +69,7 @@ export class AuthService {
   }
 
   validarToken():Observable<boolean> {
+
     const url = `${ this._baseUrl }/login/renew`;
     const headers = new HttpHeaders()
       .set('x-token', localStorage.getItem('token') || '');
@@ -69,6 +77,9 @@ export class AuthService {
     return this.http.get<AuthResponse>( url, { headers } )
       .pipe(
         map( resp => {
+          if (localStorage.getItem('token') === null) {
+            return false;
+          }
           localStorage.setItem("token", resp.token!)
           this._user = {
             uid: resp.uid!,
