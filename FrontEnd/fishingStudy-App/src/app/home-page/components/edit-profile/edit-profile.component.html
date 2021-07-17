@@ -1,0 +1,53 @@
+<div class="row py-2">
+    <div class="col col-sm-6 mb-5 me-2 p-3 d-flex row contenedor">
+        <div>
+            <img src="../../../../assets/toolbar/fish.png" alt="imagen usuario"> Nombre usuario
+        </div>
+
+        <div class="row py-2 contenedor-interior">
+
+            <form [formGroup]="editForm" autocomplete="off">
+                <mat-form-field class="w-100" appearance="fill">
+                    <mat-label>Nombre de usuario</mat-label>
+                    <input matInput formControlName="name">
+                    <mat-icon class="me-2" matPrefix>person</mat-icon>
+                </mat-form-field>
+                <mat-form-field class="w-100" appearance="fill">
+                    <mat-label>Email</mat-label>
+                    <input matInput formControlName="email">
+                    <mat-icon class="me-2" matPrefix>email</mat-icon>
+                </mat-form-field>
+                <div class="float-end">
+                    <button mat-raised-button color="accent" [disabled]="editForm.invalid">
+                                <i class="fa fa-edit"></i>
+                            Editar usuario
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="col-6">
+    <hr>
+</div>
+
+<div class="row py-2">
+    <div class="col col-sm-6 mb-5 me-2 p-3 d-flex row contenedor-contraseña">
+        <h4>Contraseña y autenticación</h4>
+        <form [formGroup]="editForm" autocomplete="off">
+            <mat-form-field class="w-100" appearance="fill">
+                <mat-label>Contraseña</mat-label>
+                <input matInput formControlName="password">
+                <mat-icon class="me-2" matPrefix>lock</mat-icon>
+            </mat-form-field>
+            <mat-form-field class="w-100" appearance="fill">
+                <mat-label>Comprobar contraseña</mat-label>
+                <input matInput formControlName="password">
+                <mat-icon class="me-2" matPrefix>lock</mat-icon>
+            </mat-form-field>
+        </form>
+    </div>
+</div>
