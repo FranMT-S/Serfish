@@ -4,13 +4,11 @@ footer{
     position: relative;
     background-color: #032e7a;
     color: #fff;
-    
     background-size: contain;
     background-repeat: no-repeat;
     background-image: url("../../../../assets/landingPage/footer-bottom-tablet.svg");
     background-position: bottom;
 }
-
 
 ul#social li{
     display: inline;

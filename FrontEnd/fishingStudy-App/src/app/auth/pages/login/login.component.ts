@@ -34,30 +34,45 @@ export class LoginComponent implements OnInit {
         if(ok === true){
           this.router.navigateByUrl("/home-page");
         }else{
-          // console.log(ok)
-          Swal.fire("Error",`${ok}`,"error");
+          Swal.fire({ background:'rgba(250,250,250,0.96)',
+                      title: 'Oops!!',
+                      text: `${ok}`,                  
+                      icon: 'error',
+                      confirmButtonColor: '#3085d6'
+          });
         }
       });
   }
   
   forgotPassword(){
-   
     const {email} = this.miFormulario.value
     if(!this.validateEmail(email) || email == ""){
-        Swal.fire({background:'#575B65',title:'<p style="color:#fff"> El formato del correo no es valido<p>'});
-        
+      const msg = (email==="")?'El email es un campo obligatorio.':'El correo electronico ingresado no es valido.'
+      Swal.fire({   background:'rgba(250,250,250,0.96)',
+                    title: 'Oops!!',
+                    text: msg,                  
+                    icon: 'warning',
+                    confirmButtonColor: '#3085d6'
+                  });
     }else{
       this.authService.forgotPassword(email)
         .subscribe(ok =>{
           if(ok === true){
             Swal.fire({
-              background:'#575B65',
-              title:'<p style="color:#fff">Instrucciones enviadas</p>',
-              html : `<p  style="text-align:left; color:#fff">Hemos enviado instrucciones para cambiar tu contraseña a ${email}.<br> Revise la bandeja de entrada y la carpeta de spam.</p>`
+              background:'rgba(250,250,250,0.96)',
+              title:'<p>Instrucciones enviadas</p>',
+              html : `<p style="text-align:justify; margin: 0 20px;">Hemos enviado instrucciones para cambiar tu contraseña a ${email}. Revise la bandeja de entrada y la carpeta de spam.</p>`,
+              icon: 'info',
+              confirmButtonColor: '#3085d6'
             })
           }else{
             // console.log(ok)
-            Swal.fire("Error",`${ok}`,"error");
+            Swal.fire({ background:'rgba(250,250,250,0.96)',
+            title: 'Oops!!',
+            text: "El correo electronico no esta registrado.",                  
+            icon: 'error',
+            confirmButtonColor: '#3085d6'
+          });
           }
       });
     }

@@ -23,7 +23,7 @@ const sendEmail = (username, email, token, ) => {
             <div style="width: 50vw; height: 70vh; background-color: #f8f8f8; border-radius: 10px; color: black; font-family: Roboto, Helvetica Neue Light, Helvetica Neue, Helvetica, Arial, Lucida Grande, sans-serif;">
                 <div style="text-align: center; padding-top: 30px;">
                     <img style="width: 60px;" src="https://raw.githubusercontent.com/JeanlucBoquin/IS801-IngenieriaSoftware-Proyecto/main/FrontEnd/fishingStudy-App/src/assets/toolbar/pescado.png" alt="">
-                    <h1>Serfish</h1>
+                    <h1>SerFish</h1>
                 </div>
                 <div style="width: 95%; background-color: #ffff; margin-top: 50px; border-radius: 10px;">
                     <h2 style="padding-top: 40px;">Hola, ${username}:</h2>

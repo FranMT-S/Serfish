@@ -59,7 +59,8 @@ export class SettingComponent implements OnInit {
                private userServices:UserService ) { }
                
   ngOnInit(): void {
-    this.userServices.getUsers()
+    if( this.userServices.getUsersArray.length===0 ){
+      this.userServices.getUsers()
       .subscribe(res => {
         console.log("arreglo",res[0]);
         this.dataSource.data = res.filter(e => e.state); 
@@ -67,6 +68,10 @@ export class SettingComponent implements OnInit {
         this.lengthDataSource = res.filter(e => e.state).length;
         this.lengthDataDisableSource = res.filter(e => !e.state).length
       });
+    }else{
+      this.dataSource.data = this.userServices.getUsersArray;
+      this.lengthDataSource = this.dataSource.data.length;
+    }
   }
 
   ngAfterViewInit() {

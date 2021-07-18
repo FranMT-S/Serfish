@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { MatSidenav } from '@angular/material/sidenav';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/auth/services/auth.service';
 import { Usuario } from '../interfaces/interfaces';
@@ -16,8 +17,9 @@ export interface OptionSetting{
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
+  @ViewChild('snav') snav!: MatSidenav;
   panelOpenState = false;
-  typesOfShoes: string[] = ['Perfil y cuenta', 'Gestion de usuarios', 'Loafers', 'Moccasins', 'Cerrar sesion'];
+  typesOfShoes: string[] = ['Perfil y cuenta', 'Gestión de usuarios', 'Loafers', 'Moccasins', 'Cerrar sesión'];
   optionSetting:OptionSetting[] = [
     {name: "Editar Cuenta", url:"opening"},
     {name: "Gestion de usuarios", url:"setting", role : ["admin"]},
