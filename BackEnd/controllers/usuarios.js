@@ -31,7 +31,7 @@ const getUsers = async(req = request, res = response) => {
 
 const getUser = async(req = request, res = response) => {
     try {
-        const { _doc } = await Usuario.findById(req.uid);
+        const { _doc } = await Usuario.findById(req.query.uQuery || req.uid);
         const { _id, __v, password, ...usuario } = _doc;
         usuario.uid = _id;
         res.status(200).json({
@@ -86,22 +86,24 @@ const newUser = async(req = request, res = response) => {
 };
 
 const updateData = async(req = request, res = response) => {
-    const uid = req.params.id;
-    const { name, email, role } = req.body;
+    const uid = req.headers.uid || req.uid;
+    let { name, email, role } = req.body;
     try {
         //Verificar que el usuario este registrado
         const userRegister = await Usuario.findById(uid);
+        role = role || userRegister.role;
         if (!userRegister) {
             return res.status(404).json({
                 ok: false,
                 msg: "El id del usuario no se encuentra en la BD."
             });
         }
-
         //Verificar la existencia del correo
         if (email === userRegister.email) {
             //Actualizar los campos
-            const userUpdate = await Usuario.findByIdAndUpdate(uid, { name, role }, { new: true });
+            const { _doc } = await Usuario.findByIdAndUpdate(uid, { name, role }, { new: true });
+            const { _id, __v, password, ...userUpdate } = _doc;
+            userUpdate.uid = _id;
             return res.status(200).json({
                 ok: true,
                 userUpdate
