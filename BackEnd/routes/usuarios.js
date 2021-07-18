@@ -5,7 +5,7 @@
 const { Router } = require("express");
 const { check } = require("express-validator");
 
-const { test, getUsers, getUser, newUser, updateData, deleteUser } = require("../controllers/usuarios");
+const { test, getUsers, getUser, newUser, updateData, deleteUser, updatePassword } = require("../controllers/usuarios");
 const { validarCampos } = require("../middlewares/validar-campos");
 const { validarJWT } = require("../middlewares/validar-jwt");
 const router = Router();
@@ -33,6 +33,14 @@ router.put("/updateUser", [
         validarCampos
     ],
     updateData);
+
+router.put("/updatePassword", [
+        check("oldPassword", "La contraseña es un campo requerido.").notEmpty(),
+        check("newPassword", "La contraseña es un campo requerido.").notEmpty()
+    ],
+    validarCampos,
+    validarJWT,
+    updatePassword);
 
 router.delete("/:id", validarJWT, deleteUser);
 

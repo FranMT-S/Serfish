@@ -21,3 +21,26 @@ export interface Data {
     uid:      string;
 }
 
+export interface UpdateData {
+    name: string;
+    email: string;
+    uid?: string;
+    role?: string;
+    google?: boolean;
+}
+
+export interface UpdateDataResponse {
+    ok: boolean;
+    userUpdate: UpdateData
+}
+
+export interface UpdatePassword {
+    oldPassword: string;
+    newPassword: string;
+    uid?: string;
+}
+
+export interface UpdatePasswordResponse {
+    ok: boolean;
+    msg: string;
+}

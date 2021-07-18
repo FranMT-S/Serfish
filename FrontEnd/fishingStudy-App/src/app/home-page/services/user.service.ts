@@ -3,6 +3,7 @@ import { environment } from '../../../environments/environment.prod';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { map, catchError } from "rxjs/operators";
+import { UpdateData, UpdateDataResponse, UpdatePassword, UpdatePasswordResponse } from '../interfaces/interfaces';
 
 interface UsersResponse {
   ok:       boolean;
@@ -22,18 +23,6 @@ interface Usuario {
   uid:   string;
   index?:number;
   status?:string;
-}
-interface update{
-  name: string;
-  email: string;
-  uid?: string;
-  role?: string;
-  google?: boolean;
-}
-
-interface UpdateResponse {
-  ok: boolean;
-  userUpdate: update
 }
 
 @Injectable({
@@ -85,7 +74,7 @@ export class UserService {
       )
   }
 
-  updateUser(payload: update): Observable<boolean | string> {
+  updateUser(payload: UpdateData): Observable<boolean | string> {
     const url = `${this._baseUrl}/usuarios/updateUser`;
     const headers = new HttpHeaders()
       .append('x-token', localStorage.getItem('token') || '')
@@ -96,7 +85,7 @@ export class UserService {
       "role": payload.role
     };
 
-    return this.http.put<UpdateResponse>(url, body, {headers})
+    return this.http.put<UpdateDataResponse>(url, body, {headers})
       .pipe(
         map(resp => {
           return resp.ok
@@ -104,6 +93,28 @@ export class UserService {
         catchError((err) => {
           // console.log("CATCH",err.error)
           return of(err.error?.msg || "Error en la petición")
+        })
+      );
+  }
+  
+  updatePassword(payload: UpdatePassword): Observable<boolean | string>{
+
+    const url = `${this._baseUrl}/usuarios/updatePassword`;
+    const headers = new HttpHeaders()
+      .append('x-token', localStorage.getItem('token') || '')
+      .append('uid', payload.uid || '')
+    const body = { 
+      "oldPassword": payload.oldPassword, 
+      "newPassword": payload.newPassword 
+    };
+
+    return this.http.put<UpdatePasswordResponse>(url, body, { headers })
+      .pipe(
+        map(res => {
+          return res.ok
+        }),
+        catchError((err) => {
+          return of(err.error.msg || "Error en la petición")
         })
       );
   }

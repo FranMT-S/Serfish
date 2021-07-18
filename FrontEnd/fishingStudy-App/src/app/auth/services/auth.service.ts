@@ -35,7 +35,7 @@ export class AuthService {
         tap(resp => {
           if(resp.ok === true){
             localStorage.setItem("token",resp.token!)
-            console.log(resp.data?.uid!)
+            //console.log(resp.data?.uid!)
             this._user = {
               uid   :resp.data?.uid!,
               name  :resp.data?.name!,
