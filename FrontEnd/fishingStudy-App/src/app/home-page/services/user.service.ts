@@ -1,14 +1,18 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment.prod';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { map, tap } from "rxjs/operators";
-import { ThisReceiver } from '@angular/compiler';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { Observable, of } from 'rxjs';
+import { map, catchError } from "rxjs/operators";
 
-interface UserResponse {
+interface UsersResponse {
   ok:       boolean;
   saltos:   null;
   usuarios: Usuario[];
+}
+interface UserResponse {
+  ok: boolean;
+  saltos: null;
+  usuario: Usuario;
 }
 
 interface Usuario {
@@ -17,6 +21,18 @@ interface Usuario {
   email: string;
   uid:   string;
   index?:number;
+}
+interface update{
+  name: string;
+  email: string;
+  uid?: string;
+  role?: string;
+  google?: boolean;
+}
+
+interface UpdateResponse {
+  ok: boolean;
+  userUpdate: update
 }
 
 @Injectable({
@@ -35,7 +51,7 @@ export class UserService {
   getUsers():Observable<Usuario[]>{
     const url = `${this._baseUrl}/usuarios`;
     this.users = [];
-    return  this.http.get<UserResponse>(url)
+    return  this.http.get<UsersResponse>(url)
               .pipe(
                 map( res => {
                   if(res.ok === true){
@@ -47,6 +63,49 @@ export class UserService {
                   return this.users
                 })
               )
+  }
+
+  getUser( userId?:string ): Observable<Usuario> {
+    const url = `${this._baseUrl}/usuarios/getUser`;
+    const headers = new HttpHeaders()
+      .append('x-token', localStorage.getItem('token') || '')
+    const params = new HttpParams()
+      .append("uQuery",userId || '');
+
+    return this.http.get<UserResponse>(url, {headers, params})
+      .pipe(
+        map(res => {
+          return res.usuario;
+        }),
+        catchError((err) => {
+          // console.log("CATCH",err.error)
+          return of(err.error?.msg || "Error en la petición")
+        })
+      )
+  }
+
+  updateUsuario(payload: update): Observable<boolean | string> {
+    const url = `${this._baseUrl}/usuarios/updateUser`;
+    const headers = new HttpHeaders()
+      .append('x-token', localStorage.getItem('token') || '')
+      .append('uid', payload.uid || '')
+    const body = { 
+      "name": payload.name,
+      "email": payload.email,
+      "role": payload.role
+    };
+
+    return this.http.put<UpdateResponse>(url, body, {headers})
+      .pipe(
+        map(resp => {
+          console.log(resp.userUpdate)
+          return resp.ok
+        }),
+        catchError((err) => {
+          // console.log("CATCH",err.error)
+          return of(err.error?.msg || "Error en la petición")
+        })
+      );
   }
 
 }

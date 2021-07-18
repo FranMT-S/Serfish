@@ -26,11 +26,10 @@ router.post("/", [
     ],
     newUser);
 
-router.put("/:id", [
+router.put("/updateUser", [
         validarJWT,
         check("name", "El nombre es obligatorio.").not().isEmpty(),
         check("email", "El email no es valido.").isEmail(),
-        check("role", "El role es obligatorio.").not().isEmpty(),
         validarCampos
     ],
     updateData);
