@@ -27,7 +27,7 @@ const getUsers = async(req = request, res = response) => {
             msg: "Por favor contáctese con el administrador"
         });
     }
-}
+};
 
 const getUser = async(req = request, res = response) => {
     try {
@@ -44,7 +44,7 @@ const getUser = async(req = request, res = response) => {
             msg: "Por favor contáctese con el administrador"
         });
     }
-}
+};
 
 const newUser = async(req = request, res = response) => {
     const { email, password } = req.body;
@@ -62,7 +62,6 @@ const newUser = async(req = request, res = response) => {
         const usuario = new Usuario(req.body);
 
         // Paso 3: Encryptamos la contraseña, como buena practica.
-        // Dejar para el segundo sprint (comentar las siguientes dos lineas)
         const salt = bcrypt.genSaltSync(); //data generada de manera aletoria.
         usuario.password = bcrypt.hashSync(password, salt);
 
@@ -131,6 +130,44 @@ const updateData = async(req = request, res = response) => {
     }
 };
 
+const updatePassword = async(req = request, res = response) => {
+    const uid = req.headers.uid || req.uid;
+    const { oldPassword, newPassword } = req.body;
+    try {
+        const userExist = await Usuario.findById(uid);
+        // Validar password antigua
+        const oldPassMatch = bcrypt.compareSync(oldPassword, userExist.password); //Retorna un bool, si hace match true, de lo contrario false
+        if (!oldPassMatch) {
+            return res.status(400).json({
+                ok: false,
+                msg: "La contraseña actual es incorrecta."
+            });
+        }
+        // validar que la nueva contraseña sea distinta de la vieja
+        const newPassMatch = bcrypt.compareSync(newPassword, userExist.password); //Retorna un bool, si hace match true, de lo contrario false
+        if (newPassMatch) {
+            return res.status(400).json({
+                ok: false,
+                msg: "La nueva contraseña es la misma que la vieja contraseña."
+            });
+        }
+        // actualizar contraseña
+        const salt = bcrypt.genSaltSync(); //data generada de manera aletoria.
+        await Usuario.findByIdAndUpdate(uid, { password: bcrypt.hashSync(newPassword, salt) }, { new: true });
+
+        return res.status(200).json({
+            ok: true,
+            msg: "La contraseña ha sido cambiada exitosamente."
+        });
+    } catch (error) {
+        console.log("CATCH", error);
+        res.status(500).json({
+            ok: false,
+            msg: "¡Algo salio mal! Por favor contáctese con el administrador"
+        });
+    }
+};
+
 const deleteUser = async(req = request, res = response) => {
     const uid = req.params.id;
     try {
@@ -163,6 +200,7 @@ module.exports = {
     getUser,
     newUser: newUser,
     updateData,
+    updatePassword,
     deleteUser
 };
 
