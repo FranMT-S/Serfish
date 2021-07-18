@@ -21,6 +21,7 @@ interface Usuario {
   email: string;
   uid:   string;
   index?:number;
+  status?:string;
 }
 interface update{
   name: string;
@@ -84,7 +85,7 @@ export class UserService {
       )
   }
 
-  updateUsuario(payload: update): Observable<boolean | string> {
+  updateUser(payload: update): Observable<boolean | string> {
     const url = `${this._baseUrl}/usuarios/updateUser`;
     const headers = new HttpHeaders()
       .append('x-token', localStorage.getItem('token') || '')

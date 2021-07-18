@@ -5,11 +5,10 @@
         </div>
         <div class=" col-3">
             <h4>Nombre del usuario</h4>
-            <div class="col-12 d-flex mt-1 px-0">
+            <div>
                 <label for="change-picture" class="btn btn-outline-primary m-1">
                     <span class="d-none d-sm-block">Cambiar</span>
-                    <input type="file" id="change-picture" hidden="" accept="image/png, image/jpeg, image/jpg" class="form-control"><span class="d-block d-sm-none"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit mr-0"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
-                    <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></span>
+                    <input type="file" id="change-picture" hidden="" accept="image/png, image/jpeg, image/jpg" class="form-control">
                 </label>
                 <button class="btn btn-outline-primary m-1">Eliminar</button>
             </div>
@@ -57,7 +56,7 @@
                 <button type="submit" class="btn btn-outline-primary m-1" [disabled]="editForm.invalid">
                          Guardar cambios
                 </button>
-                <button type="submit" class="btn btn-outline-primary m-1">Limpiar</button>
+                <button type="submit" class="btn btn-outline-primary m-1" (onclick)="clean()">Limpiar</button>
             </div>
         </div>
     </form>
