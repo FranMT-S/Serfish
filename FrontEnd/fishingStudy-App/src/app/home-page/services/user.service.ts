@@ -98,7 +98,6 @@ export class UserService {
     return this.http.put<UpdateResponse>(url, body, {headers})
       .pipe(
         map(resp => {
-          console.log(resp.userUpdate)
           return resp.ok
         }),
         catchError((err) => {
