@@ -97,7 +97,9 @@
             <mat-menu #sideAjustes= "matMenu">
               <button mat-menu-item>Editar Cuenta</button>
               <button mat-menu-item>Gestion de Usuarios</button>
-              <button mat-menu-item>Cerrar Sesión</button> 
+              <button mat-menu-item
+                (click)="logout()"
+              >Cerrar Sesión</button> 
             </mat-menu>
         </mat-toolbar>
 

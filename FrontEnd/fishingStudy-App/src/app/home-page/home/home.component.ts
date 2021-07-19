@@ -19,7 +19,6 @@ export interface OptionSetting{
 export class HomeComponent implements OnInit {
   @ViewChild('snav') snav!: MatSidenav;
   panelOpenState = false;
-  typesOfShoes: string[] = ['Perfil y cuenta', 'Gestión de usuarios', 'Loafers', 'Moccasins', 'Cerrar sesión'];
   optionSetting:OptionSetting[] = [
     {name: "Editar Cuenta", url:"opening"},
     {name: "Gestion de usuarios", url:"setting", role : ["admin"]},
@@ -47,6 +46,10 @@ export class HomeComponent implements OnInit {
     // si no es undefined comprueba que exista el rol en el arreglo de optionSettings
     
     return !roles || roles.includes(this.usuario.role);  
+  }
+
+  logout(){
+    this.authService.logOut();
   }
 
 }

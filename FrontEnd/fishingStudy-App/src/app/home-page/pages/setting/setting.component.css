@@ -5,3 +5,8 @@ mat-chip {
     width: 100px;
     justify-content: center;
 }
+
+th{
+    color: white; 
+    background-color: #3F51B5;
+}

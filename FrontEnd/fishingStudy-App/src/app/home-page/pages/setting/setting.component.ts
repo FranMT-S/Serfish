@@ -32,7 +32,8 @@ interface Usuario{
 })
 export class SettingComponent implements OnInit {
 
-  selected:string=""
+  selected:string="";
+  hide: boolean = true;
 
   miFormulario:FormGroup = this.fb.group({
     name    :["", [Validators.required], []],
