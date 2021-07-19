@@ -61,7 +61,9 @@ export class AuthService {
 
   register( form:FormGroup ){
     const url = `${this._baseUrl}/usuarios`
-    return this.http.post<AuthResponse>(url, form.value)
+    const headers = new HttpHeaders()
+      .append('x-token', localStorage.getItem('token') || '');
+    return this.http.post<AuthResponse>(url, form.value, { headers })
       .pipe(
         map(resp => resp.ok),
         catchError( err => of(err.error.msg))

@@ -23,7 +23,6 @@ router.post("/", [
         check("password", "La contraseña es obligatorio.").not().isEmpty(),
         check("email", "El email no es valido.").isEmail(),
         check("role", "El rol es obligatorio.").not().isEmpty(),
-        check("organizacion", "El id de la organización debe de ser valido.").isMongoId(),
         validarCampos
     ],
     newUser);

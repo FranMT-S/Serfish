@@ -14,13 +14,23 @@ const test = (req = request, res = response) => {
 const getUsers = async(req = request, res = response) => {
     //TASK-29.
     const { skipUser, limitUser } = req.query;
+    // si se le panda un parametro ?last=true solo retorna el ultimo elemento
     try {
-        const { organizacion } = await Usuario.findById(req.uid);
-        const usuarios = await Usuario.find({ organizacion }, "name email role").skip(Number(skipUser) || 0).limit(Number(limitUser) || 0);
-        res.status(200).json({
-            ok: true,
-            usuarios
-        });
+        if (req.query.last === "false") {
+            const { organizacion } = await Usuario.findById(req.uid);
+            const usuarios = await Usuario.find({ organizacion }, "name email role").skip(Number(skipUser) || 0).limit(Number(limitUser) || 0);
+            res.status(200).json({
+                ok: true,
+                usuarios
+            });
+        } else {
+            const { organizacion } = await Usuario.findById(req.uid);
+            const usuarios = await Usuario.find({ organizacion }, "name email role").sort({ _id: -1 }).limit(1);
+            res.status(200).json({
+                ok: true,
+                usuarios
+            });
+        }
     } catch (error) {
         console.log(error);
         res.status(500).json({
@@ -63,7 +73,7 @@ const newUser = async(req = request, res = response) => {
         }
         // Paso 2: Si pasa la validacion creamos una nueva instancia de usuario
         const usuario = new Usuario(req.body);
-        usuario.organizacion = organizacion;
+        usuario.organizacion = req.body.organizacion || organizacion;
         // Paso 3: Encryptamos la contraseña, como buena practica.
         const salt = bcrypt.genSaltSync(); //data generada de manera aletoria.
         usuario.password = bcrypt.hashSync(password, salt);

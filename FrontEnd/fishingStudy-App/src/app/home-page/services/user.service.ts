@@ -37,10 +37,14 @@ export class UserService {
   }
   constructor(private http:HttpClient) { }
 
-  getUsers():Observable<Usuario[]>{
+  getUsers(last?:string):Observable<Usuario[]>{
     const url = `${this._baseUrl}/usuarios`;
+    const headers = new HttpHeaders()
+      .append('x-token', localStorage.getItem('token') || '');
+    const params = new HttpParams()
+      .append("last", last || 'false');
     this.users = [];
-    return  this.http.get<UsersResponse>(url)
+    return  this.http.get<UsersResponse>(url, { headers, params })
               .pipe(
                 map( res => {
                   if(res.ok === true){

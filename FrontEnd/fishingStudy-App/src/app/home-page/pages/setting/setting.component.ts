@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, FormGroupDirective, Validators } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
@@ -30,7 +30,7 @@ interface Usuario{
 export class SettingComponent implements OnInit {
 
   selected:string=""
-
+  selectedIndex = 0;
   miFormulario:FormGroup = this.fb.group({
     name    :["", [Validators.required], []],
     email   :["", [Validators.required], []],
@@ -53,7 +53,7 @@ export class SettingComponent implements OnInit {
     if( this.userServices.getUsersArray.length===0 ){
       this.userServices.getUsers()
       .subscribe(res => {
-        console.log(res);
+        // console.log(res);
         this.dataSource.data = res;
         this.lengthDataSource = res.length;
       });
@@ -67,8 +67,8 @@ export class SettingComponent implements OnInit {
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
   }
-
-  register(){
+  
+  register(formDirective: FormGroupDirective){
     this.authService.register(this.miFormulario)
       .subscribe(ok=>{
         if(ok===true){
@@ -77,7 +77,30 @@ export class SettingComponent implements OnInit {
             title: 'El usuario se creo de forma exitosa',
             showConfirmButton: false,
             timer: 1500
+          }).then((result) => {
+            // luego de registrar, limpia el formulario y enseña los usuarios
+            this.lengthDataSource = 0;
+            // TODO: solo obtener el ultimo usuario y añadirlo al arreglo
+            this.userServices.getUsers()
+              .subscribe(res => {
+                this.dataSource.data = res;
+                this.lengthDataSource = res.length;
+              });
+            /*
+              // ! no funciona correctamente aun
+              this.userServices.getUsers(last = 'true') //obtener solo el ultimo
+              .subscribe(res => {
+                console.log(res);
+                this.dataSource.data = res;
+                this.lengthDataSource = res.length;
+              });
+            */
+            this.selected = "";
+            formDirective.resetForm();
+            this.miFormulario.reset();
+            this.selectedIndex = 0;
           });
+          
         }else{
           Swal.fire("Detectamos un error.",`${ok}`,"error");
         }
