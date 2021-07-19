@@ -15,7 +15,8 @@ const getUsers = async(req = request, res = response) => {
     //TASK-29.
     const { skipUser, limitUser } = req.query;
     try {
-        const usuarios = await Usuario.find({}, "name email role").skip(Number(skipUser) || 0).limit(Number(limitUser) || 0);
+        const { organizacion } = await Usuario.findById(req.uid);
+        const usuarios = await Usuario.find({ organizacion }, "name email role").skip(Number(skipUser) || 0).limit(Number(limitUser) || 0);
         res.status(200).json({
             ok: true,
             usuarios
@@ -49,18 +50,20 @@ const getUser = async(req = request, res = response) => {
 const newUser = async(req = request, res = response) => {
     const { email, password } = req.body;
     try {
+        // Paso 0: obtener la organizacion
+        const { organizacion } = await Usuario.findById(req.uid);
         // Paso 1: Verificar el email
         const emailExist = await Usuario.findOne({ email });
-        console.log(emailExist);
+        // console.log(emailExist);
         if (emailExist) {
             return res.status(400).json({
                 ok: false,
                 msg: "El correo ingresado ya esta siendo utilizado."
-            })
+            });
         }
         // Paso 2: Si pasa la validacion creamos una nueva instancia de usuario
         const usuario = new Usuario(req.body);
-
+        usuario.organizacion = organizacion;
         // Paso 3: Encryptamos la contraseña, como buena practica.
         const salt = bcrypt.genSaltSync(); //data generada de manera aletoria.
         usuario.password = bcrypt.hashSync(password, salt);

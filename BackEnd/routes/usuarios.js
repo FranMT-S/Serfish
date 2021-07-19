@@ -14,14 +14,16 @@ router.get("/test", test);
 
 //TODO
 //Poner middleware de validaJWT
-router.get("/", getUsers);
+router.get("/", validarJWT, getUsers);
 router.get("/getUser", validarJWT, getUser);
 
 router.post("/", [
+        validarJWT,
         check("name", "El nombre es obligatorio.").not().isEmpty(),
         check("password", "La contraseña es obligatorio.").not().isEmpty(),
         check("email", "El email no es valido.").isEmail(),
         check("role", "El rol es obligatorio.").not().isEmpty(),
+        check("organizacion", "El id de la organización debe de ser valido.").isMongoId(),
         validarCampos
     ],
     newUser);

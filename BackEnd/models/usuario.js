@@ -4,39 +4,40 @@ const { Schema, model } = require("mongoose");
 
 // Esto es un "tabla de usuario"
 const UsuarioSchema = Schema({
-    name:{
-        type    : String,
-        required : true
+    name: {
+        type: String,
+        required: true
     },
-    email:{
-        type    : String,
+    email: {
+        type: String,
         required: true,
-        unique  : true
+        unique: true
     },
-    password:{
-        type    : String,
+    password: {
+        type: String,
         required: true,
     },
-    img:{
-        type    : String
+    img: {
+        type: String
     },
-    role:{
-        type    : String,
-        required : true,
-        default : "USER_ROLE"
+    role: {
+        type: String,
+        required: true,
+        default: "USER_ROLE"
     },
-    google:{
-        type    : Boolean,
-        default : false
+    organizacion: {
+        type: Schema.Types.ObjectId,
+        ref: 'Organizacion',
+        required: true
     }
 });
 
-UsuarioSchema.method("toJSON", function(){
-    const {__v, _id, ...object} = this.toObject();
+UsuarioSchema.method("toJSON", function() {
+    const { __v, _id, ...object } = this.toObject();
     object.uid = _id;
     return object;
 });
 
 // Implementacion del modelo
 // Creamos un modelo llamado Usuario que tendra la estructura del UsuarioSchema
-module.exports = model( "Usuario", UsuarioSchema);
+module.exports = model("Usuario", UsuarioSchema);
