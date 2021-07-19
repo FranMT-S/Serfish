@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, FormGroupDirective, Validators } from '@angular/forms';
 import { UserService } from '../../services/user.service';
 import { AuthService } from '../../../auth/services/auth.service';
 import Swal from 'sweetalert2';
@@ -63,10 +63,10 @@ export class EditProfileComponent implements OnInit{
         Swal.fire("Se detecto un error al actualizar");
       }
     })
-   
+
   }
 
-  updatePassword(){
+  updatePassword(formDirective: FormGroupDirective){
     this.userService.updatePassword(this.editPassword.value).
     subscribe( res => {
       if(res === true){
@@ -85,7 +85,8 @@ export class EditProfileComponent implements OnInit{
           );
       }
     })
-   
+    formDirective.resetForm();
+    this.editPassword.reset();
   }
 
 }
