@@ -3,9 +3,9 @@
 <p>Esta pagina solo funciona si esta autenticado</p>
 
 <h4>User info</h4>
+<img [src]="imageUrl" alt="UserAvatar"><br>
 <pre> {{usuario | json}} </pre>
 
-<button style="border:teal 2px solid; padding: 5px;"
-        (click)="logout()">
+<button style="border:teal 2px solid; padding: 5px;" (click)="logout()">
     LogOut
 </button>

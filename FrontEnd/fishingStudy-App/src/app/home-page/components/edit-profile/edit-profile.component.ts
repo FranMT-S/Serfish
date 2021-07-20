@@ -63,12 +63,8 @@ export class EditProfileComponent implements OnInit{
       this.editForm.get('role')?.patchValue(res.role)
       this.editForm.get('state')?.patchValue(res.state)
       this.imageUrl = this.getImageUrl(this.user);
-      console.log(this.imageUrl);
-      console.log(this.user);
+      this.checked = this.editForm.get('state') || false;
     });
-    // console.log("desde oninit",this.user);
-    this.checked = this.editForm.get('state') || false;
-    //console.log(this.userService.idModUser)
   }
   
   

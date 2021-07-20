@@ -11,17 +11,15 @@ export interface Usuario {
 export interface LoginResponse {
     ok    : boolean;
     msg?  : string;
-    data? : Data;
+    data? : Usuario;
     token?: string;
 }
 
-export interface Data {
-    role:     string;
-    google:   boolean;
-    name:     string;
-    email:    string;
-    password: string;
-    uid:      string;
+export interface AuthResponse {
+    ok: boolean;
+    msg?: string;
+    data?: Usuario;
+    token?: string;
 }
 
 export interface UpdateData {

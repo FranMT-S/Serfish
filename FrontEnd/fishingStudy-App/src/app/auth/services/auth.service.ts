@@ -5,9 +5,9 @@ import { catchError, map, tap } from "rxjs/operators";
 import { of, Observable } from 'rxjs';
 import { Router } from '@angular/router';
 
-import { Usuario, LoginResponse } from '../../home-page/interfaces/interfaces';
+import { Usuario, LoginResponse, AuthResponse } from '../../home-page/interfaces/interfaces';
 import { FormGroup, FormControl, ValidationErrors } from '@angular/forms';
-import { AuthResponse, ResetPasswordRequest, ResetPasswordResponse } from '../interfaces/interfaces';
+import { ResetPasswordRequest, ResetPasswordResponse } from '../interfaces/interfaces';
 
 @Injectable({
   providedIn: 'root'
@@ -35,13 +35,8 @@ export class AuthService {
         tap(resp => {
           if(resp.ok === true){
             localStorage.setItem("token",resp.token!)
-            //console.log(resp.data?.uid!)
-            this._user = {
-              uid   :resp.data?.uid!,
-              name  :resp.data?.name!,
-              email :resp.data?.email!,
-              role  :resp.data?.role!
-            }
+            const { ...data} = resp.data;
+            this._user = data;
           }
         }),
         map( resp => {
@@ -83,19 +78,21 @@ export class AuthService {
             return false;
           }
           localStorage.setItem("token", resp.token!)
-          this._user = {
-            uid: resp.uid!,
-            name: resp.name!,
-            email: resp.email!,
-            role: resp.role!
-          }
+          const {...data} = resp.data;
+          this._user = data;
           return resp.ok;
         }),
         catchError (err => of(false))
       );
   }
 
- 
+  getImageUrl() {
+    if (this.user.img) {
+      return `${this._baseUrl}/upload/usuarios/${this.user.img}`;
+    } else {
+      return `${this._baseUrl}/upload/usuarios/no-image`;
+    }
+  }
 
  
 

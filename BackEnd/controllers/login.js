@@ -26,10 +26,12 @@ const login = async(req = request, res = response) => {
         }
         // Generacion de JWT
         const token = await generarJWT(userExist.id);
-
+        const { __v, _id, organizacion, google, ...data } = userExist._doc;
+        delete data['password']; // eliminar password del objeto que se envia
+        data.uid = _id;
         res.status(200).json({
             ok: true,
-            data: userExist,
+            data,
             token
         });
 
@@ -51,15 +53,13 @@ const revalidarToken = async(req = request, res = response) => {
     const token = await generarJWT(uid);
 
     //obtener información
-    const { role, google, name, email } = await Usuario.findById(uid);
-
+    const userExist = await Usuario.findById(uid);
+    const { __v, _id, organizacion, google, ...data } = userExist._doc;
+    delete data['password'];
+    data.uid = _id;
     return res.status(200).json({
         ok: true,
-        uid,
-        role,
-        google,
-        name,
-        email,
+        data,
         token
     });
 };

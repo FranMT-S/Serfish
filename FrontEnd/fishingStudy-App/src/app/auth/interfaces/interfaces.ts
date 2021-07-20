@@ -1,12 +1,3 @@
-export interface AuthResponse {
-    ok: boolean;
-    uid?: string;
-    name?: string;
-    email?: string;
-    role?: string;
-    token?: string;
-    msg?: string;
-}
 
 // interface de solicitud a reset-password
 export interface ResetPasswordRequest {

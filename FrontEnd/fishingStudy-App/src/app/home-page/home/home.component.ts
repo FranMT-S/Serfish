@@ -22,10 +22,11 @@ export class HomeComponent implements OnInit {
   panelOpenState = false;
   optionSetting:OptionSetting[] = [
     {name: "Editar Cuenta", url:"edit-profile"},
-    { name: "Gestión de usuarios", url: "setting", role: ["admin"]},
+    {name: "Gestión de usuarios", url: "setting", role: ["admin"]},
   ];
   
   usuario!:Usuario;
+  imageUrl = '';
 
   constructor( private authService:AuthService,
                private userService: UserService,
@@ -33,6 +34,7 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.usuario = this.authService.user;
+    this.imageUrl = this.authService.getImageUrl();
   }
 
   navagate(url:string){
@@ -53,19 +55,17 @@ export class HomeComponent implements OnInit {
     this.authService.logOut();
   }
   editarCuenta(){
+    this.snav.close()
     this.userService.idModUser = '';
     this.navagate("edit-profile");
-    this.snav.close()
   }
   gestionarUsuarios(){
-    this.navagate("setting");
     this.snav.close()
+    this.navagate("setting");
   }
 
   action(elementUrl: string) {
-    if (elementUrl === this.optionSetting[2].url) {
-      this.logout();
-    } else if (elementUrl === this.optionSetting[0].url){
+    if (elementUrl === this.optionSetting[0].url){
       this.editarCuenta();
     } else {
       this.snav.close()
