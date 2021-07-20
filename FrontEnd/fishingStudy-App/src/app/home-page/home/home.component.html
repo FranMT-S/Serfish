@@ -61,18 +61,7 @@
                 </mat-expansion-panel>
                         
 
-                <mat-expansion-panel>
-                    <mat-expansion-panel-header>
-                        <mat-panel-title>
-                            <img class="img" src="../../../assets/sidebar/ajuste.png" alt="">Ajustes
-                        </mat-panel-title>
-                    </mat-expansion-panel-header>
-                    <mat-selection-list *ngFor="let option of optionSetting" [multiple]="false">
-                        <mat-list-option  *ngIf="isAllowed(option.name)" [routerLink]="option.url" [value]="option.name"   (click)="snav.close()">
-                            {{option.name}}
-                        </mat-list-option>
-                    </mat-selection-list>
-                </mat-expansion-panel>
+                
             </mat-accordion>
             <!-- <button style="width: 96%; height: 48px; text-align: left; position: absolute; bottom: 10px; left: 5px;" mat-button><img class="img" src="../../../assets/sidebar/ajuste.png" alt="">Ajustes</button> -->
         </div>
@@ -101,8 +90,11 @@
             </mat-menu>
                                         
             <mat-menu #sideAjustes= "matMenu">
-              <button mat-menu-item>Editar Cuenta</button>
-              <button mat-menu-item>Gestion de Usuarios</button>
+                <mat-selection-list *ngFor="let option of optionSetting" [multiple]="false">
+                    <mat-list-option  *ngIf="isAllowed(option.name)" [routerLink]="option.url" [value]="option.name"   (click)="snav.close()">
+                        {{option.name}}
+                    </mat-list-option>                       
+                </mat-selection-list>
               <button mat-menu-item
                 (click)="logout()"
               >Cerrar Sesión</button> 

@@ -22,7 +22,6 @@ export class HomeComponent implements OnInit {
   optionSetting:OptionSetting[] = [
     {name: "Editar Cuenta", url:"edit-profile"},
     { name: "Gestión de usuarios", url: "setting", role: ["admin"]},
-    {name: "Cerrar sesión", url:"/auth/login"},
   ];
   
   usuario!:Usuario;
