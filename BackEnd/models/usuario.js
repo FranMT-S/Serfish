@@ -25,6 +25,11 @@ const UsuarioSchema = Schema({
         required: true,
         default: "USER_ROLE"
     },
+    state: {
+        type: Boolean,
+        required: true,
+        default: true
+    },
     organizacion: {
         type: Schema.Types.ObjectId,
         ref: 'Organizacion',

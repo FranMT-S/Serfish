@@ -3,7 +3,7 @@ import { environment } from '../../../environments/environment.prod';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { map, catchError } from "rxjs/operators";
-import { UpdateData, UpdateDataResponse, UpdatePassword, UpdatePasswordResponse } from '../interfaces/interfaces';
+import { UpdateData, UpdateDataResponse, UpdatePassword, UpdatePasswordResponse, Usuario } from '../interfaces/interfaces';
 
 interface UsersResponse {
   ok:       boolean;
@@ -14,15 +14,6 @@ interface UserResponse {
   ok: boolean;
   saltos: null;
   usuario: Usuario;
-}
-
-interface Usuario {
-  role:  string;
-  name:  string;
-  email: string;
-  uid:   string;
-  index?:number;
-  status?:string;
 }
 
 @Injectable({
@@ -86,7 +77,8 @@ export class UserService {
     const body = { 
       "name": payload.name,
       "email": payload.email,
-      "role": payload.role
+      "role": payload.role,
+      "state": payload.state
     };
 
     return this.http.put<UpdateDataResponse>(url, body, {headers})

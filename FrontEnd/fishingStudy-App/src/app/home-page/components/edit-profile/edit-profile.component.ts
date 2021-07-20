@@ -12,20 +12,22 @@ import { Usuario } from '../../interfaces/interfaces';
   styleUrls: ['./edit-profile.component.css']
 })
 export class EditProfileComponent implements OnInit{
+  
+  usuarioActual: Usuario = this.authService.user;
 
   user: Usuario = {
     'uid':'',
     'name':'',
     'email':'',
-    'role':''
-
+    'role':'',
+    'state': true
   };
   
   editForm: FormGroup = this.fb.group({
     name    :["",[Validators.required], []],
     email   :["", [Validators.required,Validators.email], []],
     role    :["", [Validators.required], []],
-    status  :["", [Validators.required], []],
+    state  :["", [Validators.required], []],
   });
   editPassword: FormGroup = this.fb.group({
     oldPassword     :["", [Validators.required], []],
@@ -36,26 +38,31 @@ export class EditProfileComponent implements OnInit{
 
   constructor(private fb : FormBuilder,
               private userService : UserService,
-              private authService : AuthService          
+              private authService : AuthService      
     ) {
     
     }
+  
+  checked: any = false;
 
   ngOnInit(){
     this.userService.getUser().subscribe(res => {
-     this.user = res;
-      this.editForm.setValue({'name':res.name,'email':res.email,'role':res.role,'status':''})  
-      
+      this.user = res;
+      this.editForm.patchValue({ 'name': res.name, 'email': res.email})
+      this.editForm.get('role')?.patchValue(res.role)
+      this.editForm.get('state')?.patchValue(res.state)
     });
+    this.checked = this.editForm.get('state') || false;
   }
   
   updateUser(){
     this.userService.updateUser(this.editForm.value).
     subscribe( res => {
+      // console.log(res)
       if(res === true){
         Swal.fire({
           icon: 'success',
-          title: 'La informacion se actualizo de forma exitosa',
+          title: 'La información se actualizo de forma exitosa',
           showConfirmButton: false,
           timer: 1500
         });
@@ -63,7 +70,6 @@ export class EditProfileComponent implements OnInit{
         Swal.fire("Se detecto un error al actualizar");
       }
     })
-
   }
 
   updatePassword(formDirective: FormGroupDirective){
@@ -80,7 +86,7 @@ export class EditProfileComponent implements OnInit{
         Swal.fire({
           icon: 'warning',
           title : 'Se detecto un error al actualizar',
-          text:'Verifique su antigua contraseña y confirme la recien ingresada'
+          text:'Verifique su antigua contraseña y confirme la recién ingresada'
         }
           );
       }

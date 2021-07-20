@@ -10,6 +10,9 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 
+// edit-profile
+import { MatRadioModule } from '@angular/material/radio';
+
 // pruebas botones sidenar
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatListModule } from '@angular/material/list';
@@ -35,6 +38,8 @@ exports:[
   MatToolbarModule,
   MatCardModule,
   MatSidenavModule,
+
+  MatRadioModule,
 
   MatExpansionModule,
   MatListModule,

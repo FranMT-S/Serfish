@@ -1,10 +1,10 @@
 <div class="contenedor">
     <div class="row">
-        <div class="col-md-2 col-sm-12">
+        <div class="col-md-4 col-sm-12">
             <img alt="User avatar" src="../../../../assets/landingPage/botes-hombres.jpg">
         </div>
 
-        <div class="col-md-4 col-sm-12">
+        <div class="col-md-8 col-sm-12">
             <h4>{{user.name}}</h4>
             <div>
                 <input type="file" accept="image/png, image/jpeg, image/jpg" class="form-control">
@@ -18,61 +18,62 @@
     </div>
     <form [formGroup]="editForm" (ngSubmit)="updateUser()" autocomplete="off">
         <div class="row ">
-            <div class="col-md-6 " *ngIf="user.role ==='admin'">
+            <div class="col-md-6 " *ngIf="usuarioActual.role ==='admin'">
                 <mat-form-field class="w-100" appearance="fill">
                     <mat-label>Nombre de usuario</mat-label>
                     <input matInput formControlName="name" required>
                     <mat-icon class="me-2" matPrefix>person</mat-icon>
                 </mat-form-field>
             </div>
-            <div class="col-md-6 " *ngIf="user.role ==='admin'">
+            <div class="col-md-6 " *ngIf="usuarioActual.role ==='admin'">
                 <mat-form-field class="w-100" appearance="fill">
                     <mat-label>Email</mat-label>
                     <input matInput formControlName="email" required>
                     <mat-icon class="me-2" matPrefix>person</mat-icon>
                 </mat-form-field>
             </div>
-            <div class="col-md-12 " *ngIf="user.role !='admin'">
+            <div class="col-md-12 " *ngIf="usuarioActual.role !='admin'">
                 <mat-form-field class="w-50" appearance="fill">
                     <mat-label>Nombre de usuario</mat-label>
                     <input matInput formControlName="name" required>
                     <mat-icon class="me-2" matPrefix>person</mat-icon>
                 </mat-form-field>
             </div>
-            <div class="col-md-12 " *ngIf="user.role !=='admin'">
+            <div class="col-md-12 " *ngIf="usuarioActual.role !=='admin'">
                 <mat-form-field class="w-50" appearance="fill">
                     <mat-label>Email</mat-label>
                     <input matInput formControlName="email" required>
                     <mat-icon class="me-2" matPrefix>person</mat-icon>
                 </mat-form-field>
             </div>
-            <div class="col-md-6 " *ngIf="user.role ==='admin'">
-                <mat-form-field class="w-100" appearance="fill">
-                    <mat-label>Estado</mat-label>
-                    <select matNativeControl required formControlName="status">
-                              <option value="Activo">Activo</option>
-                              <option value="Inactivo">Inactivo</option>
-                    </select>
-                    <mat-icon class="me-2" matPrefix>how_to_reg</mat-icon>
-                </mat-form-field>
+            <div class="col-md-6 " *ngIf="usuarioActual.role ==='admin'">
+                <mat-icon class="me-2" matPrefix>how_to_reg</mat-icon>
+                <label id="state">Estado: </label>
+                <mat-radio-group aria-labelledby="state" class="radio-group" formControlName="state">
+                    <mat-radio-button color="primary" class="radio-button" [value]="true" [checked]="this.checked">
+                        Activo
+                    </mat-radio-button>
+                    <mat-radio-button color="primary" class="radio-button" [value]="false" [checked]="!this.checked">
+                        Inactivo
+                    </mat-radio-button>
+                </mat-radio-group>
             </div>
-            <div class="col-md-6 " *ngIf="user.role ==='admin'">
+            <div class="col-md-6 " *ngIf="usuarioActual.role ==='admin'">
                 <mat-form-field class="w-100" appearance="fill">
                     <mat-label>Rol</mat-label>
                     <select matNativeControl required formControlName="role">
-                              <option value="Admin">Admin</option>
-                              <option value="Biologo">Biologo</option>
-                              <option value="Cientifico comunitario">Cientifico comunitario</option>
-                              <option value="Encuestador">Encuestador</option>
+                              <option value="admin" >Admin</option>
+                              <option value="biologo" >Científico comunitario</option>
+                              <!-- <option value="Cientifico comunitario" [selected]="user.role">Cientifico comunitario</option> -->
+                              <option value="encuestador" >Encuestador</option>
                     </select>
                     <mat-icon class="me-2" matPrefix>people</mat-icon>
                 </mat-form-field>
             </div>
             <div class="col-12 d-flex flex-sm-row flex-column mt-2 ">
-                <button type="submit" class="btn btn-outline-primary m-1" [disabled]="editForm.invalid">
+                <button type="submit" class="btn btn-outline-primary m-1"> <!-- [disabled]="editForm.invalid"> -->
                          Guardar cambios
                 </button>
-
             </div>
         </div>
     </form>

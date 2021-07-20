@@ -99,7 +99,7 @@ const newUser = async(req = request, res = response) => {
 
 const updateData = async(req = request, res = response) => {
     const uid = req.headers.uid || req.uid;
-    let { name, email, role } = req.body;
+    let { name, email, role, state } = req.body;
     try {
         //Verificar que el usuario este registrado
         const userRegister = await Usuario.findById(uid);
@@ -113,7 +113,7 @@ const updateData = async(req = request, res = response) => {
         //Verificar la existencia del correo
         if (email === userRegister.email) {
             //Actualizar los campos
-            const { _doc } = await Usuario.findByIdAndUpdate(uid, { name, role }, { new: true });
+            const { _doc } = await Usuario.findByIdAndUpdate(uid, { name, role, state }, { new: true });
             const { _id, __v, password, ...userUpdate } = _doc;
             userUpdate.uid = _id;
             return res.status(200).json({

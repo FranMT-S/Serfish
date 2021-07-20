@@ -1,8 +1,10 @@
 export interface Usuario {
-    uid  :  string;
-    name :  string;
-    email:  string;
-    role :  string;
+    role: string;
+    name: string;
+    email: string;
+    uid: string;
+    index?: number;
+    state?: Boolean;
 }
 
 export interface LoginResponse {
@@ -27,6 +29,7 @@ export interface UpdateData {
     uid?: string;
     role?: string;
     google?: boolean;
+    state?: Boolean;
 }
 
 export interface UpdateDataResponse {

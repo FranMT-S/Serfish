@@ -11,3 +11,11 @@ img {
     padding: 2rem;
     margin: 2rem;
 }
+
+.radio-group {
+    display: flex;
+}
+
+.radio-button {
+    margin: 5px;
+}
