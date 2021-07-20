@@ -27,6 +27,8 @@ interface UserUpdate {
 })
 export class UserService {
 
+  idModUser: string = '';
+
   private _baseUrl:string = environment.baseUrl;
   private users:Usuario[]=[];
 

@@ -4,6 +4,7 @@ import { UserService } from '../../services/user.service';
 import { AuthService } from '../../../auth/services/auth.service';
 import Swal from 'sweetalert2';
 import { Usuario } from '../../interfaces/interfaces';
+import { Input } from '@angular/core';
 
 
 @Component({
@@ -13,6 +14,9 @@ import { Usuario } from '../../interfaces/interfaces';
 })
 export class EditProfileComponent implements OnInit{
   
+  // es el id del usuario que se va a mostrar y/o actualizar
+  //@Input() idModUser: string = '';
+
   usuarioActual: Usuario = this.authService.user;
 
   user: Usuario = {
@@ -46,17 +50,18 @@ export class EditProfileComponent implements OnInit{
   checked: any = false;
 
   ngOnInit(){
-    this.userService.getUser().subscribe(res => {
+    this.userService.getUser(this.userService.idModUser).subscribe(res => {
       this.user = res;
       this.editForm.patchValue({ 'name': res.name, 'email': res.email})
       this.editForm.get('role')?.patchValue(res.role)
       this.editForm.get('state')?.patchValue(res.state)
     });
     this.checked = this.editForm.get('state') || false;
+    //console.log(this.userService.idModUser)
   }
   
   updateUser(){
-    this.userService.updateUser(this.editForm.value).
+    this.userService.updateUser({ uid: this.userService.idModUser, ...this.editForm.value}).
     subscribe( res => {
       // console.log(res)
       if(res === true){
@@ -73,7 +78,7 @@ export class EditProfileComponent implements OnInit{
   }
 
   updatePassword(formDirective: FormGroupDirective){
-    this.userService.updatePassword(this.editPassword.value).
+    this.userService.updatePassword({ uid: this.userService.idModUser, ...this.editForm.value }).
     subscribe( res => {
       if(res === true){
         Swal.fire({

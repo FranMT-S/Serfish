@@ -3,6 +3,7 @@ import { MatSidenav } from '@angular/material/sidenav';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/auth/services/auth.service';
 import { Usuario } from '../interfaces/interfaces';
+import { UserService } from '../services/user.service';
 
 export interface OptionSetting{
   name:string,
@@ -28,6 +29,7 @@ export class HomeComponent implements OnInit {
   usuario!:Usuario;
 
   constructor( private authService:AuthService,
+               private userService: UserService,
                private router:Router ) { }
 
   ngOnInit(): void {
@@ -50,6 +52,25 @@ export class HomeComponent implements OnInit {
 
   logout(){
     this.authService.logOut();
+  }
+  editarCuenta(){
+    this.userService.idModUser = '';
+    this.navagate("edit-profile");
+    this.snav.close()
+  }
+  gestionarUsuarios(){
+    this.navagate("setting");
+    this.snav.close()
+  }
+
+  action(elementUrl: string) {
+    if (elementUrl === this.optionSetting[2].url) {
+      this.authService.logOut();
+    } else if (elementUrl === this.optionSetting[0].url){
+      this.editarCuenta();
+    } else {
+      this.snav.close()
+    }
   }
 
 }

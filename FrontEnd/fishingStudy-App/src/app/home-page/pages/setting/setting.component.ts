@@ -1,4 +1,4 @@
-import { Component, OnInit, QueryList, ViewChild } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, QueryList, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, FormGroupDirective, Validators } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -9,6 +9,7 @@ import { AuthService } from 'src/app/auth/services/auth.service';
 import Swal from 'sweetalert2';
 import { Usuario } from '../../interfaces/interfaces';
 import { UserService } from '../../services/user.service';
+import { Router } from '@angular/router';
 
 export interface PeriodicElement {
   name: string;
@@ -32,6 +33,8 @@ export interface PeriodicElement {
   styleUrls: ['./setting.component.css']
 })
 export class SettingComponent implements OnInit {
+
+  //@Output() idModUser: EventEmitter<string> = new EventEmitter();
 
   selected:string=""
   selectedIndex = 0;
@@ -58,7 +61,8 @@ export class SettingComponent implements OnInit {
 
   constructor( private fb:FormBuilder,
                private authService:AuthService,
-               private userServices:UserService ) { }
+               private userServices:UserService,
+               private router: Router ) { }
                
   ngOnInit(): void {
     if( this.userServices.getUsersArray.length===0 ){
@@ -73,7 +77,9 @@ export class SettingComponent implements OnInit {
       });
     }else{
       this.dataSource.data = this.userServices.getUsersArray;
+      this.dataDisableSource.data = this.userServices.getUsersArray;
       this.lengthDataSource = this.dataSource.data.length;
+      this.lengthDataDisableSource = this.dataSource.data.length;
     }
   }
 
@@ -179,6 +185,11 @@ export class SettingComponent implements OnInit {
         this.lengthDataDisableSource = this.dataDisableSource.data.length;
 
     });
+  }
+
+  edit(userId: string){
+    this.userServices.idModUser = userId;
+    this.router.navigateByUrl("home-page/edit-profile")
   }
 
 
