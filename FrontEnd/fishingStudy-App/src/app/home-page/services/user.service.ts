@@ -16,6 +16,12 @@ interface UserResponse {
   usuario: Usuario;
 }
 
+interface UserUpdate {
+  ok:  string;
+  userUpdate:Usuario;
+}
+
+
 @Injectable({
   providedIn: 'root'
 })
@@ -44,6 +50,7 @@ export class UserService {
                       index++;
                       this.users.push({index,...value});
                     });
+                    
                   }
                   return this.users
                 })
@@ -112,7 +119,20 @@ export class UserService {
         catchError((err) => {
           return of(err.error.msg || "Error en la petición")
         })
-      );
+    );
   }
+  changeState(uid:string,state:boolean):Observable<Usuario>{
+    const url = `${this._baseUrl}/usuarios/changeState`;
+    const body = {uid , state};
+
+    return  this.http.post<UserUpdate>(url,body)
+              .pipe(
+                map( res => {
+                     return res.userUpdate                  
+                  }                
+                )
+              )
+            
+   }
 
 }

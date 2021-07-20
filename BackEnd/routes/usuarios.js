@@ -5,7 +5,7 @@
 const { Router } = require("express");
 const { check } = require("express-validator");
 
-const { test, getUsers, getUser, newUser, updateData, deleteUser, updatePassword } = require("../controllers/usuarios");
+const { test, getUsers, getUser, newUser, updateData, deleteUser, updatePassword, changeStateUser } = require("../controllers/usuarios");
 const { validarCampos } = require("../middlewares/validar-campos");
 const { validarJWT } = require("../middlewares/validar-jwt");
 const router = Router();
@@ -16,6 +16,8 @@ router.get("/test", test);
 //Poner middleware de validaJWT
 router.get("/", validarJWT, getUsers);
 router.get("/getUser", validarJWT, getUser);
+
+router.post("/changeState", changeStateUser);
 
 router.post("/", [
         validarJWT,

@@ -16,7 +16,7 @@ export class OpeningComponent implements OnInit {
   }
 
   logout(){
-    this.authService.logOut()
+    this.authService.logOut();
   }
 
 }

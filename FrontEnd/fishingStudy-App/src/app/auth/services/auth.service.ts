@@ -93,8 +93,12 @@ export class AuthService {
         }),
         catchError (err => of(false))
       );
-
   }
+
+ 
+
+ 
+
   /* Verifica si las contraseñas de auth/reset son iguales */
   samePassword(AC: FormControl):ValidationErrors | null{
     return new Promise (resolve=>{

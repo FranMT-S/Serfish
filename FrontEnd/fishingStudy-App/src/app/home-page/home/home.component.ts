@@ -1,12 +1,15 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
 import { Router } from '@angular/router';
-import { AuthService } from '../../auth/services/auth.service';
+import { AuthService } from 'src/app/auth/services/auth.service';
+import { Usuario } from '../interfaces/interfaces';
 
 export interface OptionSetting{
   name:string,
-  url :string
+  url :string,
+  role?: string[]
 }
+
 
 @Component({
   selector: 'app-home',
@@ -16,27 +19,37 @@ export interface OptionSetting{
 export class HomeComponent implements OnInit {
   @ViewChild('snav') snav!: MatSidenav;
   panelOpenState = false;
-  typesOfShoes: string[] = ['Perfil y cuenta', 'Gestión de usuarios', 'Loafers', 'Moccasins', 'Cerrar sesión'];
   optionSetting:OptionSetting[] = [
     {name: "Editar Cuenta", url:"edit-profile"},
-    {name: "Gestión de usuarios", url:"setting"},
+    { name: "Gestión de usuarios", url: "setting", role: ["admin"]},
     {name: "Cerrar sesión", url:"/auth/login"},
   ];
-  constructor( private router:Router,
-    private  authService: AuthService) { }
+  
+  usuario!:Usuario;
+
+  constructor( private authService:AuthService,
+               private router:Router ) { }
 
   ngOnInit(): void {
+    this.usuario = this.authService.user;
   }
 
   navagate(url:string){
     this.router.navigateByUrl(`home-page/${url}`)
   }
 
-  action(elementUrl: string){
-    if( elementUrl === this.optionSetting[2].url){
-      this.authService.logOut();
-    }else{
-      this.snav.close()
-    }
+  isAllowed(componentName:string){
+    // Obtenemos los roles que tienen permitido entrar al componente
+    let roles = this.optionSetting.find( e => e.name === componentName)?.role
+              
+    // Retorna true si es undifined (todos tienen permisos)
+    // si no es undefined comprueba que exista el rol en el arreglo de optionSettings
+    
+    return !roles || roles.includes(this.usuario.role);  
   }
+
+  logout(){
+    this.authService.logOut();
+  }
+
 }
