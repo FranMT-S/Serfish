@@ -4,8 +4,8 @@ import { UserService } from '../../services/user.service';
 import { AuthService } from '../../../auth/services/auth.service';
 import Swal from 'sweetalert2';
 import { Usuario } from '../../interfaces/interfaces';
-import { Input } from '@angular/core';
-
+import { FileUploadService } from '../../services/file-upload.service';
+import { environment } from '../../../../environments/environment.prod';
 
 @Component({
   selector: 'app-edit-profile',
@@ -24,8 +24,14 @@ export class EditProfileComponent implements OnInit{
     'name':'',
     'email':'',
     'role':'',
-    'state': true
+    'state': true,
+    'image': ''
   };
+  public changeImage!: File;
+  private _baseUrl:string = environment.baseUrl;
+  imageUrl = '';
+
+  
   
   editForm: FormGroup = this.fb.group({
     name    :["",[Validators.required], []],
@@ -42,7 +48,8 @@ export class EditProfileComponent implements OnInit{
 
   constructor(private fb : FormBuilder,
               private userService : UserService,
-              private authService : AuthService      
+              private authService : AuthService,
+              private fileUploadService: FileUploadService
     ) {
     
     }
@@ -56,6 +63,7 @@ export class EditProfileComponent implements OnInit{
       this.editForm.get('role')?.patchValue(res.role)
       this.editForm.get('state')?.patchValue(res.state)
     });
+    this.imageUrl = this.getImageUrl(this.user);
     this.checked = this.editForm.get('state') || false;
     //console.log(this.userService.idModUser)
   }
@@ -100,5 +108,21 @@ export class EditProfileComponent implements OnInit{
     this.editPassword.reset();
   }
 
+  getImageUrl(user:Usuario){
+    if(this.user.image){
+      return `${this._baseUrl}/upload/usuarios/${this.user.image}`;
+    }else{
+      return `${this._baseUrl}/upload/usuarios/no-image`;
+    }
+  }
+
+  changeImg( file:File ){
+    this.changeImage = file;
+
+  }
+
+  updateImg(){
+    this.fileUploadService.updateImage(this.changeImage,'usuarios',this.user.uid);
+  }
 }
 

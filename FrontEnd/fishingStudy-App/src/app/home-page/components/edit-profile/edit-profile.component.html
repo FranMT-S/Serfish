@@ -1,18 +1,16 @@
 <div class="contenedor">
     <div class="row">
-        <div class="col-md-4 col-sm-12">
-            <img alt="User avatar" src="../../../../assets/landingPage/botes-hombres.jpg">
+        <div class="col-md-2 col-sm-12">
+            <img alt="User avatar" [src]="imageUrl">
         </div>
 
         <div class="col-md-8 col-sm-12">
             <h4>{{user.name}}</h4>
             <div>
-                <input type="file" accept="image/png, image/jpeg, image/jpg" class="form-control">
-                <a type="button" class="btn btn-outline-primary m-1">
+                <input type="file">
+                <button type="button" class="btn btn-outline-primary m-1">
                     Agregar
-                </a>
-
-                <button class="btn btn-outline-primary m-1">Eliminar</button>
+                </button>
             </div>
         </div>
     </div>

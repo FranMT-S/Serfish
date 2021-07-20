@@ -32,10 +32,11 @@ export class UserService {
   private _baseUrl:string = environment.baseUrl;
   private users:Usuario[]=[];
 
+
   get getUsersArray(){
     return [...this.users];
   }
-  constructor(private http:HttpClient) { }
+  constructor(private http:HttpClient) {}
 
   getUsers(last?:string):Observable<Usuario[]>{
     const url = `${this._baseUrl}/usuarios`;
