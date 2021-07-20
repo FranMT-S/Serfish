@@ -65,7 +65,7 @@ export class HomeComponent implements OnInit {
 
   action(elementUrl: string) {
     if (elementUrl === this.optionSetting[2].url) {
-      this.authService.logOut();
+      this.logout();
     } else if (elementUrl === this.optionSetting[0].url){
       this.editarCuenta();
     } else {

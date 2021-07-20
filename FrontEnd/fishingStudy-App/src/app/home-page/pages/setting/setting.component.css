@@ -1,12 +1,17 @@
 table {
     width: 100%;
 }
+
 mat-chip {
     width: 100px;
     justify-content: center;
 }
 
-th{
-    color: white; 
+th {
+    color: white;
     background-color: #3F51B5;
+}
+
+.container {
+    display: flex
 }

@@ -69,17 +69,23 @@ export class SettingComponent implements OnInit {
       this.userServices.getUsers()
       .subscribe(res => {
         /*/ console.log(res);*/
-		  console.log("res", res);
+		  //console.log("res", res);
 		  this.dataSource.data = res.filter(e => e.state);
 		  this.dataDisableSource.data = res.filter(e => !e.state);
 		  this.lengthDataSource = res.filter(e => e.state).length;
 		  this.lengthDataDisableSource = res.filter(e => !e.state).length
+      // cambiando indices de elementos
+      this.dataSource.data.forEach((element, index) => { element.index = index + 1 });
+      this.dataDisableSource.data.forEach((element, index) => { element.index = index + 1 });
       });
     }else{
-      this.dataSource.data = this.userServices.getUsersArray;
-      this.dataDisableSource.data = this.userServices.getUsersArray;
-      this.lengthDataSource = this.dataSource.data.length;
-      this.lengthDataDisableSource = this.dataSource.data.length;
+      this.dataSource.data = this.userServices.getUsersArray.filter(e=>e.state);
+      this.dataDisableSource.data = this.userServices.getUsersArray.filter(e=>!e.state);
+      this.lengthDataSource = this.dataSource.data.filter(e => e.state).length;
+      this.lengthDataDisableSource = this.dataSource.data.filter(e => !e.state).length;
+      // cambiando indices de elementos
+      this.dataSource.data.forEach((element, index) => { element.index = index + 1 });
+      this.dataDisableSource.data.forEach((element, index) => { element.index = index + 1 });
     }
   }
 
@@ -91,6 +97,21 @@ export class SettingComponent implements OnInit {
       this.dataDisableSource.sort = this.sortDisable;
 
 
+  }
+
+  refresh(){
+    this.userServices.getUsers()
+      .subscribe(res => {
+        /*/ console.log(res);*/
+        //console.log("res", res);
+        this.dataSource.data = res.filter(e => e.state);
+        this.dataDisableSource.data = res.filter(e => !e.state);
+        this.lengthDataSource = res.filter(e => e.state).length;
+        this.lengthDataDisableSource = res.filter(e => !e.state).length
+        // cambiando indices de elementos
+        this.dataSource.data.forEach((element, index) => { element.index = index + 1 });
+        this.dataDisableSource.data.forEach((element, index) => { element.index = index + 1 });
+      });
   }
   
   register(formDirective: FormGroupDirective){

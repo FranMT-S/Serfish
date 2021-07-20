@@ -54,7 +54,12 @@
                     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
                 </table>
-                <mat-paginator #TableOnePaginator="matPaginator" [pageSizeOptions]="[5, 10, lengthDataSource]" showFirstLastButtons></mat-paginator>
+                <div class="container">
+                    <button mat-mini-fab color="primary" aria-label="Refrescar tabla de Usuarios" (click)="refresh()">
+                        <mat-icon>refresh</mat-icon>
+                    </button>
+                    <mat-paginator class="col-md-11" #TableOnePaginator="matPaginator" [pageSizeOptions]="[5, 10, lengthDataSource]" showFirstLastButtons></mat-paginator>
+                </div>
             </div>
         </mat-tab>
 
@@ -150,7 +155,12 @@
                     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
                 </table>
-                <mat-paginator #TableTwoPaginator="matPaginator" [pageSizeOptions]="[5, 10, lengthDataDisableSource]" showFirstLastButtons></mat-paginator>
+                <div class="container">
+                    <button mat-mini-fab color="primary" aria-label="Refrescar tabla de Usuarios" (click)="refresh()">
+                        <mat-icon>refresh</mat-icon>
+                    </button>
+                    <mat-paginator #TableTwoPaginator="matPaginator" [pageSizeOptions]="[5, 10, lengthDataDisableSource]" showFirstLastButtons></mat-paginator>
+                </div>
             </div>
         </mat-tab>
 
