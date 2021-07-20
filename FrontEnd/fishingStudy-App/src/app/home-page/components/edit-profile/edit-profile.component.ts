@@ -25,7 +25,7 @@ export class EditProfileComponent implements OnInit{
     'email':'',
     'role':'',
     'state': true,
-    'image': ''
+    'img': ''
   };
   public changeImage!: File;
   private _baseUrl:string = environment.baseUrl;
@@ -62,11 +62,15 @@ export class EditProfileComponent implements OnInit{
       this.editForm.patchValue({ 'name': res.name, 'email': res.email})
       this.editForm.get('role')?.patchValue(res.role)
       this.editForm.get('state')?.patchValue(res.state)
+      this.imageUrl = this.getImageUrl(this.user);
+      console.log(this.imageUrl);
+      console.log(this.user);
     });
-    this.imageUrl = this.getImageUrl(this.user);
+    // console.log("desde oninit",this.user);
     this.checked = this.editForm.get('state') || false;
     //console.log(this.userService.idModUser)
   }
+  
   
   updateUser(){
     this.userService.updateUser({ uid: this.userService.idModUser, ...this.editForm.value}).
@@ -109,8 +113,8 @@ export class EditProfileComponent implements OnInit{
   }
 
   getImageUrl(user:Usuario){
-    if(this.user.image){
-      return `${this._baseUrl}/upload/usuarios/${this.user.image}`;
+    if(user.img){
+      return `${this._baseUrl}/upload/usuarios/${user.img}`;
     }else{
       return `${this._baseUrl}/upload/usuarios/no-image`;
     }

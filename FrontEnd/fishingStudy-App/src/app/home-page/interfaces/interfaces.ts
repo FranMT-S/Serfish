@@ -5,7 +5,7 @@ export interface Usuario {
     uid: string;
     index?: number;
     state?: Boolean;
-    image?: string;
+    img?: string;
 }
 
 export interface LoginResponse {
