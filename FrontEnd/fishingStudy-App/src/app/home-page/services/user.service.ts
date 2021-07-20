@@ -16,13 +16,14 @@ interface UserResponse {
   usuario: Usuario;
 }
 
-interface Usuario {
+export interface Usuario {
   role:  string;
   name:  string;
   email: string;
   uid:   string;
   index?:number;
   status?:string;
+  image?:string;
 }
 
 @Injectable({
@@ -33,10 +34,11 @@ export class UserService {
   private _baseUrl:string = environment.baseUrl;
   private users:Usuario[]=[];
 
+
   get getUsersArray(){
     return [...this.users];
   }
-  constructor(private http:HttpClient) { }
+  constructor(private http:HttpClient) {}
 
   getUsers(last?:string):Observable<Usuario[]>{
     const url = `${this._baseUrl}/usuarios`;
@@ -122,5 +124,4 @@ export class UserService {
         })
       );
   }
-
 }
