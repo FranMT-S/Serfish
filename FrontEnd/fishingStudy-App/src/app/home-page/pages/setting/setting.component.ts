@@ -7,6 +7,7 @@ import { MatTabChangeEvent } from '@angular/material/tabs';
 import { filter } from 'rxjs/operators';
 import { AuthService } from 'src/app/auth/services/auth.service';
 import Swal from 'sweetalert2';
+import { Usuario } from '../../interfaces/interfaces';
 import { UserService } from '../../services/user.service';
 
 export interface PeriodicElement {
@@ -16,14 +17,14 @@ export interface PeriodicElement {
   symbol: string;
 }
 
-interface Usuario{
+/* interface Usuario{
   index?  :number;
   role    :string;
   name    :string;
   email   :string;
   uid     :string;
   state   ?:Boolean;
-}
+} */
 
 @Component({
   selector: 'app-setting',
@@ -63,14 +64,12 @@ export class SettingComponent implements OnInit {
     if( this.userServices.getUsersArray.length===0 ){
       this.userServices.getUsers()
       .subscribe(res => {
-        /*/ console.log(res);
-        this.dataSource.data = res;
-        this.lengthDataSource = res.length;*/
-        console.log("arreglo",res[0]);
-        this.dataSource.data = res.filter(e => e.state); 
-        this.dataDisableSource.data = res.filter(e => !e.state);        
-        this.lengthDataSource = res.filter(e => e.state).length;
-        this.lengthDataDisableSource = res.filter(e => !e.state).length
+        /*/ console.log(res);*/
+		  console.log("res", res);
+		  this.dataSource.data = res.filter(e => e.state);
+		  this.dataDisableSource.data = res.filter(e => !e.state);
+		  this.lengthDataSource = res.filter(e => e.state).length;
+		  this.lengthDataDisableSource = res.filter(e => !e.state).length
       });
     }else{
       this.dataSource.data = this.userServices.getUsersArray;

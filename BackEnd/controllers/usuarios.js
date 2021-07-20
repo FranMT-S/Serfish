@@ -18,14 +18,14 @@ const getUsers = async(req = request, res = response) => {
     try {
         if (req.query.last === "false") {
             const { organizacion } = await Usuario.findById(req.uid);
-            const usuarios = await Usuario.find({ organizacion }, "name email role").skip(Number(skipUser) || 0).limit(Number(limitUser) || 0);
+            const usuarios = await Usuario.find({ organizacion }, "name email role state").skip(Number(skipUser) || 0).limit(Number(limitUser) || 0);
             res.status(200).json({
                 ok: true,
                 usuarios
             });
         } else {
             const { organizacion } = await Usuario.findById(req.uid);
-            const usuarios = await Usuario.find({ organizacion }, "name email role").sort({ _id: -1 }).limit(1);
+            const usuarios = await Usuario.find({ organizacion }, "name email role state").sort({ _id: -1 }).limit(1);
             res.status(200).json({
                 ok: true,
                 usuarios
