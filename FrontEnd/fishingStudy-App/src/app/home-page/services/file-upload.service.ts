@@ -27,8 +27,13 @@ export class FileUploadService {
           body : formData
         });
         const data = await res.json();
-
-        return 'nombre de la imagen';
+        
+        if(data.ok){
+          return data.nombreArchivo;
+        }else{
+          return false;
+        }
+       
 
     }catch(error){
 

@@ -1,15 +1,19 @@
 <div class="contenedor">
     <div class="row">
         <div class="col-md-4 col-sm-12">
-            <img alt="User avatar" [src]="imageUrl">
+            <img *ngIf="!imgTemp" alt="User avatar" [src]="imageUrl">
+            <img *ngIf="imgTemp" alt="User avatar" [src]="imgTemp">
         </div>
 
-        <div class="col-md-8 col-sm-12">
-            <h4>{{user.name}}</h4>
+        <div class="col-md-8 col-sm-12 header">
+            <h3>{{user.name}}</h3>
             <div>
-                <input type="file" accept="image/png, image/jpeg, image/jpg">
-                <button type="button" class="btn btn-outline-primary m-1">
-                    Agregar
+                <label class="btn btn-outline-primary" for="upload-photo">
+                    <mat-icon matPrefix>file_upload</mat-icon>
+                    </label>
+                <input class="form-control-file" id="upload-photo" type="file" accept="image/png, image/jpeg, image/jpg" (change)="changeImage($event)">
+                <button type="button" class="btn btn-outline-primary m-1" [disabled]="!uploadImage" (click)="updateImage()">
+                    Actualizar
                 </button>
             </div>
         </div>
@@ -86,24 +90,34 @@
                 <div class="col-md-6 ">
                     <mat-form-field class="w-100" appearance="fill">
                         <mat-label>Antigua contraseña</mat-label>
-                        <input matInput formControlName="oldPassword" required>
+                        <input [type]="hide ? 'password' : 'text'" matInput formControlName="oldPassword" required>
                         <mat-icon class="me-2" matPrefix>lock</mat-icon>
+                        <button style="opacity: 0.5;" type="button" mat-icon-button matSuffix (click)="hide = !hide">
+                            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                        </button>
                     </mat-form-field>
+
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-6 ">
                     <mat-form-field class="w-100" appearance="fill">
                         <mat-label>Nueva Contraseña</mat-label>
-                        <input matInput formControlName="newPassword" required>
+                        <input [type]="hide2 ? 'password' : 'text'" matInput formControlName="newPassword" required>
                         <mat-icon class="me-2" matPrefix>lock</mat-icon>
+                        <button style="opacity: 0.5;" type="button" mat-icon-button matSuffix (click)="hide2 = !hide2">
+                            <mat-icon>{{hide2 ? 'visibility_off' : 'visibility'}}</mat-icon>
+                        </button>
                     </mat-form-field>
                 </div>
                 <div class="col-md-6 ">
                     <mat-form-field class="w-100" appearance="fill">
                         <mat-label>Confirmar contraseña</mat-label>
-                        <input matInput formControlName="confirmPassword" required>
+                        <input [type]="hide3 ? 'password' : 'text'" matInput formControlName="confirmPassword" required>
                         <mat-icon class="me-2" matPrefix>lock</mat-icon>
+                        <button style="opacity: 0.5;" type="button" mat-icon-button matSuffix (click)="hide3 = !hide3">
+                            <mat-icon>{{hide3 ? 'visibility_off' : 'visibility'}}</mat-icon>
+                        </button>
                     </mat-form-field>
                 </div>
                 <div class="col-12 d-flex flex-sm-row flex-column mt-2 ">
