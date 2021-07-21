@@ -1,1 +1,171 @@
-<p>climate works!</p>
+<div class="contenedor p-3">
+    
+    <!-- <p-card  [style]="{'background-color': 'rgba(255, 255, 255, 0.4)', 'margin': '0 40px'}" header="Distrito Central, Francisco Morazán, Honduras"
+            subheader="Última actualización 13:42 GMT-6">
+    <div class="row">
+        <div class="col-6">
+            <p style="font-size: 5rem;">28°</p>
+            <p style="font-size: 2rem;">Soleado</p>
+            <p>3% de probabilidad de lluvia hasta las 14:00</p>
+        </div>
+        <div class="col-6">
+            <div style="display: flex; flex-direction: column; align-items: center;">
+                <img style="width: 200px;" src="../../../../../assets/clima/soln.png" alt="">
+                <p style="font-size: 1.5rem;">29°/19°</p>
+            </div>
+        </div>
+    </div>
+    </p-card> -->
+
+    <mat-card class="mt-2 mx-1 mx-sm-2 mx-md-5 mx-lg-5" style="color: #ffff;background-color: rgba(255, 255, 255, 0.15);">
+        <mat-card-title style="font-size: 2.5rem;">Distrito Central, Francisco Morazán, Honduras</mat-card-title>
+        <mat-card-subtitle style="color: #f3f3f3fa;">Última actualización {{ currentWeather.dt | unixTime }} GMT-6</mat-card-subtitle>
+        <mat-card-content>
+            <div class="row">
+                <div class="col-6" style="text-align: center;">
+                    <p style="font-size: 5rem;">{{ currentWeather.main.temp | kelvilCelsius }}°</p>
+                    <p style="font-size: 2rem;">{{currentWeather.weather[0].description | titlecase}}</p>
+                    <p>{{currentWeather.main.humidity}}% de humedad relativa en el ambiente - {{currentWeather.dt|unixTime:true}} GMT-6</p>
+                    <!-- <p>3% de probabilidad de lluvia hasta las 14:00</p> -->
+                </div>
+                <div class="col-6">
+                    <div style="display: flex; flex-direction: column; align-items: center;">
+                        <img style="width: 200px;" [src] = " currentWeather.weather[0].icon |codeImg " alt="">
+                        <p style="font-size: 2rem;">{{ currentWeather.main.temp_max | kelvilCelsius }}°/{{ currentWeather.main.temp_min | kelvilCelsius }}°</p>
+                    </div>
+                </div>
+            </div>
+        </mat-card-content>
+    </mat-card>
+
+    <mat-card class="mt-2 mx-1 mx-sm-2 mx-md-5 mx-lg-5" style="background-color: rgba(255, 255, 255, 0.95); margin: 0 40px;">
+        <mat-card-title style="font-size: 2.5rem;">{{currentWeather.name}} hoy</mat-card-title>
+        <div class="row">
+            <div class="col-6">
+                <p style="font-size: 3rem;">{{ currentWeather.main.feels_like | kelvilCelsius:true }}°</p>
+                <p>Sensación térmica</p>
+            </div>
+            <div class="col-6">
+                <p style="text-align: center; font-size: 2.5rem;">{{currentHours | date:'h:mm:ss a z' }}</p>
+                <p style="text-align: center; font-size: 2.5rem;">{{"1:00:3" | date:'h:mm:ss a z' }}</p>
+                <p style="text-align: center; font-size: 2.5rem;">{{"1:00:3" | date:'h:mm:ss a z' }}</p>
+                <p style="text-align: center; font-size: 1rem;">Hora actual</p>
+            </div>
+        </div>
+        <mat-card-content>
+            <div class="row dataMeteorology">
+                <div class="col-6" *ngFor="let col of weatherCurrentData">
+                    <div *ngFor="let rowData of col">
+                        <hr>
+                        <div class="row">
+                            <div class="col-6">
+                                <div style="display: flex;">
+                                    <i [class]="rowData.icon"> </i>
+                                    <p>{{rowData.nameData}}</p>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <p class="float-end">
+                                   {{rowData.data}}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </mat-card-content>
+    </mat-card>
+
+    <mat-card class="mt-2 mx-1 mx-sm-2 mx-md-5 mx-lg-5" style="background-color: rgba(255, 255, 255, 0.15); margin: 0 40px;">
+        <mat-card-title style="font-size: 2.5rem; color: #ffff;">Pronóstico por hora.</mat-card-title>
+        <mat-card-subtitle><hr></mat-card-subtitle>
+        <mat-card-content>
+            <div class="row">
+                <div class="col-12 col-sm-12 col-md-6 col-lg-2" *ngFor="let hourlyData of weatherHoursData">
+                    <div style="display: flex; flex-wrap: wrap; width: 100%;  justify-items: center;">
+                        <mat-card class="mt-2 w-100" style="text-align: center;">
+                            <mat-card-title>{{hourlyData.dt | unixTime:false}}</mat-card-title>
+                            <mat-card-content>
+                                <img style="width: 80px;" [src]=" hourlyData.weather[0].icon | codeImg " alt="">
+                                <p>
+                                    <i class="fas fa-temperature-low me-2"></i>
+                                    {{hourlyData.temp|kelvilCelsius}}
+                                </p>
+                                <p><i class="fas fa-tint"></i> {{hourlyData.humidity}}%</p>
+                            </mat-card-content>
+                        </mat-card>
+                    </div>
+                </div>
+            </div>
+        </mat-card-content>
+        <mat-card-footer>
+            <div class="row my-4 mx-1">
+                <div class="col">
+                    <button mat-raised-button color="accent">
+                        Próximas 48 horas
+                    </button>
+                </div>
+            </div>
+        </mat-card-footer>
+    </mat-card>
+
+    <mat-card class="mt-2 mx-1 mx-sm-2 mx-md-5 mx-lg-5" style="background-color: rgba(255, 255, 255, 0.2); margin: 0 40px;">
+        <mat-card-title style="font-size: 2.5rem; color: #ffff;">Pronóstico diario</mat-card-title>
+        <mat-card-subtitle><hr></mat-card-subtitle>
+        <mat-card-content>
+            <div class="row">
+                <div class="col-12 col-sm-12 col-md-12 col-lg-3" *ngFor="let dailyData of weatherDaysData">
+                    <div class="w-100" style="display: flex; flex-wrap: wrap; justify-items: center;">
+                        <mat-card color="accent" class="mt-2" style="width: 100%; text-align: center;">
+                            <mat-card-title>{{dailyData.dt | unixTime:false:true}}</mat-card-title>
+                            <mat-card-content>
+                                <p style="font-size: 1.4rem;">{{dailyData.weather[0].description | titlecase}}</p>
+                                <img style="width: 100px; margin-bottom: 10px;" [src]=" dailyData.weather[0].icon | codeImg " alt="">
+                                <div class="row" style="text-align: center;">
+                                    <div class="col-6">
+                                        <p><i class="fas fa-temperature-low fa-lg me-2"></i>{{dailyData.temp.max | kelvilCelsius}}°/{{dailyData.temp.min | kelvilCelsius}}°</p>
+                                    </div>
+                                    <div class="col-6">
+                                        <p><i class="fas fa-tint fa-lg me-2"></i>{{dailyData.humidity}}%</p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <!-- <div class="col-6">
+                                        <p><i class="fas fa-compress-arrows-alt fa-lg me-2"></i>{{dailyData.pressure}}hPa</p>
+                                    </div> -->
+                                    <div class="col-12">
+                                        <p><i class="fas fa-wind fa-lg me-2"></i>{{dailyData.wind_speed|msKmh}}km/h</p>
+                                    </div>
+                                </div>
+                            </mat-card-content>
+                        </mat-card>
+                    </div>
+                </div>
+            </div>
+        </mat-card-content>
+        <mat-card-footer>
+            <div class="row my-4 mx-1">
+                <div class="col">
+                    <button mat-raised-button color="accent">
+                        Próximos 8 días
+                    </button>
+                </div>
+            </div>
+        </mat-card-footer>
+    </mat-card>
+
+    <mat-card class="mt-2 mx-1 mx-sm-2 mx-md-5 mx-lg-5" style="background-color: rgba(255, 255, 255); margin: 0 40px;">
+        <mat-card-content>
+            <iframe
+            src="https://www.meteoblue.com/en/weather/maps/widget/tegucigalpa_honduras_3600949?windAnimation=0&windAnimation=1&gust=0&gust=1&satellite=0&satellite=1&geoloc=fixed&tempunit=C&windunit=km%252Fh&lengthunit=metric&zoom=4&autowidth=auto"
+            frameborder="0" scrolling="NO" allowtransparency="true"
+            sandbox="allow-same-origin allow-scripts allow-popups allow-popups-to-escape-sandbox"
+            style="width: 100%; height: 700px"></iframe>
+        <div>
+            <!-- DO NOT REMOVE THIS LINK --><a
+                href="https://www.meteoblue.com/en/weather/maps/tegucigalpa_honduras_3600949?utm_source=weather_widget&utm_medium=linkus&utm_content=map&utm_campaign=Weather%2BWidget"
+                target="_blank">meteoblue</a>
+        </div>
+        </mat-card-content>
+    </mat-card>
+</div>
