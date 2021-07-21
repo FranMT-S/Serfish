@@ -67,31 +67,19 @@
                 </mat-accordion>
                 <!-- <button style="width: 96%; height: 48px; text-align: left; position: absolute; bottom: 10px; left: 5px;" mat-button><img class="img" src="../../../assets/sidebar/ajuste.png" alt="">Ajustes</button> -->
             </div>
-            <mat-toolbar color="primary" class="perfil-bar lineFile">
-                <div class="example-button-container">
-                    
-                    <mat-toolbar color="primary" id="boxUser" class="tools-user lineFile">
-                        <img mat-mini-fab color="primary" 
-                        [src] = "imageUrl.url"
-                        class="lineFile avatar-perfil size-50 fLeft mart-10"
-                        >
-                    
-                        <div mat-flat-button class="perfil text-multiline lineFile fLeft">
-                            {{usuario.name}}
-                        </div>
-                    </mat-toolbar>
-
-                    <mat-toolbar color="primary" id="boxTools" class="tools-user lineFile">
-                        <button color="primary" class="lineFile mart-10" mat-flat-button [mat-menu-trigger-for]="sideAjustes">
-                            <mat-icon aria-hidden="false" aria-label="Example home icon">settings</mat-icon>
-                        </button>
-                    </mat-toolbar>
-                </div>
-
-                <mat-menu #fotoperfil="matMenu">
-                    <button mat-menu-item>Ver Perfil</button>
-                </mat-menu>
-
+            <mat-toolbar  style="position: fixed; bottom: 0; background-color: #ecf0f1;">
+                <span class="example-spacer"></span>
+                <img mat-mini-fab color="primary" 
+                [src] = "imageUrl.url"
+                class=""
+                style="width: 50px; border-radius: 50%; padding: 4px; margin-right: 5px;"
+                >
+                <span style="font-size: 1rem;">
+                    {{usuario.name}}
+                </span> 
+                <button mat-flat-button style="color: rgba(0,0,0,.75);;background-color: rgba(0,0,0,0);" [matMenuTriggerFor]="sideAjustes">
+                    <mat-icon>settings</mat-icon>
+                </button>
                 <mat-menu #sideAjustes="matMenu">
                     <mat-selection-list *ngFor="let option of optionSetting" [multiple]="false">
                         <mat-list-option *ngIf="isAllowed(option.name)" [routerLink]="option.url" [value]="option.name" (click)="action(option.url)">
@@ -103,7 +91,6 @@
                             Cerrar Sesión
                         </mat-list-option>
                     </mat-selection-list>
-
                 </mat-menu>
             </mat-toolbar>
         </ng-scrollbar>
@@ -114,30 +101,23 @@
             <mat-toolbar color="primary" class="toolsticky">
                 <button mat-icon-button (click)="snav.toggle()"><mat-icon>menu</mat-icon></button>
                 <h1>Menu</h1>
-                <div class="perfil-container">
-
-                    <img mat-fab color="primary" 
-                    class="perfil avatar-perfil pointer size-60" mat-flat-button
-                    [mat-menu-trigger-for]="fotonavperfil"
-                    [src]=imageUrl.url
-                    >
-
-
-                    <Label class="perfil">
-                            {{usuario.name}}
-                    </Label>
-
-                    <mat-menu #fotonavperfil="matMenu">
-                        <button mat-menu-item (click)="action('edit-profile')">Editar</button>
-                        <button mat-menu-item (click)="logout()">Cerrar</button>
+                    <span class="example-spacer"></span>
+                        <img mat-mini-fab color="primary" 
+                        [src] = "imageUrl.url"
+                        style="width: 50px; border-radius: 50%; padding: 4px; margin-right: 5px;"
+                        >
+                        <span>{{usuario.name}}</span> 
+                        <button mat-icon-button [matMenuTriggerFor]="menu">
+                            <mat-icon>keyboard_arrow_down</mat-icon>
+                        </button>
+                    <mat-menu #menu="matMenu">
+                        <button mat-menu-item (click)="action('edit-profile')">
+                            <span style="color: rgba(0,0,0,.54)"><i class="fas fa-user-edit fa-lg me-3"></i>Editar</span>
+                        </button>
+                        <button mat-menu-item (click)="logout()">
+                            <span style="color: rgba(0,0,0,.54)"><i class="fas fa-door-open fa-lg me-3"></i>Cerrar</span>
+                        </button>
                     </mat-menu>
-                </div>
-
-                <mat-menu #navperfil="matMenu">
-                    <button mat-menu-item>...</button>
-                    
-                </mat-menu>
-          
             </mat-toolbar>
             <div >
                 <router-outlet></router-outlet>
