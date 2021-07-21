@@ -20,11 +20,9 @@ ng-scrollbar {
 
 }
 
-.avatar-perfil{
-    background:url(../../../assets/sidebar/usuario.png); background-size:cover ;
-    background-size: cover;
-   
-}
+/* .avatar-perfil{
+    background:url(../../../assets/sidebar/usuario.png); background-size:cover ;   
+} */
 
 .perfil{ 
     position: relative; 

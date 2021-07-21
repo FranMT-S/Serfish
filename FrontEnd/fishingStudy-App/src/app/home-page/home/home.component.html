@@ -69,9 +69,11 @@
             <div class="example-button-container">
 
                 <mat-toolbar color="primary" id="boxUser" class="tools-user lineFile">
-                    <button mat-mini-fab color="primary" class="lineFile avatar-perfil fLeft mart-10">
-                    </button>
-
+                    <button mat-mini-fab color="primary" 
+                    class="lineFile avatar-perfil fLeft mart-10"
+                    [style]="avatartStyle"
+                    ></button>
+                   
                     <div mat-flat-button class="perfil text-multiline lineFile fLeft">
                         {{usuario.name}}
                     </div>
@@ -94,7 +96,12 @@
                         {{option.name}}
                     </mat-list-option>
                 </mat-selection-list>
-                <button mat-menu-item (click)="logout()">Cerrar Sesión</button>
+                <mat-selection-list [multiple]="false">
+                    <mat-list-option (click)="logout()">
+                        Cerrar Sesión
+                    </mat-list-option>
+                </mat-selection-list>
+
             </mat-menu>
         </mat-toolbar>
 
@@ -106,7 +113,11 @@
             <h1>Menu</h1>
             <div class="perfil-container">
 
-                <button mat-fab color="primary" class="avatar-perfil perfil" mat-flat-button [mat-menu-trigger-for]="fotonavperfil">       
+                <button mat-fab color="primary" 
+                class="perfil" mat-flat-button
+                 [mat-menu-trigger-for]="fotonavperfil"
+                 [style]="avatartStyle"
+                 >       
                     </button>
 
                 <Label class="perfil">
@@ -114,14 +125,14 @@
                     </Label>
 
                 <mat-menu #fotonavperfil="matMenu">
-                    <button mat-menu-item>Editar</button>
-
+                    <button mat-menu-item (click)="action('edit-profile')">Editar</button>
+                    <button mat-menu-item (click)="logout()">Cerrar</button>
                 </mat-menu>
             </div>
 
             <mat-menu #navperfil="matMenu">
                 <button mat-menu-item>...</button>
-                <button mat-menu-item>Cerrar</button>
+                
             </mat-menu>
         </mat-toolbar>
 
