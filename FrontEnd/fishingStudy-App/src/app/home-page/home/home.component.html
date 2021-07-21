@@ -1,145 +1,151 @@
 <mat-sidenav-container class="example-sidenav-container" fullscreen>
-
     <mat-sidenav #snav mode="push" style="width: 250px;">
-        <mat-toolbar color="primary">
-            <a href="">
-                <img class="me-3" style="width: 50px;" src="../../../assets/toolbar/pescado.png" alt="">
-            </a>
-            <span>SerFish</span>
-            <span class="example-spacer"></span>
-            <button mat-icon-button (click)="snav.toggle()">
-                <mat-icon>menu</mat-icon>
-            </button>
-        </mat-toolbar>
-        <!-- <h4 class="m-2">Opciones</h4> -->
-        <hr class="mx-2">
-        <div class="mx-3">
-            <button style="width: 100%; height: 48px; text-align: left;" class="my-2" mat-button (click)="navagate('opening')"><img class="img"  src="../../../assets/sidebar/homepage.png" alt="">Inicio</button>
-            <button style="width: 100%; height: 48px; text-align: left;" class="mb-2" mat-button (click)="navagate('climate')"><img class="img" src="../../../assets/sidebar/dom.png" alt="">Clima</button>
-            <button style="width: 100%; height: 48px; text-align: left;" class="mb-2" mat-button (click)="navagate('calendar')"><img class="img" src="../../../assets/sidebar/calendario.png" alt="">Calendario</button>
-            <button style="width: 100%; height: 48px; text-align: left;" class="mb-2" mat-button (click)="navagate('document')"><img class="img" src="../../../assets/sidebar/agricultura.png" alt="">Documentos</button>
-            <mat-expansion-panel class="mb-2" (click)="navagate('map')">
-                <mat-expansion-panel-header>
-                    <mat-panel-title>
-                        <img class="img" src="../../../assets/sidebar/mapa.png" alt=""> Zonas
-                    </mat-panel-title>
-                </mat-expansion-panel-header>
-                <mat-selection-list [multiple]="false">
-                    <mat-list-option>
-
-                    </mat-list-option>
-                </mat-selection-list>
-            </mat-expansion-panel>
-
-            <mat-accordion>
-
-
-                <mat-expansion-panel class="mb-2" (click)="navagate('chart')">
-                    <mat-expansion-panel-header>
-                        <mat-panel-title>
-                            <img class="img" src="../../../assets/sidebar/estadistica.png" alt=""> Estadística
-                        </mat-panel-title>
-                    </mat-expansion-panel-header>
-                    <mat-selection-list [multiple]="false">
-                        <mat-list-option>
-
-                        </mat-list-option>
-                    </mat-selection-list>
-                </mat-expansion-panel>
-
-                <mat-expansion-panel class="mb-2" (click)="navagate('survey')">
-                    <mat-expansion-panel-header>
-                        <mat-panel-title>
-                            <img class="img" src="../../../assets/sidebar/encuesta.png" alt=""> Encuestas
-                        </mat-panel-title>
-                    </mat-expansion-panel-header>
-                    <mat-selection-list [multiple]="false">
-                        <mat-list-option>
-
-                        </mat-list-option>
-                    </mat-selection-list>
-                </mat-expansion-panel>
-
-
-
-            </mat-accordion>
-            <!-- <button style="width: 96%; height: 48px; text-align: left; position: absolute; bottom: 10px; left: 5px;" mat-button><img class="img" src="../../../assets/sidebar/ajuste.png" alt="">Ajustes</button> -->
-        </div>
-        <mat-toolbar color="primary" class="perfil-bar lineFile">
-            <div class="example-button-container">
-
-                <mat-toolbar color="primary" id="boxUser" class="tools-user lineFile">
-                    <button mat-mini-fab color="primary" 
-                    class="lineFile avatar-perfil fLeft mart-10"
-                    [style]="avatartStyle"
-                    ></button>
-                   
-                    <div mat-flat-button class="perfil text-multiline lineFile fLeft">
-                        {{usuario.name}}
-                    </div>
-                </mat-toolbar>
-
-                <mat-toolbar color="primary" id="boxTools" class="tools-user lineFile">
-                    <button color="primary" class="lineFile mart-10" mat-flat-button [mat-menu-trigger-for]="sideAjustes">
-                        <mat-icon aria-hidden="false" aria-label="Example home icon">settings</mat-icon>
-                    </button>
-                </mat-toolbar>
-            </div>
-
-            <mat-menu #fotoperfil="matMenu">
-                <button mat-menu-item>Ver Perfil</button>
-            </mat-menu>
-
-            <mat-menu #sideAjustes="matMenu">
-                <mat-selection-list *ngFor="let option of optionSetting" [multiple]="false">
-                    <mat-list-option *ngIf="isAllowed(option.name)" [routerLink]="option.url" [value]="option.name" (click)="action(option.url)">
-                        {{option.name}}
-                    </mat-list-option>
-                </mat-selection-list>
-                <mat-selection-list [multiple]="false">
-                    <mat-list-option (click)="logout()">
-                        Cerrar Sesión
-                    </mat-list-option>
-                </mat-selection-list>
-
-            </mat-menu>
-        </mat-toolbar>
-
-    </mat-sidenav>
-
-    <mat-sidenav-content>
-        <mat-toolbar color="primary" class="toolsticky">
-            <button mat-icon-button (click)="snav.toggle()"><mat-icon>menu</mat-icon></button>
-            <h1>Menu</h1>
-            <div class="perfil-container">
-
-                <button mat-fab color="primary" 
-                class="perfil" mat-flat-button
-                 [mat-menu-trigger-for]="fotonavperfil"
-                 [style]="avatartStyle"
-                 >       
-                    </button>
-
-                <Label class="perfil">
-                        {{usuario.name}}
-                    </Label>
-
-                <mat-menu #fotonavperfil="matMenu">
-                    <button mat-menu-item (click)="action('edit-profile')">Editar</button>
-                    <button mat-menu-item (click)="logout()">Cerrar</button>
-                </mat-menu>
-            </div>
-
-            <mat-menu #navperfil="matMenu">
-                <button mat-menu-item>...</button>
+        <ng-scrollbar>
+            <mat-toolbar color="primary">
+                <a href="">
+                    <img class="me-3" style="width: 50px;" src="../../../assets/toolbar/pescado.png" alt="">
+                </a>
+                <span>SerFish</span>
+                <span class="example-spacer"></span>
+                <button mat-icon-button (click)="snav.toggle()">
+                    <mat-icon>menu</mat-icon>
+                </button>
+            </mat-toolbar>
+            <!-- <h4 class="m-2">Opciones</h4> -->
+            <hr class="mx-2">
+            
+            <div class="mx-3">
                 
-            </mat-menu>
-        </mat-toolbar>
+                <button style="width: 100%; height: 48px; text-align: left;" class="my-2" mat-button (click)="navagate('opening')"><img class="img"  src="../../../assets/sidebar/homepage.png" alt="">Inicio</button>
+                <button style="width: 100%; height: 48px; text-align: left;" class="mb-2" mat-button (click)="navagate('climate')"><img class="img" src="../../../assets/sidebar/dom.png" alt="">Clima</button>
+                <button style="width: 100%; height: 48px; text-align: left;" class="mb-2" mat-button (click)="navagate('calendar')"><img class="img" src="../../../assets/sidebar/calendario.png" alt="">Calendario</button>
+                <button style="width: 100%; height: 48px; text-align: left;" class="mb-2" mat-button (click)="navagate('document')"><img class="img" src="../../../assets/sidebar/agricultura.png" alt="">Documentos</button>
+                <mat-expansion-panel class="mb-2" (click)="navagate('map')">
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            <img class="img" src="../../../assets/sidebar/mapa.png" alt=""> Zonas
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <mat-selection-list [multiple]="false">
+                        <mat-list-option>
 
+                        </mat-list-option>
+                    </mat-selection-list>
+                </mat-expansion-panel>
+
+                <mat-accordion>
+
+
+                    <mat-expansion-panel class="mb-2" (click)="navagate('chart')">
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                <img class="img" src="../../../assets/sidebar/estadistica.png" alt=""> Estadística
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+                        <mat-selection-list [multiple]="false">
+                            <mat-list-option>
+
+                            </mat-list-option>
+                        </mat-selection-list>
+                    </mat-expansion-panel>
+
+                    <mat-expansion-panel class="mb-2" (click)="navagate('survey')">
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                <img class="img" src="../../../assets/sidebar/encuesta.png" alt=""> Encuestas
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+                        <mat-selection-list [multiple]="false">
+                            <mat-list-option>
+
+                            </mat-list-option>
+                        </mat-selection-list>
+                    </mat-expansion-panel>
+
+
+
+                </mat-accordion>
+                <!-- <button style="width: 96%; height: 48px; text-align: left; position: absolute; bottom: 10px; left: 5px;" mat-button><img class="img" src="../../../assets/sidebar/ajuste.png" alt="">Ajustes</button> -->
+            </div>
+            <mat-toolbar color="primary" class="perfil-bar lineFile">
+                <div class="example-button-container">
+                    
+                    <mat-toolbar color="primary" id="boxUser" class="tools-user lineFile">
+                        <button mat-mini-fab color="primary" 
+                        class="lineFile avatar-perfil fLeft mart-10"
+                        [style]="avatartStyle"
+                        ></button>
+                    
+                        <div mat-flat-button class="perfil text-multiline lineFile fLeft">
+                            {{usuario.name}}
+                        </div>
+                    </mat-toolbar>
+
+                    <mat-toolbar color="primary" id="boxTools" class="tools-user lineFile">
+                        <button color="primary" class="lineFile mart-10" mat-flat-button [mat-menu-trigger-for]="sideAjustes">
+                            <mat-icon aria-hidden="false" aria-label="Example home icon">settings</mat-icon>
+                        </button>
+                    </mat-toolbar>
+                </div>
+
+                <mat-menu #fotoperfil="matMenu">
+                    <button mat-menu-item>Ver Perfil</button>
+                </mat-menu>
+
+                <mat-menu #sideAjustes="matMenu">
+                    <mat-selection-list *ngFor="let option of optionSetting" [multiple]="false">
+                        <mat-list-option *ngIf="isAllowed(option.name)" [routerLink]="option.url" [value]="option.name" (click)="action(option.url)">
+                            {{option.name}}
+                        </mat-list-option>
+                    </mat-selection-list>
+                    <mat-selection-list [multiple]="false">
+                        <mat-list-option (click)="logout()">
+                            Cerrar Sesión
+                        </mat-list-option>
+                    </mat-selection-list>
+
+                </mat-menu>
+            </mat-toolbar>
+        </ng-scrollbar>
+    </mat-sidenav>
+       
+    <mat-sidenav-content>
+        <ng-scrollbar>
+            <mat-toolbar color="primary" class="toolsticky">
+                <button mat-icon-button (click)="snav.toggle()"><mat-icon>menu</mat-icon></button>
+                <h1>Menu</h1>
+                <div class="perfil-container">
+
+                    <button mat-fab color="primary" 
+                    class="perfil" mat-flat-button
+                    [mat-menu-trigger-for]="fotonavperfil"
+                    [style]="avatartStyle"
+                    >       
+                        </button>
+
+                    <Label class="perfil">
+                            {{usuario.name}}
+                        </Label>
+
+                    <mat-menu #fotonavperfil="matMenu">
+                        <button mat-menu-item (click)="action('edit-profile')">Editar</button>
+                        <button mat-menu-item (click)="logout()">Cerrar</button>
+                    </mat-menu>
+                </div>
+
+                <mat-menu #navperfil="matMenu">
+                    <button mat-menu-item>...</button>
+                    
+                </mat-menu>
+          
+            </mat-toolbar>
+        
         <div class="ms-3 mt-2">
             <router-outlet></router-outlet>
         </div>
+        
+        </ng-scrollbar>
     </mat-sidenav-content>
 
-
+    
 </mat-sidenav-container>
