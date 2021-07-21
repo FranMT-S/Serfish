@@ -19,3 +19,14 @@ img {
 .radio-button {
     margin: 5px;
 }
+
+#upload-photo {
+    opacity: 0;
+    position: absolute;
+    z-index: -1;
+}
+
+.header {
+    margin-top: 2rem;
+    font-family: Helvetica, Arial, sans-serif;
+}

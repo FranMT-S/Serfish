@@ -27,10 +27,13 @@ export class EditProfileComponent implements OnInit{
     'state': true,
     'img': ''
   };
-  public changeImage!: File;
+  public  uploadImage!: File;
+  public imgTemp:any;
   private _baseUrl:string = environment.baseUrl;
   imageUrl = '';
-
+  hide: boolean = true;
+  hide2: boolean = true;
+  hide3: boolean = true;
   
   
   editForm: FormGroup = this.fb.group({
@@ -63,8 +66,6 @@ export class EditProfileComponent implements OnInit{
       this.editForm.get('role')?.patchValue(res.role)
       this.editForm.get('state')?.patchValue(res.state)
       this.imageUrl = this.getImageUrl(this.user);
-      console.log(this.imageUrl);
-      console.log(this.user);
     });
     // console.log("desde oninit",this.user);
     this.checked = this.editForm.get('state') || false;
@@ -120,13 +121,19 @@ export class EditProfileComponent implements OnInit{
     }
   }
 
-  changeImg( file:File ){
-    this.changeImage = file;
-
+  changeImage( event:any){
+    this.uploadImage = event?.target?.files[0];
+    if(!this.uploadImage){return;}
+    const reader = new FileReader();
+    const url64 = reader.readAsDataURL(this.uploadImage);
+    reader.onloadend = () =>{
+      this.imgTemp = reader.result;
+    }
   }
 
-  updateImg(){
-    this.fileUploadService.updateImage(this.changeImage,'usuarios',this.user.uid);
+  updateImage(){
+    this.fileUploadService.updateImage(this.uploadImage,'usuarios',this.user.uid).
+    then(image => this.user.img = image);
   }
 }
 
