@@ -1,11 +1,13 @@
 import { NgModule } from '@angular/core';
 
-import {ScrollTopModule} from 'primeng/scrolltop';
+import { ScrollTopModule } from 'primeng/scrolltop';
+import { CardModule } from 'primeng/card';
 
 @NgModule({
   declarations: [],
   exports:[
-    ScrollTopModule
+    ScrollTopModule,
+    CardModule
   ]
 })
 export class PrimengModule { }
