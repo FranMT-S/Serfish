@@ -1,12 +1,12 @@
 import { Component, OnInit, AfterViewInit} from '@angular/core';
 import { ClimateService } from '../services/climate.service';
-import { CurrentWeather, CurrentHoursDaysWeather } from '../interfaces/climate';
+import { CurrentWeather, CurrentHoursDaysWeather, Current, Daily } from '../interfaces/climate';
 import { KelvilCelsiusPipe } from '../pipes/kelvil-celsius.pipe';
 import { MsKmhPipe } from '../pipes/ms-kmh.pipe';
 import { delay } from 'rxjs/operators';
 import { async } from '@angular/core/testing';
 
-interface weatherDataaaa{
+interface weatherData{
   icon:string;
   nameData:string;
   data:string;
@@ -22,19 +22,24 @@ export class ClimateComponent implements OnInit, AfterViewInit {
   currentHours:Date= new Date();
   currentWeather!:CurrentWeather;
   currentHoursDaysWeather!:CurrentHoursDaysWeather;
+  
+  weatherCurrentData:weatherData[][]=[];
+  weatherHoursData:Current[]=[];
+  weatherDaysData:Daily[]=[];
+
   kelvilCelsiu = new KelvilCelsiusPipe();
   msKmhPipe = new MsKmhPipe();
-  wData:weatherDataaaa[][]=[];
+
 
   constructor( private climateService:ClimateService ) { }
 
 
   ngAfterViewInit(): void {
     setTimeout( ()=>{
-      console.log("sad!!!!!!!!!!!!!!!!!!!!!");
-      this.currentHoursDaysWeather=this.climateService.currentHoursDaysWeather;
       console.log(this.currentHoursDaysWeather)
-      this.wData=[
+      this.weatherHoursData = this.currentHoursDaysWeather.hourly.slice(0,6);
+      this.weatherDaysData = this.currentHoursDaysWeather.daily.slice(0,4)
+      this.weatherCurrentData=[
         [
           {
             icon:"fas fa-temperature-low fa-2x me-2",
@@ -54,14 +59,14 @@ export class ClimateComponent implements OnInit, AfterViewInit {
         ],
         [
           {
-            icon:"fas fa-wind fa-2x  me-2",
+            icon:"fas fa-wind fa-2x me-2",
             nameData:"Viento.",
             data:`${this.msKmhPipe.transform(this.currentWeather.wind.speed)} km/h`
           },
           {
             icon:"fas fa-tint fa-2x me-2",
             nameData:"Punto de rocio.",
-            data:`${"AquiPasaAlgo"}`
+            data:`${this.kelvilCelsiu.transform(this.currentHoursDaysWeather.current.dew_point)}°`
           },
           {
             icon:"fas fa-eye fa-2x me-2",
@@ -70,29 +75,21 @@ export class ClimateComponent implements OnInit, AfterViewInit {
           }
         ]
       ]
-      // setTimeout(()=>{
-        const {hourly} = this.currentHoursDaysWeather;
-        console.log("sad&&&&&&&&&&&&&&&&&&&&&&");
-        console.log(`Clima por hora: ${hourly}`)
-      // },300);
-      //   console.log("sad2");
-      //   // console.log(`Clima por hora: ${hourly}`)
     },400)
 
   }
 
    ngOnInit():void {
     setTimeout(()=>{
-      console.log("OnInitSADDD")
       this.climateService.getWeatherCurrent()
         .subscribe( resp => {
               this.currentWeather = resp;
-              console.log(resp);
+              // console.log(resp);
         });
       this.climateService.getWeatherCurrentHoursDays()
         .subscribe( resp =>{
              this.currentHoursDaysWeather = resp;
-            console.log(resp)
+            // console.log(resp)
         });
       setInterval(()=>{
         this.currentHours= new Date();

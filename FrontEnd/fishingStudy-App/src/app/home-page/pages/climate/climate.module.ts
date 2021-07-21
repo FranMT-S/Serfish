@@ -8,6 +8,7 @@ import { PrimengModule } from '../../../primeng/primeng.module';
 import { KelvilCelsiusPipe } from './pipes/kelvil-celsius.pipe';
 import { UnixTimePipe } from './pipes/unix-time.pipe';
 import { MsKmhPipe } from './pipes/ms-kmh.pipe';
+import { CodeImgPipe } from './pipes/code-img.pipe';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import { MsKmhPipe } from './pipes/ms-kmh.pipe';
     ClimateComponent,
     KelvilCelsiusPipe,
     UnixTimePipe,
-    MsKmhPipe
+    MsKmhPipe,
+    CodeImgPipe
   ],
   imports: [
     CommonModule,

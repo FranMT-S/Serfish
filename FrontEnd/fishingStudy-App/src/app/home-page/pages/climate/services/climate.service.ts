@@ -22,37 +22,12 @@ export class ClimateService {
     const params = `lat=${this._lat}&lon=${this._lon}&appid=${this._appid}`;
     const url = `${this._baseUrl}/weather?${params}`;
     return this.http.get<CurrentWeather>(url)
-      .pipe(
-        map( resp => {
-          return resp
-        })
-      );
   }
 
   getWeatherCurrentHoursDays():Observable<CurrentHoursDaysWeather>{
     const params = `lat=${this._lat}&lon=${this._lon}&exclude=${this._exclude}&appid=${this._appid}`;
     const url = `${this._baseUrl}/onecall?${params}`;
     return this.http.get<CurrentHoursDaysWeather>(url)
-      .pipe(
-        tap( resp => {
-          this.currentHoursDaysWeather = resp;
-        })
-      );
-  }
-  getWeatherCurrentHoursDaysP():Promise<CurrentHoursDaysWeather>{
-    return new Promise( resolve => {
-      fetch("https://api.openweathermap.org/data/2.5/onecall?lat=14.1&lon=-87.2167&exclude=minutely,alerts&appid=90b92f0c5ee2d6c71c554b178ff6e3f5") 
-        .then(resp => resp.json())
-        .then(body => resolve(body))
-    });
-  }
-
-  getWeatherCurrentP():Promise<CurrentWeather>{
-    return new Promise( resolve => {
-      fetch("https://api.openweathermap.org/data/2.5/weather?lat=14.1&lon=-87.2167&appid=90b92f0c5ee2d6c71c554b178ff6e3f5") 
-        .then(resp => resp.json())
-        .then(body => resolve(body))
-    });
   }
 }
 
