@@ -46,3 +46,7 @@ export interface UpdatePasswordResponse {
     ok: boolean;
     msg: string;
 }
+
+export interface refImage{
+    url:string,
+  }

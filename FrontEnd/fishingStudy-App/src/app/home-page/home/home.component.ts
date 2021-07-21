@@ -2,14 +2,18 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/auth/services/auth.service';
-import { Usuario } from '../interfaces/interfaces';
+import { Usuario,refImage } from '../interfaces/interfaces';
 import { UserService } from '../services/user.service';
+import { FileUploadService } from '../services/file-upload.service';
+import { style } from '@angular/animations';
 
 export interface OptionSetting{
   name:string,
   url :string,
   role?: string[]
 }
+
+
 
 
 @Component({
@@ -26,22 +30,25 @@ export class HomeComponent implements OnInit {
   ];
   
   usuario!:Usuario;
-  imageUrl = '';
-  avatartStyle = ""
+  imageUrl!:refImage; 
 
   constructor( private authService:AuthService,
                private userService: UserService,
-               private router:Router ) { }
+               private router:Router, 
+               private fileUploadService:FileUploadService)
+                { }
 
   ngOnInit(): void {
     this.usuario = this.authService.user;
-    this.imageUrl = this.authService.getImageUrl();
-    this.avatartStyle = `background:url(${this.imageUrl}); background-size:cover;`;
-      
+    this.imageUrl = { "url": this.authService.getImageUrl()}
+    this.fileUploadService.addRefImageProfile(this.imageUrl);
+
+  
   }
 
   navagate(url:string){
     this.router.navigateByUrl(`home-page/${url}`)
+
   }
 
   isAllowed(componentName:string){
@@ -62,6 +69,7 @@ export class HomeComponent implements OnInit {
     this.userService.idModUser = '';
     this.navagate("edit-profile");
   }
+
   gestionarUsuarios(){
     this.snav.close()
     this.navagate("setting");
@@ -74,5 +82,7 @@ export class HomeComponent implements OnInit {
       this.snav.close()
     }
   }
+
+ 
 
 }

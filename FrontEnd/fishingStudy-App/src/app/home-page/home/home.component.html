@@ -71,10 +71,10 @@
                 <div class="example-button-container">
                     
                     <mat-toolbar color="primary" id="boxUser" class="tools-user lineFile">
-                        <button mat-mini-fab color="primary" 
-                        class="lineFile avatar-perfil fLeft mart-10"
-                        [style]="avatartStyle"
-                        ></button>
+                        <img mat-mini-fab color="primary" 
+                        [src] = "imageUrl.url"
+                        class="lineFile avatar-perfil size-50 fLeft mart-10"
+                        >
                     
                         <div mat-flat-button class="perfil text-multiline lineFile fLeft">
                             {{usuario.name}}
@@ -116,16 +116,16 @@
                 <h1>Menu</h1>
                 <div class="perfil-container">
 
-                    <button mat-fab color="primary" 
-                    class="perfil" mat-flat-button
+                    <img mat-fab color="primary" 
+                    class="perfil avatar-perfil pointer size-60" mat-flat-button
                     [mat-menu-trigger-for]="fotonavperfil"
-                    [style]="avatartStyle"
-                    >       
-                        </button>
+                    [src]=imageUrl.url
+                    >
+
 
                     <Label class="perfil">
                             {{usuario.name}}
-                        </Label>
+                    </Label>
 
                     <mat-menu #fotonavperfil="matMenu">
                         <button mat-menu-item (click)="action('edit-profile')">Editar</button>

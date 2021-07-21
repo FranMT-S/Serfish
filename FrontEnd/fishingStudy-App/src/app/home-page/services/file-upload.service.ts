@@ -1,13 +1,16 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
+import { refImage } from '../interfaces/interfaces';
 
 const _baseUrl:string = environment.baseUrl;
+
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class FileUploadService {
-
+  private imageURLS:refImage[] = [];
   constructor() { }
 
   async updateImage( file : File,
@@ -41,4 +44,19 @@ export class FileUploadService {
 
     }
   }
+
+  
+  addRefImageProfile(imgRef:refImage){
+      this.imageURLS.push(imgRef)
+  }
+
+  setURLImageProfile(url:string){ 
+    this.imageURLS.forEach(e => {
+      e.url = url;
+    })
+  }
+
+
+
+
 }
