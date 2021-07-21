@@ -27,6 +27,7 @@ export class HomeComponent implements OnInit {
   
   usuario!:Usuario;
   imageUrl = '';
+  avatartStyle = ""
 
   constructor( private authService:AuthService,
                private userService: UserService,
@@ -35,6 +36,8 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     this.usuario = this.authService.user;
     this.imageUrl = this.authService.getImageUrl();
+    this.avatartStyle = `background:url(${this.imageUrl}); background-size:cover;`;
+      
   }
 
   navagate(url:string){
