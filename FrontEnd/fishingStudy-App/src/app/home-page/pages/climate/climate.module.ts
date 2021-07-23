@@ -10,7 +10,6 @@ import { UnixTimePipe } from './pipes/unix-time.pipe';
 import { MsKmhPipe } from './pipes/ms-kmh.pipe';
 import { CodeImgPipe } from './pipes/code-img.pipe';
 
-
 @NgModule({
   declarations: [
     ClimateComponent,

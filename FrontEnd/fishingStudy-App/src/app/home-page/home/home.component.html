@@ -1,4 +1,4 @@
-<mat-sidenav-container class="example-sidenav-container" fullscreen>
+<mat-sidenav-container fullscreen>
     <mat-sidenav #snav mode="push" style="width: 250px;">
         <ng-scrollbar>
             <mat-toolbar color="primary">
@@ -14,28 +14,25 @@
             <!-- <h4 class="m-2">Opciones</h4> -->
             <hr class="mx-2">
             
-            <div class="mx-3">
+            <div class="mx-2 p-2" style="background-color: rgba(236, 240, 241, 0.55); border-radius: 5px;">
                 
                 <button style="width: 100%; height: 48px; text-align: left;" class="my-2" mat-button (click)="navagate('opening')"><img class="img"  src="../../../assets/sidebar/homepage.png" alt="">Inicio</button>
                 <button style="width: 100%; height: 48px; text-align: left;" class="mb-2" mat-button (click)="navagate('climate')"><img class="img" src="../../../assets/sidebar/dom.png" alt="">Clima</button>
                 <button style="width: 100%; height: 48px; text-align: left;" class="mb-2" mat-button (click)="navagate('calendar')"><img class="img" src="../../../assets/sidebar/calendario.png" alt="">Calendario</button>
-                <button style="width: 100%; height: 48px; text-align: left;" class="mb-2" mat-button (click)="navagate('document')"><img class="img" src="../../../assets/sidebar/agricultura.png" alt="">Documentos</button>
-                <mat-expansion-panel class="mb-2" (click)="navagate('map')">
-                    <mat-expansion-panel-header>
-                        <mat-panel-title>
-                            <img class="img" src="../../../assets/sidebar/mapa.png" alt=""> Zonas
-                        </mat-panel-title>
-                    </mat-expansion-panel-header>
-                    <mat-selection-list [multiple]="false">
-                        <mat-list-option>
-
-                        </mat-list-option>
-                    </mat-selection-list>
-                </mat-expansion-panel>
-
+                <button style="width: 100%; height: 48px; text-align: left;" class="mb-2" mat-button (click)="navagate('document')"><img class="img" src="../../../assets/sidebar/agricultura.png" alt="">Documentos</button>                
                 <mat-accordion>
-
-
+                    <mat-expansion-panel class="mb-2" (click)="navagate('map')">
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                <img class="img" src="../../../assets/sidebar/mapa.png" alt=""> Zonas
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+                        <mat-selection-list [multiple]="false">
+                            <mat-list-option>
+    
+                            </mat-list-option>
+                        </mat-selection-list>
+                    </mat-expansion-panel>
                     <mat-expansion-panel class="mb-2" (click)="navagate('chart')">
                         <mat-expansion-panel-header>
                             <mat-panel-title>
@@ -44,7 +41,6 @@
                         </mat-expansion-panel-header>
                         <mat-selection-list [multiple]="false">
                             <mat-list-option>
-
                             </mat-list-option>
                         </mat-selection-list>
                     </mat-expansion-panel>
@@ -57,13 +53,9 @@
                         </mat-expansion-panel-header>
                         <mat-selection-list [multiple]="false">
                             <mat-list-option>
-
                             </mat-list-option>
                         </mat-selection-list>
                     </mat-expansion-panel>
-
-
-
                 </mat-accordion>
                 <!-- <button style="width: 96%; height: 48px; text-align: left; position: absolute; bottom: 10px; left: 5px;" mat-button><img class="img" src="../../../assets/sidebar/ajuste.png" alt="">Ajustes</button> -->
             </div>

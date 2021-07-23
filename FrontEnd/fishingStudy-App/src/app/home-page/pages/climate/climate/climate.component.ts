@@ -3,8 +3,6 @@ import { ClimateService } from '../services/climate.service';
 import { CurrentWeather, CurrentHoursDaysWeather, Current, Daily } from '../interfaces/climate';
 import { KelvilCelsiusPipe } from '../pipes/kelvil-celsius.pipe';
 import { MsKmhPipe } from '../pipes/ms-kmh.pipe';
-import { delay } from 'rxjs/operators';
-import { async } from '@angular/core/testing';
 
 interface weatherData{
   icon:string;

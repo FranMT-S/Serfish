@@ -1,11 +1,13 @@
-<h1>Dashboard</h1>
-<hr>
-<p>Esta pagina solo funciona si esta autenticado</p>
+<div class="mx-3 mt-2">
+    <h1>Dashboard</h1>
+    <hr>
+    <p>Esta pagina solo funciona si esta autenticado</p>
 
-<h4>User info</h4>
-<img [src]="imageUrl" alt="UserAvatar"><br>
-<pre> {{usuario | json}} </pre>
+    <h4>User info</h4>
+    <img [src]="imageUrl" alt="UserAvatar"><br>
+    <pre> {{usuario | json}} </pre>
 
-<button style="border:teal 2px solid; padding: 5px;" (click)="logout()">
-    LogOut
-</button>
+    <button style="border:teal 2px solid; padding: 5px;" (click)="logout()">
+        LogOut
+    </button>
+</div>
