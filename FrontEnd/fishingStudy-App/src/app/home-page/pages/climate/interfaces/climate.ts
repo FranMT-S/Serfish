@@ -56,15 +56,14 @@ export interface Wind {
 
 // ***************************************************************
 
-
 export interface CurrentHoursDaysWeather {
     lat:             number;
     lon:             number;
     timezone:        string;
     timezone_offset: number;
-    current:         Current;
-    hourly:          Current[];
-    daily:           Daily[];
+    current?:         Current;
+    hourly?:          Current[];
+    daily?:           Daily[];
 }
 
 export interface Current {
@@ -84,27 +83,37 @@ export interface Current {
     wind_gust:  number;
     weather:    Weather[];
     pop?:       number;
+    rain?:      Rain;
+}
+
+export interface Rain {
+    "1h": number;
 }
 
 export interface Weather {
     id:          number;
-    main:        Main;
-    description: Description;
-    icon:        string;
+    main:        Main|string;
+    description: Description|string;
+    icon:        Icon|string;
 }
 
 export enum Description {
     BrokenClouds = "broken clouds",
-    ClearSky = "clear sky",
-    FewClouds = "few clouds",
     LightRain = "light rain",
     ModerateRain = "moderate rain",
     OvercastClouds = "overcast clouds",
     ScatteredClouds = "scattered clouds",
 }
 
+export enum Icon {
+    The03D = "03d",
+    The04D = "04d",
+    The04N = "04n",
+    The10D = "10d",
+    The10N = "10n",
+}
+
 export enum Main {
-    Clear = "Clear",
     Clouds = "Clouds",
     Rain = "Rain",
 }
@@ -146,4 +155,3 @@ export interface Temp {
     eve:   number;
     morn:  number;
 }
-

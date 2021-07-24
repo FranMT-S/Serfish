@@ -19,3 +19,11 @@ background: linear-gradient(to right, #2c3e50, #2980b9);
     font-size: 1rem;
     margin-right: 5px;
 }
+
+.spinnerDataReady{
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

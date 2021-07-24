@@ -25,7 +25,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
-
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 @NgModule({
 exports:[
@@ -48,7 +48,9 @@ exports:[
   MatTableModule,
   MatChipsModule,
   MatPaginatorModule,
-  MatSortModule
+  MatSortModule,
+
+  MatProgressSpinnerModule
   
 ]
 })
