@@ -5,16 +5,12 @@ import { AuthService } from 'src/app/auth/services/auth.service';
 import { Usuario,refImage } from '../interfaces/interfaces';
 import { UserService } from '../services/user.service';
 import { FileUploadService } from '../services/file-upload.service';
-import { style } from '@angular/animations';
 
 export interface OptionSetting{
   name:string,
   url :string,
   role?: string[]
 }
-
-
-
 
 @Component({
   selector: 'app-home',
@@ -42,36 +38,32 @@ export class HomeComponent implements OnInit {
     this.usuario = this.authService.user;
     this.imageUrl = { "url": this.authService.getImageUrl()}
     this.fileUploadService.addRefImageProfile(this.imageUrl);
-
-  
   }
 
   navagate(url:string){
     this.router.navigateByUrl(`home-page/${url}`)
-
   }
 
   isAllowed(componentName:string){
     // Obtenemos los roles que tienen permitido entrar al componente
-    let roles = this.optionSetting.find( e => e.name === componentName)?.role
-              
+    let roles = this.optionSetting.find( e => e.name === componentName)?.role         
     // Retorna true si es undifined (todos tienen permisos)
     // si no es undefined comprueba que exista el rol en el arreglo de optionSettings
-    
     return !roles || roles.includes(this.usuario.role);  
   }
 
   logout(){
     this.authService.logOut();
   }
+
   editarCuenta(){
-    this.snav.close()
-    this.userService.idModUser = '';
-    this.navagate("edit-profile");
+    // this.snav.close()
+    this.router.navigateByUrl(`/home-page/edit-profile/${this.usuario.uid}`)
+    console.log(this.usuario.uid)
   }
 
   gestionarUsuarios(){
-    this.snav.close()
+    // // this.snav.close()
     this.navagate("setting");
   }
 
@@ -79,10 +71,7 @@ export class HomeComponent implements OnInit {
     if (elementUrl === this.optionSetting[0].url){
       this.editarCuenta();
     } else {
-      this.snav.close()
+      // this.snav.close()
     }
   }
-
- 
-
 }

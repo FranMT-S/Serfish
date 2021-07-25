@@ -1,8 +1,8 @@
 export interface Usuario {
-    role: string;
+    uid: string;
     name: string;
     email: string;
-    uid: string;
+    role: string;
     index?: number;
     state?: Boolean;
     img?: string;

@@ -4,28 +4,12 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { MatTabChangeEvent } from '@angular/material/tabs';
-import { filter } from 'rxjs/operators';
+import { filter, map } from 'rxjs/operators';
 import { AuthService } from 'src/app/auth/services/auth.service';
 import Swal from 'sweetalert2';
 import { Usuario } from '../../interfaces/interfaces';
 import { UserService } from '../../services/user.service';
 import { Router } from '@angular/router';
-
-export interface PeriodicElement {
-  name: string;
-  position: number;
-  weight: number;
-  symbol: string;
-}
-
-/* interface Usuario{
-  index?  :number;
-  role    :string;
-  name    :string;
-  email   :string;
-  uid     :string;
-  state   ?:Boolean;
-} */
 
 @Component({
   selector: 'app-setting',
@@ -34,185 +18,211 @@ export interface PeriodicElement {
 })
 export class SettingComponent implements OnInit {
 
-  //@Output() idModUser: EventEmitter<string> = new EventEmitter();
-
-  selected:string=""
+  selected: string = ""
   selectedIndex = 0;
   hide: boolean = true;
-  miFormulario:FormGroup = this.fb.group({
-    name    :["", [Validators.required], []],
-    email   :["", [Validators.required], []],
-    password:["", [Validators.required], []],
-    role    :["", [Validators.required], []],
+  miFormulario: FormGroup = this.fb.group({
+    name: ["", [Validators.required], []],
+    email: ["", [Validators.required], []],
+    password: ["", [Validators.required], []],
+    role: ["", [Validators.required], []],
   });
 
-  displayedColumns: string[] = ['index', 'name', 'email', 'role','action'];
   dataSource = new MatTableDataSource<Usuario>();
   dataDisableSource = new MatTableDataSource<Usuario>();
-  lengthDataSource:number=0;
-  lengthDataDisableSource:number=0;
-  // @ViewChild('table') table!: MatTable<Element>;
-  
-  @ViewChild('TableOneSort', {static: true}) sort!:MatSort;
-  @ViewChild('TableOnePaginator', {static: true}) paginator!:MatPaginator;
 
-  @ViewChild('TableTwoSort', {static: true}) sortDisable!:MatSort;
-  @ViewChild('TableTwoPaginator', {static: true}) paginatorDisable!:MatPaginator;
+  constructor(  private fb: FormBuilder,
+                private authService: AuthService,
+                private userServices: UserService,
+              ) { }
 
-  constructor( private fb:FormBuilder,
-               private authService:AuthService,
-               private userServices:UserService,
-               private router: Router ) { }
-               
   ngOnInit(): void {
-    if( this.userServices.getUsersArray.length===0 ){
-      this.userServices.getUsers()
-      .subscribe(res => {
-        /*/ console.log(res);*/
-		  //console.log("res", res);
-		  this.dataSource.data = res.filter(e => e.state);
-		  this.dataDisableSource.data = res.filter(e => !e.state);
-		  this.lengthDataSource = res.filter(e => e.state).length;
-		  this.lengthDataDisableSource = res.filter(e => !e.state).length
-      // cambiando indices de elementos
-      this.dataSource.data.forEach((element, index) => { element.index = index + 1 });
-      this.dataDisableSource.data.forEach((element, index) => { element.index = index + 1 });
-      });
-    }else{
-      this.dataSource.data = this.userServices.getUsersArray.filter(e=>e.state);
-      this.dataDisableSource.data = this.userServices.getUsersArray.filter(e=>!e.state);
-      this.lengthDataSource = this.dataSource.data.filter(e => e.state).length;
-      this.lengthDataDisableSource = this.dataSource.data.filter(e => !e.state).length;
-      // cambiando indices de elementos
-      this.dataSource.data.forEach((element, index) => { element.index = index + 1 });
-      this.dataDisableSource.data.forEach((element, index) => { element.index = index + 1 });
-    }
-  }
-
-  ngAfterViewInit() {
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
-
-      this.dataDisableSource.paginator = this.paginatorDisable;
-      this.dataDisableSource.sort = this.sortDisable;
-
-
-  }
-
-  refresh(){
     this.userServices.getUsers()
-      .subscribe(res => {
-        /*/ console.log(res);*/
-        //console.log("res", res);
-        this.dataSource.data = res.filter(e => e.state);
-        this.dataDisableSource.data = res.filter(e => !e.state);
-        this.lengthDataSource = res.filter(e => e.state).length;
-        this.lengthDataDisableSource = res.filter(e => !e.state).length
-        // cambiando indices de elementos
-        this.dataSource.data.forEach((element, index) => { element.index = index + 1 });
-        this.dataDisableSource.data.forEach((element, index) => { element.index = index + 1 });
+      .subscribe( () => {
+        this.dataSource.data = this.userServices.getEnableUsers;
+        this.dataDisableSource.data = this.userServices.getDisableUsers;
       });
   }
-  
-  register(formDirective: FormGroupDirective){
+
+  register() {
     this.authService.register(this.miFormulario)
-      .subscribe(ok=>{
-        if(ok===true){
+      .subscribe(ok => {
+        if (ok === true) {
           Swal.fire({
             icon: 'success',
             title: 'El usuario se creo de forma exitosa',
             showConfirmButton: false,
             timer: 1500
-          }).then((result) => {
-            // luego de registrar, limpia el formulario y enseña los usuarios
-            this.lengthDataSource = 0;
-            // TODO: solo obtener el ultimo usuario y añadirlo al arreglo
-            this.userServices.getUsers()
-              .subscribe(res => {
-                this.dataSource.data = res;
-                this.lengthDataSource = res.length;
-              });
-            /*
-              // ! no funciona correctamente aun
-              this.userServices.getUsers(last = 'true') //obtener solo el ultimo
-              .subscribe(res => {
-                console.log(res);
-                this.dataSource.data = res;
-                this.lengthDataSource = res.length;
-              });
-            */
-            this.selected = "";
-            formDirective.resetForm();
-            this.miFormulario.reset();
-            this.selectedIndex = 0;
           });
-          
-        }else{
-          Swal.fire("Detectamos un error.",`${ok}`,"error");
+        } else {
+          Swal.fire("Detectamos un error.", `${ok}`, "error");
         }
       });
   }
 
-  colorRole(role:string){
-    return (role=="admin")?"accent":(role=="biologo")?"primary":"basic"
-  }
-
-  disabledUser(id:string){
-
-    this.userServices.changeState(id,false)
-    .subscribe(res =>{      
-        
-        this.dataDisableSource.data = this.dataDisableSource.data.concat(
-                                   this.dataSource
-                                   .data.filter(e => e.uid == res.uid)
-                                  ).sort(
-                                    (a,b) => {
-                                      return (a.index!.valueOf() > b.index!.valueOf())?1:(a.index!.valueOf() < b.index!.valueOf())?-1:0;
-                                    }
-                                  )
-        
-
-        
-        this.dataSource.data = this.dataSource.data
-                                .filter(e => e.uid != res.uid)
-                                .sort((a,b) => {
-                                  return (a.index!.valueOf() > b.index!.valueOf())?1:(a.index!.valueOf() < b.index!.valueOf())?-1:0;
-                                }) 
-
-        this.lengthDataSource = this.dataSource.data.length;
-        this.lengthDataDisableSource = this.dataDisableSource.data.length;
-
-    });
-  }
-
-  enabledUser(id:string){
-    this.userServices.changeState(id,true)
-    .subscribe(res =>{
-        this.dataSource.data = this.dataSource.data.concat(
-                                   this.dataDisableSource.data
-                                   .filter(e => e.uid == res.uid)
-                                   ).sort((a,b) => {
-                                    return (a.index!.valueOf() > b.index!.valueOf())?1:(a.index!.valueOf() < b.index!.valueOf())?-1:0;
-                                  })
-
-        
-        this.dataDisableSource.data = this.dataDisableSource
-                                        .data
-                                        .filter(e => e.uid != res.uid)
-                                        .sort((a,b) => {
-                                          return (a.index!.valueOf() > b.index!.valueOf())?1:(a.index!.valueOf() < b.index!.valueOf())?-1:0;
-                                        })
-        this.lengthDataSource = this.dataSource.data.length;
-        this.lengthDataDisableSource = this.dataDisableSource.data.length;
-
-    });
-  }
-
-  edit(userId: string){
-    this.userServices.idModUser = userId;
-    this.router.navigateByUrl("home-page/edit-profile")
-  }
-
-
-
 }
+
+
+
+
+
+
+// @ViewChild('TableOneSort', {static: true}) sort!:MatSort;
+// @ViewChild('TableOnePaginator', {static: true}) paginator!:MatPaginator;
+
+// @ViewChild('TableTwoSort', {static: true}) sortDisable!:MatSort;
+// @ViewChild('TableTwoPaginator', {static: true}) paginatorDisable!:MatPaginator;
+
+// constructor( private fb:FormBuilder,
+//              private authService:AuthService,
+//              private userServices:UserService,
+//              private router: Router ) { }
+
+// ngOnInit(): void {
+//   if( this.userServices.getUsersArray.length===0 ){
+//     this.userServices.getUsers()
+//     .subscribe(res => {
+//       /*/ console.log(res);*/
+//     //console.log("res", res);
+//     this.dataSource.data = res.filter(e => e.state);
+//     this.dataDisableSource.data = res.filter(e => !e.state);
+//     this.lengthDataSource = res.filter(e => e.state).length;
+//     this.lengthDataDisableSource = res.filter(e => !e.state).length
+//     // cambiando indices de elementos
+//     this.dataSource.data.forEach((element, index) => { element.index = index + 1 });
+//     this.dataDisableSource.data.forEach((element, index) => { element.index = index + 1 });
+//     });
+//   }else{
+//     this.dataSource.data = this.userServices.getUsersArray.filter(e=>e.state);
+//     this.dataDisableSource.data = this.userServices.getUsersArray.filter(e=>!e.state);
+//     this.lengthDataSource = this.dataSource.data.filter(e => e.state).length;
+//     this.lengthDataDisableSource = this.dataSource.data.filter(e => !e.state).length;
+//     // cambiando indices de elementos
+//     this.dataSource.data.forEach((element, index) => { element.index = index + 1 });
+//     this.dataDisableSource.data.forEach((element, index) => { element.index = index + 1 });
+//   }
+// }
+
+// ngAfterViewInit() {
+//     this.dataSource.paginator = this.paginator;
+//     this.dataSource.sort = this.sort;
+
+//     this.dataDisableSource.paginator = this.paginatorDisable;
+//     this.dataDisableSource.sort = this.sortDisable;
+
+
+// }
+
+// refresh(){
+//   this.userServices.getUsers()
+//     .subscribe(res => {
+//       /*/ console.log(res);*/
+//       //console.log("res", res);
+//       this.dataSource.data = res.filter(e => e.state);
+//       this.dataDisableSource.data = res.filter(e => !e.state);
+//       this.lengthDataSource = res.filter(e => e.state).length;
+//       this.lengthDataDisableSource = res.filter(e => !e.state).length
+//       // cambiando indices de elementos
+//       this.dataSource.data.forEach((element, index) => { element.index = index + 1 });
+//       this.dataDisableSource.data.forEach((element, index) => { element.index = index + 1 });
+//     });
+// }
+
+// register(formDirective: FormGroupDirective){
+//   this.authService.register(this.miFormulario)
+//     .subscribe(ok=>{
+//       if(ok===true){
+//         Swal.fire({
+//           icon: 'success',
+//           title: 'El usuario se creo de forma exitosa',
+//           showConfirmButton: false,
+//           timer: 1500
+//         }).then((result) => {
+//           // luego de registrar, limpia el formulario y enseña los usuarios
+//           this.lengthDataSource = 0;
+//           // TODO: solo obtener el ultimo usuario y añadirlo al arreglo
+//           this.userServices.getUsers()
+//             .subscribe(res => {
+//               this.dataSource.data = res;
+//               this.lengthDataSource = res.length;
+//             });
+//           /*
+//             // ! no funciona correctamente aun
+//             this.userServices.getUsers(last = 'true') //obtener solo el ultimo
+//             .subscribe(res => {
+//               console.log(res);
+//               this.dataSource.data = res;
+//               this.lengthDataSource = res.length;
+//             });
+//           */
+//           this.selected = "";
+//           formDirective.resetForm();
+//           this.miFormulario.reset();
+//           this.selectedIndex = 0;
+//         });
+
+//       }else{
+//         Swal.fire("Detectamos un error.",`${ok}`,"error");
+//       }
+//     });
+// }
+
+// colorRole(role:string){
+//   return (role=="admin")?"accent":(role=="biologo")?"primary":"basic"
+// }
+
+// disabledUser(id:string){
+
+//   this.userServices.changeState(id,false)
+//   .subscribe(res =>{
+
+//       this.dataDisableSource.data = this.dataDisableSource.data.concat(
+//                                  this.dataSource
+//                                  .data.filter(e => e.uid == res.uid)
+//                                 ).sort(
+//                                   (a,b) => {
+//                                     return (a.index!.valueOf() > b.index!.valueOf())?1:(a.index!.valueOf() < b.index!.valueOf())?-1:0;
+//                                   }
+//                                 )
+
+
+
+//       this.dataSource.data = this.dataSource.data
+//                               .filter(e => e.uid != res.uid)
+//                               .sort((a,b) => {
+//                                 return (a.index!.valueOf() > b.index!.valueOf())?1:(a.index!.valueOf() < b.index!.valueOf())?-1:0;
+//                               })
+
+//       this.lengthDataSource = this.dataSource.data.length;
+//       this.lengthDataDisableSource = this.dataDisableSource.data.length;
+
+//   });
+// }
+
+// enabledUser(id:string){
+//   this.userServices.changeState(id,true)
+//   .subscribe(res =>{
+//       this.dataSource.data = this.dataSource.data.concat(
+//                                  this.dataDisableSource.data
+//                                  .filter(e => e.uid == res.uid)
+//                                  ).sort((a,b) => {
+//                                   return (a.index!.valueOf() > b.index!.valueOf())?1:(a.index!.valueOf() < b.index!.valueOf())?-1:0;
+//                                 })
+
+
+//       this.dataDisableSource.data = this.dataDisableSource
+//                                       .data
+//                                       .filter(e => e.uid != res.uid)
+//                                       .sort((a,b) => {
+//                                         return (a.index!.valueOf() > b.index!.valueOf())?1:(a.index!.valueOf() < b.index!.valueOf())?-1:0;
+//                                       })
+//       this.lengthDataSource = this.dataSource.data.length;
+//       this.lengthDataDisableSource = this.dataDisableSource.data.length;
+
+//   });
+// }
+
+// edit(userId: string){
+//   this.userServices.idModUser = userId;
+//   this.router.navigateByUrl("home-page/edit-profile")
+// }

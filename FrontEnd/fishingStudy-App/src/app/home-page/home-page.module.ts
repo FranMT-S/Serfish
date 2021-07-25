@@ -11,6 +11,7 @@ import { SettingComponent } from './pages/setting/setting.component';
 import { SharedModule } from '../shared/shared.module';
 import { EditProfileComponent } from './components/edit-profile/edit-profile.component';
 import { OpeningComponent } from './pages/opening/opening.component';
+import { TableComponent } from './pages/setting/components/table/table.component';
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import { OpeningComponent } from './pages/opening/opening.component';
     HomeComponent,
     SettingComponent,
     OpeningComponent,
-    EditProfileComponent
+    EditProfileComponent,
+    TableComponent
   ],
   imports: [
     CommonModule,

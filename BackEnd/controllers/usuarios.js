@@ -12,24 +12,26 @@ const test = (req = request, res = response) => {
 };
 
 const getUsers = async(req = request, res = response) => {
-    //TASK-29.
     const { skipUser, limitUser } = req.query;
-    // si se le panda un parametro ?last=true solo retorna el ultimo elemento
+    const oneUser = req.header('oneUser')||false;
     try {
-        if (req.query.last === "false") {
+        if (!oneUser) {
             const { organizacion } = await Usuario.findById(req.uid);
-            const usuarios = await Usuario.find({ organizacion }, "name email role state").skip(Number(skipUser) || 0).limit(Number(limitUser) || 0);
+            const usuarios = await Usuario.find({ organizacion }, "name email role state img").skip(Number(skipUser) || 0).limit(Number(limitUser) || 0);
             res.status(200).json({
                 ok: true,
+                oneUser:false,
                 usuarios
             });
+            // console.log("Todos")
         } else {
-            const { organizacion } = await Usuario.findById(req.uid);
-            const usuarios = await Usuario.find({ organizacion }, "name email role state").sort({ _id: -1 }).limit(1);
+            const usuario = await Usuario.findById(oneUser, "name email role state img");
             res.status(200).json({
                 ok: true,
-                usuarios
+                oneUser:true,
+                usuario
             });
+            // console.log("Uno")
         }
     } catch (error) {
         console.log(error);
@@ -40,22 +42,22 @@ const getUsers = async(req = request, res = response) => {
     }
 };
 
-const getUser = async(req = request, res = response) => {
-    try {
-        const { _doc } = await Usuario.findById(req.query.uQuery || req.uid);
-        const { _id, __v, password, ...usuario } = _doc;
-        usuario.uid = _id;
-        res.status(200).json({
-            ok: true,
-            usuario
-        });
-    } catch (error) {
-        res.status(500).json({
-            ok: false,
-            msg: "Por favor contáctese con el administrador"
-        });
-    }
-};
+// const getUser = async(req = request, res = response) => {
+//     try {
+//         const { _doc } = await Usuario.findById(req.query.uQuery || req.uid);
+//         const { _id, __v, password, ...usuario } = _doc;
+//         usuario.uid = _id;
+//         res.status(200).json({
+//             ok: true,
+//             usuario
+//         });
+//     } catch (error) {
+//         res.status(500).json({
+//             ok: false,
+//             msg: "Por favor contáctese con el administrador"
+//         });
+//     }
+// };
 
 const newUser = async(req = request, res = response) => {
     const { email, password } = req.body;
@@ -236,7 +238,7 @@ const deleteUser = async(req = request, res = response) => {
 module.exports = {
     test,
     getUsers,
-    getUser,
+    // getUser,
     newUser: newUser,
     updateData,
     updatePassword,

@@ -1,14 +1,15 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment.prod';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
+import { Observable, Subject , of } from 'rxjs';
 import { map, catchError } from "rxjs/operators";
 import { UpdateData, UpdateDataResponse, UpdatePassword, UpdatePasswordResponse, Usuario } from '../interfaces/interfaces';
 
 interface UsersResponse {
   ok:       boolean;
-  saltos:   null;
+  oneUser:  boolean;
   usuarios: Usuario[];
+  usuario:  Usuario;
 }
 interface UserResponse {
   ok: boolean;
@@ -32,52 +33,55 @@ export class UserService {
   private _baseUrl:string = environment.baseUrl;
   private users:Usuario[]=[];
 
-
-  get getUsersArray(){
-    return [...this.users];
+  get getEnableUsers(){
+    const array = this.users.filter(data=>data.state);
+    return [...array]
   }
-  constructor(private http:HttpClient) {}
 
-  getUsers(last?:string):Observable<Usuario[]>{
+  get getDisableUsers(){
+    return this.users.filter(data=>!data.state);
+  }
+
+  constructor(private http:HttpClient) {}
+  
+  getUsers(uid?:string):Observable<UsersResponse>{
     const url = `${this._baseUrl}/usuarios`;
     const headers = new HttpHeaders()
-      .append('x-token', localStorage.getItem('token') || '');
-    const params = new HttpParams()
-      .append("last", last || 'false');
+      .append('x-token', localStorage.getItem('token') || '')
+      .append('oneUser', uid ||'');
     this.users = [];
-    return  this.http.get<UsersResponse>(url, { headers, params })
+    return  this.http.get<UsersResponse>(url,{headers})
               .pipe(
                 map( res => {
-                  if(res.ok === true){
+                  if(res.ok === true && res.oneUser==false){
                     res.usuarios.forEach( (value,index) =>{
                       index++;
                       this.users.push({index,...value});
                     });
-                    
                   }
-                  return this.users
+                  return res
                 })
               )
   }
 
-  getUser( userId?:string ): Observable<Usuario> {
-    const url = `${this._baseUrl}/usuarios/getUser`;
-    const headers = new HttpHeaders()
-      .append('x-token', localStorage.getItem('token') || '')
-    const params = new HttpParams()
-      .append("uQuery",userId || '');
+  // getUser( userId?:string ): Observable<Usuario> {
+  //   const url = `${this._baseUrl}/usuarios/getUser`;
+  //   const headers = new HttpHeaders()
+  //     .append('x-token', localStorage.getItem('token') || '')
+  //   const params = new HttpParams()
+  //     .append("uQuery",userId || '');
 
-    return this.http.get<UserResponse>(url, {headers, params})
-      .pipe(
-        map(res => {
-          return res.usuario;
-        }),
-        catchError((err) => {
-          // console.log("CATCH",err.error)
-          return of(err.error?.msg || "Error en la petición")
-        })
-      )
-  }
+  //   return this.http.get<UserResponse>(url, {headers, params})
+  //     .pipe(
+  //       map(res => {
+  //         return res.usuario;
+  //       }),
+  //       catchError((err) => {
+  //         // console.log("CATCH",err.error)
+  //         return of(err.error?.msg || "Error en la petición")
+  //       })
+  //     )
+  // }
 
   updateUser(payload: UpdateData): Observable<boolean | string> {
     const url = `${this._baseUrl}/usuarios/updateUser`;
@@ -124,6 +128,7 @@ export class UserService {
         })
     );
   }
+  
   changeState(uid:string,state:boolean):Observable<Usuario>{
     const url = `${this._baseUrl}/usuarios/changeState`;
     const body = {uid , state};

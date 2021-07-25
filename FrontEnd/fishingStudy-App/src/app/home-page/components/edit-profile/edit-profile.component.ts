@@ -6,6 +6,16 @@ import Swal from 'sweetalert2';
 import { Usuario } from '../../interfaces/interfaces';
 import { FileUploadService } from '../../services/file-upload.service';
 import { environment } from '../../../../environments/environment.prod';
+import { ActivatedRoute } from '@angular/router';
+import { switchMap } from 'rxjs/operators';
+
+interface UsersResponse {
+  ok:       boolean;
+  oneUser:  boolean;
+  usuarios: Usuario[];
+  usuario:  Usuario;
+}
+
 
 @Component({
   selector: 'app-edit-profile',
@@ -27,6 +37,7 @@ export class EditProfileComponent implements OnInit{
     'state': true,
     'img': ''
   };
+
   public  uploadImage!: File;
   public imgTemp:any;
   private _baseUrl:string = environment.baseUrl;
@@ -34,8 +45,12 @@ export class EditProfileComponent implements OnInit{
   hide: boolean = true;
   hide2: boolean = true;
   hide3: boolean = true;
-  
-  
+
+
+  //JEAN Pruebas
+  prueba!:UsersResponse;
+  uid!:string;
+
   editForm: FormGroup = this.fb.group({
     name    :["",[Validators.required], []],
     email   :["", [Validators.required,Validators.email], []],
@@ -52,7 +67,8 @@ export class EditProfileComponent implements OnInit{
   constructor(private fb : FormBuilder,
               private userService : UserService,
               private authService : AuthService,
-              private fileUploadService: FileUploadService
+              private fileUploadService: FileUploadService,
+              private activatedRoute: ActivatedRoute
     ) {
     
     }
@@ -60,18 +76,28 @@ export class EditProfileComponent implements OnInit{
   checked: any = false;
 
   ngOnInit(){
-    this.userService.getUser(this.userService.idModUser).subscribe(res => {
-      this.user = res;
-      this.editForm.patchValue({ 'name': res.name, 'email': res.email})
-      this.editForm.get('role')?.patchValue(res.role)
-      this.editForm.get('state')?.patchValue(res.state)
+    this.activatedRoute.params
+    .pipe(
+      switchMap( params => {
+        this.uid = params.uid;
+        return  this.userService.getUsers(params.uid);
+      }) 
+    )
+    .subscribe(
+      res => {
+      this.prueba = res;
+      this.user = this.prueba.usuario;
+      this.editForm.patchValue({ 'name': this.prueba.usuario.name, 'email': this.prueba.usuario.email})
+      this.editForm.get('role')?.patchValue(this.prueba.usuario.role)
+      this.editForm.get('state')?.patchValue(this.prueba.usuario.state)
       this.imageUrl = this.getImageUrl(this.user);
-    });
+      }
+    );
   }
   
   
   updateUser(){
-    this.userService.updateUser({ uid: this.userService.idModUser, ...this.editForm.value}).
+    this.userService.updateUser({ uid: this.uid, ...this.editForm.value}).
     subscribe( res => {
       // console.log(res)
       if(res === true){
@@ -88,7 +114,7 @@ export class EditProfileComponent implements OnInit{
   }
 
   updatePassword(formDirective: FormGroupDirective){
-    this.userService.updatePassword({ uid: this.userService.idModUser, ...this.editForm.value }).
+    this.userService.updatePassword({ uid: this.uid, ...this.editForm.value }).
     subscribe( res => {
       if(res === true){
         Swal.fire({

@@ -1,0 +1,21 @@
+table {
+    width: 100%;
+}
+
+mat-chip {
+    width: 100px;
+    justify-content: center;
+}
+
+th {
+    color: white;
+    background-color: #3F51B5;
+}
+
+tr:not(.example-expanded-row):hover {
+    background: whitesmoke;
+  }
+  
+  tr:not(.example-expanded-row):active {
+    background: #efefef;
+  }

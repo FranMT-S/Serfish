@@ -21,7 +21,7 @@ const routes: Routes = [
           canLoad: [SettingGuard]
           
         },
-        { path:"edit-profile",component:EditProfileComponent},
+        { path:"edit-profile/:uid",component:EditProfileComponent},
         {
           path:"calendar",
           loadChildren: () => import("./pages/calendar/calendar.module").then( module => module.CalendarModule)
