@@ -87,7 +87,6 @@ export class UserService {
   }
   
   updatePassword(payload: UpdatePassword): Observable<boolean | string>{
-
     const url = `${this._baseUrl}/usuarios/updatePassword`;
     const headers = new HttpHeaders()
       .append('x-token', localStorage.getItem('token') || '')
@@ -96,7 +95,6 @@ export class UserService {
       "oldPassword": payload.oldPassword, 
       "newPassword": payload.newPassword 
     };
-
     return this.http.put<UpdatePasswordResponse>(url, body, { headers })
       .pipe(
         map(res => {
@@ -177,7 +175,7 @@ export class UserService {
   //         return res.usuario;
   //       }),
   //       catchError((err) => {
-  //         // console.log("CATCH",err.error)
+
   //         return of(err.error?.msg || "Error en la petición")
   //       })
   //     )payload

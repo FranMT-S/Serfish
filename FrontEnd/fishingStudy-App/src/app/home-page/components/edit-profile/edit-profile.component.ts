@@ -99,7 +99,6 @@ export class EditProfileComponent implements OnInit{
   updateUser(){
     this.userService.updateUser({ uid: this.uid, ...this.editForm.value}).
     subscribe( res => {
-      // console.log(res)
       if(res === true){
         Swal.fire({
           icon: 'success',
@@ -114,7 +113,7 @@ export class EditProfileComponent implements OnInit{
   }
 
   updatePassword(formDirective: FormGroupDirective){
-    this.userService.updatePassword({ uid: this.uid, ...this.editForm.value }).
+    this.userService.updatePassword({ uid: this.uid, ...formDirective.value }).
     subscribe( res => {
       if(res === true){
         Swal.fire({
@@ -159,8 +158,6 @@ export class EditProfileComponent implements OnInit{
     then(image => {
       this.user.img = image 
     }).then(e => this.fileUploadService.setURLImageProfile(this.getImageUrl(this.user)))
- 
-   
   }
 }
 
