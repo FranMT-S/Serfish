@@ -100,44 +100,33 @@ const newUser = async(req = request, res = response) => {
 };
 
 const updateData = async(req = request, res = response) => {
-    const uid = req.headers.uid || req.uid;
-    let { name, email, role, state } = req.body;
+    const { uid, email, ...fieldsUpdate } = req.body;
     try {
-        //Verificar que el usuario este registrado
-        const userRegister = await Usuario.findById(uid);
-        role = role || userRegister.role;
-        if (!userRegister) {
-            return res.status(404).json({
+        const user = await Usuario.findById( uid );
+        console.log(user)
+        if (!user) {
+            return res.status(400).json({
                 ok: false,
-                msg: "El id del usuario no se encuentra en la BD."
+                msg: "El uid del usuario no esta registrado."
             });
         }
-        //Verificar la existencia del correo
-        if (email === userRegister.email) {
-            //Actualizar los campos
-            const { _doc } = await Usuario.findByIdAndUpdate(uid, { name, role, state }, { new: true });
-            const { _id, __v, password, ...userUpdate } = _doc;
-            userUpdate.uid = _id;
-            return res.status(200).json({
-                ok: true,
-                userUpdate
-            });
-        } else {
-            const emailExist = await Usuario.findOne({ email }); //retorna null si no existe, de lo contrario la considencia.
-            if (!emailExist) {
-                return res.status(200).json({
-                    ok: true,
-                    emailExist
+        if(user.email !== email){
+            const emailExist = await Usuario.findOne({ email });
+            if (emailExist) {
+                return res.status(400).json({
+                    ok: false,
+                    msg: "El correo ingresado ya esta siendo utilizado."
                 });
             }
-            return res.status(404).json({
-                ok: true,
-                msg: "El correo ya es utilizado por otro usuario."
-            });
         }
+        fieldsUpdate.email = email;
+        const userUpdate = await Usuario.findByIdAndUpdate(uid, fieldsUpdate, { new: true });
+        res.status(200).json({
+            ok:true,
+            userUpdate
+        })
     } catch (error) {
-        console.log("CATCH", error);
-        res.status(500).json({
+           res.status(500).json({
             ok: false,
             msg: "Por favor contáctese con el administrador"
         });

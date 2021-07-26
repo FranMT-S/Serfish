@@ -37,7 +37,7 @@
                 <button mat-icon-button (click)="editUser(element.uid)">
                     <mat-icon>edit</mat-icon>
                 </button>
-                <button mat-icon-button>
+                <button mat-icon-button (click)="enableOrDisableUser(element.uid)">
                     <mat-icon>{{icon}}</mat-icon>
                 </button>
             </td>

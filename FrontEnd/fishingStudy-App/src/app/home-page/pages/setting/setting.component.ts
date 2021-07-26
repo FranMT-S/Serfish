@@ -1,15 +1,11 @@
-import { Component, EventEmitter, OnInit, Output, QueryList, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, FormGroupDirective, Validators } from '@angular/forms';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
-import { MatTable, MatTableDataSource } from '@angular/material/table';
-import { MatTabChangeEvent } from '@angular/material/tabs';
-import { filter, map } from 'rxjs/operators';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatTableDataSource } from '@angular/material/table';
 import { AuthService } from 'src/app/auth/services/auth.service';
 import Swal from 'sweetalert2';
 import { Usuario } from '../../interfaces/interfaces';
 import { UserService } from '../../services/user.service';
-import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-setting',
@@ -58,6 +54,17 @@ export class SettingComponent implements OnInit {
           Swal.fire("Detectamos un error.", `${ok}`, "error");
         }
       });
+  }
+
+  updateTables(user:Usuario){
+    console.log("En el padre")
+    const {index, ...fieldsUpdate} = user
+    fieldsUpdate.state=!fieldsUpdate.state;
+    this.userServices.updateUser(fieldsUpdate)
+      .subscribe()
+    this.userServices.updateArrayUsers=fieldsUpdate;
+    this.dataSource.data = this.userServices.getEnableUsers;
+    this.dataDisableSource.data = this.userServices.getDisableUsers;
   }
 
 }

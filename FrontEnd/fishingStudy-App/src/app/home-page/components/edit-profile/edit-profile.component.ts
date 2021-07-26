@@ -155,7 +155,7 @@ export class EditProfileComponent implements OnInit{
   }
 
   updateImage(){
-    this.fileUploadService.updateImage(this.uploadImage,'usuarios',this.user.uid).
+    this.fileUploadService.updateImage(this.uploadImage,'usuarios',this.user.uid!).
     then(image => {
       this.user.img = image 
     }).then(e => this.fileUploadService.setURLImageProfile(this.getImageUrl(this.user)))

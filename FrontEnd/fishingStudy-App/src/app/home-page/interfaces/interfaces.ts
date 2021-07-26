@@ -1,11 +1,12 @@
 export interface Usuario {
-    uid: string;
-    name: string;
-    email: string;
-    role: string;
-    index?: number;
-    state?: Boolean;
-    img?: string;
+    name    : string;
+    email   : string;
+    role    : string;
+    uid?    : string;
+    index?  : number;
+    state?  : Boolean;
+    img?    : string;
+    ok?: boolean;
 }
 
 export interface LoginResponse {
@@ -22,19 +23,19 @@ export interface AuthResponse {
     token?: string;
 }
 
-export interface UpdateData {
-    name: string;
-    email: string;
-    uid?: string;
-    role?: string;
-    google?: boolean;
-    state?: Boolean;
-}
+// export interface UpdateData {
+//     name: string;
+//     email: string;
+//     uid?: string;
+//     role?: string;
+//     google?: boolean;
+//     state?: Boolean;
+// }
 
-export interface UpdateDataResponse {
-    ok: boolean;
-    userUpdate: UpdateData
-}
+// export interface UpdateDataResponse {
+//     ok: boolean;
+//     userUpdate: UpdateData
+// }
 
 export interface UpdatePassword {
     oldPassword: string;

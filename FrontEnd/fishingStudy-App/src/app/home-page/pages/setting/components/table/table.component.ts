@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, Input, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, Input, OnInit, Output, ViewChild, EventEmitter } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { Usuario } from '../../../../interfaces/interfaces';
 import { MatSort } from '@angular/material/sort';
@@ -15,6 +15,7 @@ export class TableComponent implements OnInit, AfterViewInit {
 
   @Input() data!:MatTableDataSource<Usuario>; 
   @Input() icon!:string;
+  @Output() onEnableOrDisableUser:EventEmitter<Usuario> = new EventEmitter();
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   
@@ -54,5 +55,20 @@ export class TableComponent implements OnInit, AfterViewInit {
     console.log(uid)
     // this.userService.getUsers(uid)
     //   .subscribe(console.log)
+  }
+  enableOrDisableUser(uid:string){
+    console.log("Hijo manda usuario al padre")
+    this.onEnableOrDisableUser.emit(this.dataSource.data.find((user)=>user.uid==uid))
+    // if(this.icon === "check"){
+    //   console.log("Habilitar")
+    //   console.log(this.dataSource.data.find((user)=>user.uid==uid))
+    //   this.onEnableOrDisableUser.emit(this.dataSource.data.find((user)=>user.uid==uid))
+    //   // this.dataSource.data = this.dataSource.data.filter(user=>user.uid!=uid)
+    // }else if(this.icon === "delete_outline"){
+    //   console.log("Desabilitar")
+    //   console.log(this.dataSource.data.find((user)=>user.uid==uid))
+    //   this.onEnableOrDisableUser.emit(this.dataSource.data.find((user)=>user.uid==uid))
+    //   // this.dataSource.data = this.dataSource.data.filter(user=>user.uid!=uid)
+    // }
   }
 }
