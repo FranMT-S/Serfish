@@ -56,22 +56,11 @@ export class HomeComponent implements OnInit {
     this.authService.logOut();
   }
 
-  editarCuenta(){
-    // this.snav.close()
-    this.router.navigateByUrl(`/home-page/edit-profile/${this.usuario.uid}`)
-    console.log(this.usuario.uid)
-  }
-
-  gestionarUsuarios(){
-    // // this.snav.close()
-    this.navagate("setting");
-  }
-
   action(elementUrl: string) {
     if (elementUrl === this.optionSetting[0].url){
-      this.editarCuenta();
-    } else {
-      // this.snav.close()
+      this.router.navigateByUrl(`/home-page/edit-profile/${this.usuario.uid}`)
+    } else if(elementUrl === this.optionSetting[1].url){
+      this.navagate("setting");
     }
   }
 }

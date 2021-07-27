@@ -151,6 +151,7 @@ export class EditProfileComponent implements OnInit{
     reader.onloadend = () =>{
       this.imgTemp = reader.result;
     }
+    this.updateImage()
   }
 
   updateImage(){

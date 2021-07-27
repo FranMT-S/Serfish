@@ -1,16 +1,16 @@
-img {
+.imgPerfil {
     width: 150px;
     height: 150px;
     border-radius: 50%;
     margin: 1rem;
 }
 
-.contenedor {
+/* .contenedor {
     background-color: rgba(63, 81, 181, 0.065);
     border-radius: 15px;
     padding: 2rem;
     margin: 2rem;
-}
+} */
 
 .radio-group {
     display: flex;
@@ -25,8 +25,42 @@ img {
     position: absolute;
     z-index: -1;
 }
-
+.btn-outline-primary{
+    border: 1px solid currentColor;
+    padding: 0 15px;
+    line-height: 34px;
+    color: #ff4081;
+    border-color: rgba(0,0,0,.12)
+}
+.btn-outline-primary:hover{
+    background-color: rgba(255, 64, 128, 0.02);
+}
 .header {
     margin-top: 2rem;
     font-family: Helvetica, Arial, sans-serif;
+}
+
+line {
+    stroke: #ff4081;
+    stroke-width: 8
+}
+
+.imgIcon {
+    width: 30px;
+    height: 30px;
+    margin-right: 15px;
+}
+
+.prueba{
+    
+    position: fixed;
+    top: 56px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    background-image: url("../../../../assets/clima/90.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
 }

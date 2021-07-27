@@ -73,12 +73,19 @@
                     <mat-icon>settings</mat-icon>
                 </button>
                 <mat-menu #sideAjustes="matMenu">
-                    <mat-selection-list *ngFor="let option of optionSetting" [multiple]="false">
+                    <!-- <mat-selection-list *ngFor="let option of optionSetting" [multiple]="false">
                         <mat-list-option *ngIf="isAllowed(option.name)" [routerLink]="option.url" [value]="option.name" (click)="action(option.url)">
                             {{option.name}}
                         </mat-list-option>
-                    </mat-selection-list>
+                    </mat-selection-list> -->
+
                     <mat-selection-list [multiple]="false">
+                        <mat-list-option (click)="action('setting')">
+                            Gestión de usuarios
+                        </mat-list-option>
+                        <mat-list-option (click)="action('edit-profile')">
+                            Editar Cuenta
+                        </mat-list-option>
                         <mat-list-option (click)="logout()">
                             Cerrar Sesión
                         </mat-list-option>
