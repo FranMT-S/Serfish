@@ -1,147 +1,28 @@
-<!-- <div class="contenedor animate__animated animate__fadeIn animate__faster">
-    <div class="row">
-        <div class="col-md-4 col-sm-12">
-            <img *ngIf="!imgTemp" alt="User avatar" [src]="imageUrl">
-            <img *ngIf="imgTemp" alt="User avatar" [src]="imgTemp">
-        </div>
-
-        <div class="col-md-8 col-sm-12 header">
-            <h3>{{user.name}}</h3>
-            <div>
-                <label class="btn btn-outline-primary" for="upload-photo">
-                    <mat-icon matPrefix>file_upload</mat-icon>
-                    </label>
-                <input class="form-control-file" id="upload-photo" type="file" accept="image/png, image/jpeg, image/jpg" (change)="changeImage($event)">
-                <button type="button" class="btn btn-outline-primary m-1" [disabled]="!uploadImage" (click)="updateImage()">
-                    Actualizar
-                </button>
-            </div>
-        </div>
-    </div>
-    <form [formGroup]="editForm" (ngSubmit)="updateUser()" autocomplete="off">
-        <div class="row ">
-            <div class="col-md-6 " *ngIf="usuarioActual.role ==='admin'">
-                <mat-form-field class="w-100" appearance="fill">
-                    <mat-label>Nombre de usuario</mat-label>
-                    <input matInput formControlName="name" required>
-                    <mat-icon class="me-2" matPrefix>person</mat-icon>
-                </mat-form-field>
-            </div>
-            <div class="col-md-6 " *ngIf="usuarioActual.role ==='admin'">
-                <mat-form-field class="w-100" appearance="fill">
-                    <mat-label>Email</mat-label>
-                    <input matInput formControlName="email" required>
-                    <mat-icon class="me-2" matPrefix>person</mat-icon>
-                </mat-form-field>
-            </div>
-            <div class="col-md-12 " *ngIf="usuarioActual.role !='admin'">
-                <mat-form-field class="w-50" appearance="fill">
-                    <mat-label>Nombre de usuario</mat-label>
-                    <input matInput formControlName="name" required>
-                    <mat-icon class="me-2" matPrefix>person</mat-icon>
-                </mat-form-field>
-            </div>
-            <div class="col-md-12 " *ngIf="usuarioActual.role !=='admin'">
-                <mat-form-field class="w-50" appearance="fill">
-                    <mat-label>Email</mat-label>
-                    <input matInput formControlName="email" required>
-                    <mat-icon class="me-2" matPrefix>person</mat-icon>
-                </mat-form-field>
-            </div>
-            <div class="col-md-6 " *ngIf="usuarioActual.role ==='admin'">
-                <mat-icon class="me-2" matPrefix>how_to_reg</mat-icon>
-                <label id="state">Estado: </label>
-                <mat-radio-group aria-labelledby="state" class="radio-group" formControlName="state">
-                    <mat-radio-button color="primary" class="radio-button" [value]="true" [checked]="this.checked">
-                        Activo
-                    </mat-radio-button>
-                    <mat-radio-button color="primary" class="radio-button" [value]="false" [checked]="!this.checked">
-                        Inactivo
-                    </mat-radio-button>
-                </mat-radio-group>
-            </div>
-            <div class="col-md-6 " *ngIf="usuarioActual.role ==='admin'">
-                <mat-form-field class="w-100" appearance="fill">
-                    <mat-label>Rol</mat-label>
-                    <select matNativeControl required formControlName="role">
-                              <option value="admin" >Admin</option>
-                              <option value="biologo" >Científico comunitario</option>
-                              <option value="encuestador" >Encuestador</option>
-                    </select>
-                    <mat-icon class="me-2" matPrefix>people</mat-icon>
-                </mat-form-field>
-            </div>
-            <div class="col-12 d-flex flex-sm-row flex-column mt-2 ">
-                <button type="submit" class="btn btn-outline-primary m-1">
-                         Guardar cambios
-                </button>
-            </div>
-        </div>
-    </form>
-
-</div>
-
-<div class="contenedor">
-    <div>
-        <h3>Cambiar contraseña</h3>
-        <form [formGroup]="editPassword" #formDirective="ngForm" (ngSubmit)="updatePassword(formDirective)" autocomplete="off">
-            <div class="row ">
-                <div class="col-md-6 ">
-                    <mat-form-field class="w-100" appearance="fill">
-                        <mat-label>Antigua contraseña</mat-label>
-                        <input [type]="hide ? 'password' : 'text'" matInput formControlName="oldPassword" required>
-                        <mat-icon class="me-2" matPrefix>lock</mat-icon>
-                        <button style="opacity: 0.5;" type="button" mat-icon-button matSuffix (click)="hide = !hide">
-                            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-                        </button>
-                    </mat-form-field>
-
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6 ">
-                    <mat-form-field class="w-100" appearance="fill">
-                        <mat-label>Nueva Contraseña</mat-label>
-                        <input [type]="hide2 ? 'password' : 'text'" matInput formControlName="newPassword" required>
-                        <mat-icon class="me-2" matPrefix>lock</mat-icon>
-                        <button style="opacity: 0.5;" type="button" mat-icon-button matSuffix (click)="hide2 = !hide2">
-                            <mat-icon>{{hide2 ? 'visibility_off' : 'visibility'}}</mat-icon>
-                        </button>
-                    </mat-form-field>
-                </div>
-                <div class="col-md-6 ">
-                    <mat-form-field class="w-100" appearance="fill">
-                        <mat-label>Confirmar contraseña</mat-label>
-                        <input [type]="hide3 ? 'password' : 'text'" matInput formControlName="confirmPassword" required>
-                        <mat-icon class="me-2" matPrefix>lock</mat-icon>
-                        <button style="opacity: 0.5;" type="button" mat-icon-button matSuffix (click)="hide3 = !hide3">
-                            <mat-icon>{{hide3 ? 'visibility_off' : 'visibility'}}</mat-icon>
-                        </button>
-                    </mat-form-field>
-                </div>
-                <div class="col-12 d-flex flex-sm-row flex-column mt-2 ">
-                    <button type="submit" class="btn btn-outline-primary m-1" [disabled]=" editPassword.invalid">Guardar cambios</button>
-                </div>
-            </div>
-        </form>
-    </div>
-</div> -->
 <div class="prueba pt-4 px-5">
-<h1 style="margin: 0;">Ajustes de cuenta</h1>
+    <h1 style="margin: 0;">Ajustes de cuenta</h1>
     <svg height="10" width="300">
-        <line x1="0" y1="0" x2="150" y2="0"/>
+        <line x1="0" y1="0" x2="150" y2="0" />
     </svg>
     <div class="row">
         <div class="col-3">
-            <button style="width: 100%; height: 48px; text-align: left;" class="my-2" mat-button ><img class="imgIcon"  src="../../../../assets/profile/usuario.png" alt="">General</button>
-            <button style="width: 100%; height: 48px; text-align: left;" class="mb-2" mat-button ><img class="imgIcon" src="../../../../assets/profile/contrasena.png" alt="">Cambiar contraseña</button>
-            <button style="width: 100%; height: 48px; text-align: left;" class="mb-2" mat-button ><img class="imgIcon" src="../../../../assets/profile/info.png" alt="">Informacion</button>
-            <button style="width: 100%; height: 48px; text-align: left;" class="mb-2" mat-button ><img class="imgIcon" src="../../../../assets/profile/participacion.png" alt="">Social</button>
-            <button style="width: 100%; height: 48px; text-align: left;" class="mb-2" mat-button ><img class="imgIcon" src="../../../../assets/profile/campana-de-notificacion.png" alt="">Notificaciones</button>                
+            
+            <button style="width: 100%; height: 48px; text-align: left;" class="my-2" mat-button (click)="mostrar('G')"><img class="imgIcon"
+                    src="../../../../assets/profile/usuario.png" alt="">General</button>
+            <button style="width: 100%; height: 48px; text-align: left;" class="mb-2" mat-button (click)="mostrar('P')"><img class="imgIcon"
+                    src="../../../../assets/profile/contrasena.png" alt="">Cambiar contraseña</button>
+            <button style="width: 100%; height: 48px; text-align: left;" class="mb-2" mat-button><img class="imgIcon"
+                    src="../../../../assets/profile/info.png" alt="">Informacion</button>
+            <button style="width: 100%; height: 48px; text-align: left;" class="mb-2" mat-button><img class="imgIcon"
+                    src="../../../../assets/profile/participacion.png" alt="">Social</button>
+            <button style="width: 100%; height: 48px; text-align: left;" class="mb-2" mat-button><img class="imgIcon"
+                    src="../../../../assets/profile/campana-de-notificacion.png" alt="">Notificaciones</button>
         </div>
         <div class="col-9 ">
-            <div>
-                <div class="p-4" style="width: 100%; border-radius: 10px; background-color: #fafafa;">
+            <div class="p-4" style="width: 100%; border-radius: 10px; background-color: #fafafa;">
+            
+                <router-outlet></router-outlet>
+                
+                <div *ngIf="datosGenerales">
                     <div class="row">
                         <div class="col-12" style="display: flex;">
                             <img class="imgPerfil" *ngIf="!imgTemp" alt="User avatar" [src]="imageUrl">
@@ -152,22 +33,10 @@
                                     <i class="fas fa-upload"></i>
                                     <span class="ms-2">Subir imagen</span>
                                 </label>
-                                <input class="form-control-file" id="upload-photo" type="file" accept="image/png, image/jpeg, image/jpg" (change)="changeImage($event)">
+                                <input class="form-control-file" id="upload-photo" type="file"
+                                    accept="image/png, image/jpeg, image/jpg" (change)="changeImage($event)">
                             </div>
                         </div>
-<!--                 
-                        <div class="col-md-8 col-sm-12 header">
-                            <h3>{{user.name}}</h3>
-                            <div>
-                                <label class="btn btn-outline-primary" for="upload-photo">
-                                    <mat-icon matPrefix>file_upload</mat-icon>
-                                    </label>
-                                <input class="form-control-file" id="upload-photo" type="file" accept="image/png, image/jpeg, image/jpg" (change)="changeImage($event)">
-                                <button type="button" class="btn btn-outline-primary m-1" [disabled]="!uploadImage" (click)="updateImage()">
-                                    Actualizar
-                                </button>
-                            </div>
-                        </div> -->
                     </div>
                     <form [formGroup]="editForm" (ngSubmit)="updateUser()" autocomplete="off">
                         <div class="row ">
@@ -189,10 +58,10 @@
                                 <mat-icon class="me-2" matPrefix>how_to_reg</mat-icon>
                                 <label id="state">Estado: </label>
                                 <mat-radio-group aria-labelledby="state" class="radio-group" formControlName="state">
-                                    <mat-radio-button color="accent" class="radio-button" [value]="true" [checked]="this.checked">
+                                    <mat-radio-button color="accent" class="radio-button" [value]="true">
                                         Activo
                                     </mat-radio-button>
-                                    <mat-radio-button color="accent" class="radio-button" [value]="false" [checked]="!this.checked">
+                                    <mat-radio-button color="accent" class="radio-button" [value]="false">
                                         Inactivo
                                     </mat-radio-button>
                                 </mat-radio-group>
@@ -201,20 +70,65 @@
                                 <mat-form-field class="w-100" appearance="outline">
                                     <mat-label>Rol</mat-label>
                                     <select matNativeControl formControlName="role">
-                                              <option value="admin" >Admin</option>
-                                              <option value="biologo" >Científico comunitario</option>
-                                              <option value="encuestador" >Encuestador</option>
+                                        <option value="admin">Admin</option>
+                                        <option value="biologo">Científico comunitario</option>
+                                        <option value="encuestador">Encuestador</option>
                                     </select>
                                     <mat-icon class="me-2" matSuffix>people</mat-icon>
                                 </mat-form-field>
                             </div>
                             <div class="col-12 d-flex flex-sm-row flex-column mt-2 ">
-                                <!-- <button type="submit" class="btn btn-outline-primary m-1">
-                                         Guardar cambios
-                                </button> -->
-                                <button mat-stroked-button color="accent">Guardar cambios</button>
-                        
-                            
+                                <button type="submit" mat-stroked-button color="accent" [disabled]="editForm.pristine">Guardar cambios</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div *ngIf="cambiarContra">
+                    <h3 class="mb-3">Actualizar contraseña</h3>
+                    <form [formGroup]="editPassword" #formDirective="ngForm" (ngSubmit)="updatePassword(formDirective)"
+                        autocomplete="off">
+                        <div class="row ">
+                            <div class="col-md-6 ">
+                                <mat-form-field class="w-100" appearance="outline">
+                                    <mat-label>Antigua contraseña</mat-label>
+                                    <input [type]="hide ? 'password' : 'text'" matInput formControlName="oldPassword">
+                                    <mat-icon class="me-2" matPrefix>lock</mat-icon>
+                                    <button style="opacity: 0.5;" type="button" mat-icon-button matSuffix
+                                        (click)="hide = !hide">
+                                        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                                    </button>
+                                </mat-form-field>
+
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 ">
+                                <mat-form-field class="w-100" appearance="outline">
+                                    <mat-label>Nueva Contraseña</mat-label>
+                                    <input [type]="hide2 ? 'password' : 'text'" matInput formControlName="newPassword">
+                                    <mat-icon class="me-2" matPrefix>lock</mat-icon>
+                                    <button style="opacity: 0.5;" type="button" mat-icon-button matSuffix
+                                        (click)="hide2 = !hide2">
+                                        <mat-icon>{{hide2 ? 'visibility_off' : 'visibility'}}</mat-icon>
+                                    </button>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-md-6 ">
+                                <mat-form-field class="w-100" appearance="outline">
+                                    <mat-label>Confirmar contraseña</mat-label>
+                                    <input [type]="hide3 ? 'password' : 'text'" matInput
+                                        formControlName="confirmPassword">
+                                    <mat-icon class="me-2" matPrefix>lock</mat-icon>
+                                    <button style="opacity: 0.5;" type="button" mat-icon-button matSuffix
+                                        (click)="hide3 = !hide3">
+                                        <mat-icon>{{hide3 ? 'visibility_off' : 'visibility'}}</mat-icon>
+                                    </button>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-12 d-flex flex-sm-row flex-column mt-2 ">
+                                <!-- <button type="submit" class="btn btn-outline-primary m-1" [disabled]=" editPassword.invalid">Guardar cambios</button> -->
+                                <button type="submit" mat-stroked-button color="accent"
+                                    [disabled]=" editPassword.invalid">Guardar cambios</button>
                             </div>
                         </div>
                     </form>

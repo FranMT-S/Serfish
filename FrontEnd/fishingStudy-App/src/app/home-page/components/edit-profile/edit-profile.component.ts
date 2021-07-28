@@ -46,6 +46,11 @@ export class EditProfileComponent implements OnInit{
   hide2: boolean = true;
   hide3: boolean = true;
 
+  datosGenerales:boolean=true;
+  cambiarContra:boolean=false;
+  informacion:boolean=false;
+  social:boolean=false;
+  notificaciones:boolean=false;
 
   //JEAN Pruebas
   prueba!:UsersResponse;
@@ -72,8 +77,6 @@ export class EditProfileComponent implements OnInit{
     ) {
     
     }
-  
-  checked: any = false;
 
   ngOnInit(){
     this.activatedRoute.params
@@ -94,7 +97,6 @@ export class EditProfileComponent implements OnInit{
       }
     );
   }
-  
   
   updateUser(){
     this.userService.updateUser({ uid: this.uid, ...this.editForm.value}).
@@ -159,6 +161,19 @@ export class EditProfileComponent implements OnInit{
     then(image => {
       this.user.img = image 
     }).then(e => this.fileUploadService.setURLImageProfile(this.getImageUrl(this.user)))
+  }
+
+  mostrar(value:string){
+    if(value==="G"){
+      this.datosGenerales=true;
+      this.cambiarContra=false;
+      this.informacion=false;
+      this.social=false;
+      this.notificaciones=false;
+    }else if(value === "P"){
+      this.cambiarContra=true;
+      this.datosGenerales=false;
+    }
   }
 }
 
