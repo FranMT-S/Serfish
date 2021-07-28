@@ -1,0 +1,37 @@
+.imgPerfil {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    margin: 1rem;
+}
+
+.header {
+    margin-top: 2rem;
+    font-family: Helvetica, Arial, sans-serif;
+}
+
+.buttonUpdatePhoto{
+    border: 1px solid currentColor;
+    border-radius: 5px;
+    padding: 0 15px;
+    line-height: 34px;
+    color: #ff4081;
+    border-color: rgba(0,0,0,.12)
+}
+.buttonUpdatePhoto:hover{
+    background-color: rgba(255, 64, 128, 0.02);
+}
+
+#upload-photo {
+    opacity: 0;
+    position: absolute;
+    z-index: -1;
+}
+
+.radio-group {
+    display: flex;
+}
+
+.radio-button {
+    margin: 5px;
+}

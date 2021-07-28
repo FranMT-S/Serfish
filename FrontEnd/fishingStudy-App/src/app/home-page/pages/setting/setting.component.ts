@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatTableDataSource } from '@angular/material/table';
 import { AuthService } from 'src/app/auth/services/auth.service';
-import Swal from 'sweetalert2';
 import { Usuario } from '../../interfaces/interfaces';
 import { UserService } from '../../services/user.service';
+import Swal from 'sweetalert2';
 
 
 @Component({

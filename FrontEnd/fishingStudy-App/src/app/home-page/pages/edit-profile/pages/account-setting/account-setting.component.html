@@ -1,0 +1,60 @@
+<div class="row">
+    <div class="col-12" style="display: flex;">
+        <img class="imgPerfil" *ngIf="!imgTemp" alt="User avatar" [src]="imageUrl">
+        <img class="imgPerfil" *ngIf="imgTemp" alt="User avatar" [src]="imgTemp">
+        <div style="display: block;" class="header">
+            <h3>{{user.name}}</h3>
+            <label class="buttonUpdatePhoto" for="upload-photo">
+                <i class="fas fa-upload"></i>
+                <span class="ms-2">Subir imagen</span>
+            </label>
+            <input class="form-control-file" id="upload-photo" type="file" accept="image/png, image/jpeg, image/jpg"
+                (change)="changeImage($event)">
+        </div>
+    </div>
+</div>
+<form [formGroup]="editForm" (ngSubmit)="updateUser()" autocomplete="off">
+    <div class="row ">
+        <div class="col-md-6 ">
+            <mat-form-field class="w-100" appearance="outline">
+                <mat-label>Nombre de usuario</mat-label>
+                <input matInput formControlName="name">
+                <mat-icon class="me-2" matSuffix>person</mat-icon>
+            </mat-form-field>
+        </div>
+        <div class="col-md-6 ">
+            <mat-form-field class="w-100" appearance="outline">
+                <mat-label>Email</mat-label>
+                <input matInput formControlName="email">
+                <mat-icon class="" matSuffix>alternate_email</mat-icon>
+            </mat-form-field>
+        </div>
+        <div class="col-md-6 " *ngIf="usuarioActual.role ==='admin'">
+            <mat-icon class="me-2" matPrefix>how_to_reg</mat-icon>
+            <label id="state">Estado: </label>
+            <mat-radio-group aria-labelledby="state" class="radio-group" formControlName="state">
+                <mat-radio-button color="accent" class="radio-button" [value]="true">
+                    Activo
+                </mat-radio-button>
+                <mat-radio-button color="accent" class="radio-button" [value]="false">
+                    Inactivo
+                </mat-radio-button>
+            </mat-radio-group>
+        </div>
+        <div class="col-md-6 " *ngIf="usuarioActual.role ==='admin'">
+            <mat-form-field class="w-100" appearance="outline">
+                <mat-label>Rol</mat-label>
+                <select matNativeControl formControlName="role">
+                    <option value="admin">Admin</option>
+                    <option value="biologo">Científico comunitario</option>
+                    <option value="encuestador">Encuestador</option>
+                </select>
+                <mat-icon class="me-2" matSuffix>people</mat-icon>
+            </mat-form-field>
+        </div>
+        <div class="col-12 d-flex flex-sm-row flex-column mt-2 ">
+            <button type="submit" mat-stroked-button color="accent" [disabled]="editForm.pristine">Guardar
+                cambios</button>
+        </div>
+    </div>
+</form>

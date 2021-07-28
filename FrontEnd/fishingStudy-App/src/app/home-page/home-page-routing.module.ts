@@ -7,7 +7,6 @@ import { HomeComponent } from './home/home.component';
 import { OpeningComponent } from './pages/opening/opening.component';
 
 import { SettingComponent } from './pages/setting/setting.component';
-import { EditProfileComponent } from './components/edit-profile/edit-profile.component';
 
 const routes: Routes = [
   {
@@ -21,7 +20,11 @@ const routes: Routes = [
           canLoad: [SettingGuard]
           
         },
-        { path:"edit-profile/:uid",component:EditProfileComponent},
+        // { path:"edit-profile/:uid",component:EditProfileComponent},
+        {
+          path:"edit-profile/:uid",
+          loadChildren: ()=> import("./pages/edit-profile/edit-profile.module").then( module => module.EditProfileModule) 
+        },
         {
           path:"calendar",
           loadChildren: () => import("./pages/calendar/calendar.module").then( module => module.CalendarModule)
