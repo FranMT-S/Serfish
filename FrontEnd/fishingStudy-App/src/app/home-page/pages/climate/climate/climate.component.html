@@ -1,10 +1,10 @@
-<div class="contenedor p-3 animate__animated animate__fadeIn animate__faster">
+<div class="backgroud"></div>
+<div class="p-3 animate__animated animate__fadeIn animate__faster">
     <div *ngIf="!dataReady" class="spinnerDataReady">
         <mat-spinner color="accent"></mat-spinner>
     </div>
     <div *ngIf="dataReady">
-        <mat-card class="mt-2 mx-1 mx-sm-2 mx-md-5 mx-lg-5"
-            style="color: #ffff;background-color: rgba(255, 255, 255, 0.15);">
+        <mat-card class="mt-2 mx-1 mx-sm-2 mx-md-5 mx-lg-5" style="color: #ffff;background-color: rgba(22, 65, 114, 0.40);">
             <mat-card-title style="font-size: 2.5rem;">Distrito Central, Francisco Morazán, Honduras</mat-card-title>
             <mat-card-subtitle style="color: #f3f3f3fa;">Última actualización {{ currentWeather.dt | unixTime }} GMT-6
             </mat-card-subtitle>
@@ -28,8 +28,7 @@
             </mat-card-content>
         </mat-card>
 
-        <mat-card class="mt-2 mx-1 mx-sm-2 mx-md-5 mx-lg-5"
-            style="background-color: rgba(255, 255, 255, 0.95); margin: 0 40px;">
+        <mat-card class="mt-2 mx-1 mx-sm-2 mx-md-5 mx-lg-5" style="background-color:#fafafa; margin: 0 40px; border-left-color: #ff4081; border-left-style: groove; color: #3e3c3f;">
             <mat-card-title style="font-size: 2.5rem;">{{currentWeather.name}} hoy</mat-card-title>
             <div class="row">
                 <div class="col-6">
@@ -65,10 +64,10 @@
             </mat-card-content>
         </mat-card>
 
-        <mat-card class="mt-2 mx-1 mx-sm-2 mx-md-5 mx-lg-5"
-            style="background-color: rgba(255, 255, 255, 0.15); margin: 0 40px;">
-            <mat-card-title style="font-size: 2.5rem; color: #ffff;">Pronóstico por hora.</mat-card-title>
-            <mat-card-subtitle style="color: #f3f3f3fa;">Última actualización del pronóstico por hora {{ currentWeather.dt | unixTime }} GMT-6
+        <mat-card class="mt-2 mx-1 mx-sm-2 mx-md-5 mx-lg-5" style="background-color:rgba(22, 65, 114, 0.40); margin: 0 40px;">
+            <mat-card-title style="font-size: 2.5rem; color: #fafafa;">Pronóstico por hora</mat-card-title>
+            <mat-card-subtitle style="color: #f3f3f3fa;">Última actualización del pronóstico por hora {{
+                currentWeather.dt | unixTime }} GMT-6
             </mat-card-subtitle>
             <mat-card-subtitle>
                 <hr>
@@ -76,7 +75,7 @@
             <mat-card-content>
                 <div class="row">
                     <div class="col-12 col-sm-12 col-md-6 col-lg-2" *ngFor="let hourlyData of weatherHoursData">
-                        <div style="display: flex; flex-wrap: wrap; width: 100%;  justify-items: center;">
+                        <div style="display: flex; flex-wrap: wrap; width: 100%;  justify-items: center; color: #414042;">
                             <mat-card class="mt-2 w-100" style="text-align: center;">
                                 <mat-card-title>{{hourlyData.dt | unixTime:false}}</mat-card-title>
                                 <mat-card-content>
@@ -103,10 +102,10 @@
             </mat-card-footer>
         </mat-card>
 
-        <mat-card class="mt-2 mx-1 mx-sm-2 mx-md-5 mx-lg-5"
-            style="background-color: rgba(255, 255, 255, 0.2); margin: 0 40px;">
-            <mat-card-title style="font-size: 2.5rem; color: #ffff;">Pronóstico diario</mat-card-title>
-            <mat-card-subtitle style="color: #f3f3f3fa;">Última actualización del pronóstico diario {{ currentWeather.dt | unixTime }} GMT-6
+        <mat-card class="mt-2 mx-1 mx-sm-2 mx-md-5 mx-lg-5" style="background-color: rgba(22, 65, 114, 0.40); margin: 0 40px;">
+            <mat-card-title style="font-size: 2.5rem; color: #fafafa;">Pronóstico diario</mat-card-title>
+            <mat-card-subtitle style="color: #f3f3f3fa;">Última actualización del pronóstico diario {{ currentWeather.dt
+                | unixTime }} GMT-6
             </mat-card-subtitle>
             <mat-card-subtitle>
                 <hr>
@@ -114,7 +113,7 @@
             <mat-card-content>
                 <div class="row">
                     <div class="col-12 col-sm-12 col-md-12 col-lg-3" *ngFor="let dailyData of weatherDaysData">
-                        <div class="w-100" style="display: flex; flex-wrap: wrap; justify-items: center;">
+                        <div class="w-100" style="display: flex; flex-wrap: wrap; justify-items: center; color: #414042;">
                             <mat-card color="accent" class="mt-2" style="width: 100%; text-align: center;">
                                 <mat-card-title>{{dailyData.dt | unixTime:false:true}}</mat-card-title>
                                 <mat-card-content>
@@ -156,10 +155,10 @@
             </mat-card-footer>
         </mat-card>
 
-        <mat-card class="mt-2 mx-1 mx-sm-2 mx-md-5 mx-lg-5"
-            style="background-color: rgba(255, 255, 255); margin: 0 40px;">
+        <mat-card class="mt-2 mx-1 mx-sm-2 mx-md-5 mx-lg-5" style="background-color: rgba(255, 255, 255); margin: 0 40px; color: #414042;">
             <mat-card-title style="font-size: 2.5rem;">Mapas</mat-card-title>
-            <mat-card-subtitle>Widget de Windy, para mas infotmacion presione <a href="https://www.windy.com/?14.103,-87.214,5" target="#">aqui</a>
+            <mat-card-subtitle>Widget de Windy, para mas infotmacion presione <a
+                    href="https://www.windy.com/?14.103,-87.214,5" target="#">aqui</a>
             </mat-card-subtitle>
             <mat-card-content>
                 <iframe width="100%" height="650"
@@ -169,6 +168,7 @@
         </mat-card>
     </div>
 </div>
+
 
 
 

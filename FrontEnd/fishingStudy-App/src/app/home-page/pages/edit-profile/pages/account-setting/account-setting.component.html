@@ -30,6 +30,17 @@
             </mat-form-field>
         </div>
         <div class="col-md-6 " *ngIf="usuarioActual.role ==='admin'">
+            <mat-form-field class="w-100" appearance="outline">
+                <mat-label>Rol</mat-label>
+                <select matNativeControl formControlName="role">
+                    <option value="admin">Admin</option>
+                    <option value="biologo">Científico comunitario</option>
+                    <option value="encuestador">Encuestador</option>
+                </select>
+                <mat-icon class="me-2" matSuffix>people</mat-icon>
+            </mat-form-field>
+        </div>
+        <div class="col-md-6 " *ngIf="usuarioActual.role ==='admin'">
             <mat-icon class="me-2" matPrefix>how_to_reg</mat-icon>
             <label id="state">Estado: </label>
             <mat-radio-group aria-labelledby="state" class="radio-group" formControlName="state">
@@ -40,17 +51,6 @@
                     Inactivo
                 </mat-radio-button>
             </mat-radio-group>
-        </div>
-        <div class="col-md-6 " *ngIf="usuarioActual.role ==='admin'">
-            <mat-form-field class="w-100" appearance="outline">
-                <mat-label>Rol</mat-label>
-                <select matNativeControl formControlName="role">
-                    <option value="admin">Admin</option>
-                    <option value="biologo">Científico comunitario</option>
-                    <option value="encuestador">Encuestador</option>
-                </select>
-                <mat-icon class="me-2" matSuffix>people</mat-icon>
-            </mat-form-field>
         </div>
         <div class="col-12 d-flex flex-sm-row flex-column mt-2 ">
             <button type="submit" mat-stroked-button color="accent" [disabled]="editForm.pristine">Guardar

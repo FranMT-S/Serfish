@@ -40,7 +40,7 @@ export class HomeComponent implements OnInit {
     this.fileUploadService.addRefImageProfile(this.imageUrl);
   }
 
-  navagate(url:string){
+  navegate(url:string){
     this.router.navigateByUrl(`home-page/${url}`)
   }
 
@@ -60,7 +60,7 @@ export class HomeComponent implements OnInit {
     if (elementUrl === this.optionSetting[0].url){
       this.router.navigateByUrl(`/home-page/edit-profile/${this.usuario.uid}/edit-profile/${this.usuario.uid}`)
     } else if(elementUrl === this.optionSetting[1].url){
-      this.navagate("setting");
+      this.navegate("setting");
     }
   }
 }

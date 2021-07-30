@@ -1,12 +1,16 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { MapComponent } from './map/map.component';
+import { MapViewComponent } from './pages/map-view/map-view.component';
+import { CardViewComponent } from './pages/card-view/card-view.component';
 
 const routes: Routes = [
   {
-    path:"",
-    component:MapComponent,
-    pathMatch:"full"
+    path: "",
+    children: [
+      { path: "map-view", component: MapViewComponent },
+      { path: "card-view", component: CardViewComponent },
+      { path: "", redirectTo: "map-view", pathMatch: "full" }
+    ]
   }
 ];
 
