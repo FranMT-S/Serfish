@@ -1,5 +1,6 @@
 const fs = require('fs');
 const usuario = require('../models/usuario');
+const documento = require('../models/documento');
 
 
 const updateImg = async(type, id, archieveName) => {
@@ -21,7 +22,19 @@ const updateImg = async(type, id, archieveName) => {
 
 }
 
+const saveDocument = async(type, id, archieveName) => {
+    if (type === 'documentos') {
+        const documento = await documento.findById(id);
+        console.log(documento)
+        documento.file = archieveName;
+        await documento.save();
+        return true;
+
+    }
+}
+
 
 module.exports = {
-    updateImg
+    updateImg,
+    saveDocument
 }

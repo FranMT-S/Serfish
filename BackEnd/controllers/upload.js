@@ -3,7 +3,7 @@ const fs = require('fs');
 
 const { request, response } = require("express");
 const { v4: uuidv4 } = require('uuid');
-const { updateImg } = require("../helpers/update-image");
+const { updateImg, saveDocument } = require("../helpers/update-file");
 
 const fileUpload = (req, res = response) => {
 
@@ -32,7 +32,7 @@ const fileUpload = (req, res = response) => {
     const extensionArchivo = nombreCortado[nombreCortado.length - 1];
 
     //Validar extension
-    const extensionesValidas = ['png', 'jpg', 'jpeg', 'gif'];
+    const extensionesValidas = ['png', 'jpg', 'jpeg', 'gif', 'pdf', 'xlsx', 'pptx'];
 
     if (!extensionesValidas.includes(extensionArchivo)) {
         return res.status(400).json({
@@ -54,8 +54,13 @@ const fileUpload = (req, res = response) => {
             })
         }
     });
-    //Actualizar imagen
-    updateImg(tipo, id, nombreArchivo);
+    //Actualizar base de datos
+    if (tipo == 'usuarios') {
+        updateImg(tipo, id, nombreArchivo);
+    }
+    if (tipo == 'documentos') {
+        saveDocument(tipo, id, nombreArchivo);
+    }
 
     res.json({
         ok: true,
@@ -78,8 +83,6 @@ const returnImage = (req, res) => {
         const pathImg = path.join(__dirname, `../upload/no-image.png`);
         res.sendFile(pathImg);
     }
-
-
 
 }
 
