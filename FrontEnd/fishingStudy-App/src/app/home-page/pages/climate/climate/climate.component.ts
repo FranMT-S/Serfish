@@ -3,6 +3,7 @@ import { ClimateService } from '../services/climate.service';
 import { CurrentWeather, CurrentHoursDaysWeather, Current, Daily } from '../interfaces/climate';
 import { KelvilCelsiusPipe } from '../pipes/kelvil-celsius.pipe';
 import { MsKmhPipe } from '../pipes/ms-kmh.pipe';
+import {MatTableModule} from '@angular/material/table';
 
 interface weatherData {
   icon: string;
@@ -19,6 +20,11 @@ export class ClimateComponent implements OnInit {
 
   // Se hace una inicializacion con data en la interfaz para no mostrar errores en la consola.
   // No es la solucion mas elegante pero tampoco la peor.
+
+  
+  
+
+
   currentWeather: CurrentWeather = {
     "coord": {
       "lon": -87.2167,
@@ -73,10 +79,18 @@ export class ClimateComponent implements OnInit {
   kelvilCelsiu = new KelvilCelsiusPipe();
   msKmhPipe = new MsKmhPipe();
 
-  constructor(private climateService: ClimateService) { }
+  columnsToDisplay = ['dt', 'temp', 'humidity','weather'];
+ 
+  expandedElement: weatherData | null = null;
 
-  async ngOnInit() {
+  constructor(private climateService: ClimateService) { 
+    
+ 
+  }
 
+  async ngOnInit(
+  ) {
+    
     this.climateService.getWeatherCurrent()
       .subscribe(resp => {
         this.currentWeather = resp;
@@ -128,6 +142,12 @@ export class ClimateComponent implements OnInit {
     }, 1000)
 
     this.dataReady = this.climateService.dataReady;
+    this.expandedElement = this.weatherCurrentData[0][0];
+  }
+
+  test(){
+    console.log(this.weatherDaysData)
+    console.log(this.weatherCurrentData)
   }
 }
 
