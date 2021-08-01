@@ -22,19 +22,7 @@ const updateImg = async(type, id, archieveName) => {
 
 }
 
-const saveDocument = async(type, id, archieveName) => {
-    if (type === 'documentos') {
-        const documento = await documento.findById(id);
-        console.log(documento)
-        documento.file = archieveName;
-        await documento.save();
-        return true;
-
-    }
-}
-
 
 module.exports = {
-    updateImg,
-    saveDocument
+    updateImg
 }

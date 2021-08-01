@@ -1,5 +1,6 @@
 const { response } = require('express');
-const Documento = require('../models/documento')
+const Documento = require('../models/documento');
+const fs = require('fs');
 
 const getDocuments = async(req, res = response) => {
 
@@ -17,30 +18,9 @@ const getDocuments = async(req, res = response) => {
     }
 }
 
-const loadDocument = async(req, res = response) => {
-
-    const { name, uploadDate, file, ownerDocument } = req.body;
-    const document = new Documento(req.body);
-
-    await document.save();
-
-    try {
-        res.status(200).json({
-            ok: true,
-            document
-        });
-
-    } catch (error) {
-        res.json.status(500).json({
-            ok: false,
-            msg: 'Contactese con el administrador.'
-        });
-    }
-
-}
-
 const deleteDocument = async(req = request, res = response) => {
 
+    const tipo = req.params.tipo;
     const docId = req.params.id;
 
     try {
@@ -52,6 +32,7 @@ const deleteDocument = async(req = request, res = response) => {
             });
         }
         await Documento.findByIdAndDelete(docId);
+        fs.unlinkSync(`./upload/${ tipo }/${ docExists.file }`)
         res.status(200).json({
             ok: true,
             msg: "El documento se ha eliminado correctamente."
@@ -69,6 +50,5 @@ const deleteDocument = async(req = request, res = response) => {
 
 module.exports = {
     getDocuments,
-    loadDocument,
     deleteDocument
 }

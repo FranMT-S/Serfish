@@ -3,7 +3,7 @@ const expressFileUpload = require('express-fileupload');
 
 const { validarJWT } = require("../middlewares/validar-jwt");
 const { fileUpload, returnImage } = require("../controllers/upload");
-const { getDocuments, loadDocument, deleteDocument } = require("../controllers/documents");
+const { getDocuments, deleteDocument } = require("../controllers/documents");
 
 const router = Router();
 
@@ -18,11 +18,10 @@ router.get('/:tipo/:imagen', returnImage);
 router.get('/getDocuments', getDocuments);
 
 //Crear documentos
-router.post('/document', loadDocument);
-router.put('/:tipo/:id', fileUpload);
+router.post('/:tipo', validarJWT, fileUpload);
 
 //Eliminar documento
-router.delete("/:id", deleteDocument);
+router.delete("/:tipo/:id", deleteDocument);
 
 
 

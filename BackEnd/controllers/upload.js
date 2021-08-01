@@ -3,12 +3,13 @@ const fs = require('fs');
 
 const { request, response } = require("express");
 const { v4: uuidv4 } = require('uuid');
-const { updateImg, saveDocument } = require("../helpers/update-file");
+const { updateImg } = require("../helpers/update-file");
+const Documento = require('../models/documento');
 
-const fileUpload = (req, res = response) => {
+const fileUpload = async(req = request, res = response) => {
 
     const tipo = req.params.tipo;
-    const id = req.params.id;
+    const id = req.params.id || req.uid;
 
     const validType = ['usuarios', 'documentos'];
 
@@ -26,13 +27,13 @@ const fileUpload = (req, res = response) => {
         });
     }
 
-    //procesar la imagen 
-    const file = req.files.imagen;
+    //procesar el archivo
+    const file = req.files.imagen; // ! files.imagen contiene el archivo enviado
     const nombreCortado = file.name.split('.')
     const extensionArchivo = nombreCortado[nombreCortado.length - 1];
 
     //Validar extension
-    const extensionesValidas = ['png', 'jpg', 'jpeg', 'gif', 'pdf', 'xlsx', 'pptx'];
+    const extensionesValidas = ['png', 'jpg', 'jpeg', 'gif', 'pdf', 'xlsx', 'xls', 'pptx', 'ppt', 'docx', 'doc', 'txt']; // TODO agregar las demas extensiones necesarias
 
     if (!extensionesValidas.includes(extensionArchivo)) {
         return res.status(400).json({
@@ -43,14 +44,14 @@ const fileUpload = (req, res = response) => {
     //Generar el nombre del archivo
     const nombreArchivo = `${ uuidv4() }.${ extensionArchivo }`;
 
-    //path para guardar la imagen
+    //path para guardar el archivo
     const path = `./upload/${ tipo }/${ nombreArchivo }`;
-    //Mover la imagen
+    //Mover el archivo
     file.mv(path, (err) => {
         if (err) {
             return res.status(500).json({
                 ok: false,
-                msg: 'Error al mover la imagen'
+                msg: 'Error al mover el archivo'
             })
         }
     });
@@ -59,14 +60,27 @@ const fileUpload = (req, res = response) => {
         updateImg(tipo, id, nombreArchivo);
     }
     if (tipo == 'documentos') {
-        saveDocument(tipo, id, nombreArchivo);
-    }
+        let data = {};
+        data.file = nombreArchivo;
+        data.name = file.name;
+        data.ownerDocument = id;
+        try {
+            const documento = new Documento(data);
+            await documento.save();
 
-    res.json({
-        ok: true,
-        msg: 'Archivo subido',
-        nombreArchivo
-    });
+            res.status(200).json({
+                ok: true,
+                msg: 'Archivo subido',
+                nombreArchivo
+            });
+        } catch (error) {
+            console.log(error);
+            res.status(500).json({
+                ok: false,
+                msg: "El archivo no se subio."
+            });
+        }
+    }
 }
 
 const returnImage = (req, res) => {
@@ -89,5 +103,4 @@ const returnImage = (req, res) => {
 module.exports = {
     fileUpload,
     returnImage
-
 }

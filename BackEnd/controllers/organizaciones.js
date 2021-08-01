@@ -44,6 +44,7 @@ const createOrganizacion = async(req = request, res = response) => {
         }
 
         // Si pasa la verificación se crea la nueva organización
+        console.log(req.body)
         const organizacion = new Organizacion(req.body);
 
         // crear organización
