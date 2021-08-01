@@ -3,7 +3,7 @@ import { ClimateService } from '../services/climate.service';
 import { CurrentWeather, CurrentHoursDaysWeather, Current, Daily } from '../interfaces/climate';
 import { KelvilCelsiusPipe } from '../pipes/kelvil-celsius.pipe';
 import { MsKmhPipe } from '../pipes/ms-kmh.pipe';
-import {MatTableModule} from '@angular/material/table';
+
 
 interface weatherData {
   icon: string;
@@ -79,8 +79,9 @@ export class ClimateComponent implements OnInit {
   kelvilCelsiu = new KelvilCelsiusPipe();
   msKmhPipe = new MsKmhPipe();
 
-  columnsToDisplay = ['dt', 'temp', 'humidity','weather'];
- 
+  
+  
+
   expandedElement: weatherData | null = null;
 
   constructor(private climateService: ClimateService) { 
@@ -143,6 +144,11 @@ export class ClimateComponent implements OnInit {
 
     this.dataReady = this.climateService.dataReady;
     this.expandedElement = this.weatherCurrentData[0][0];
+  }
+
+  getWheaterDaysInterval(quantity:number = 8){
+    return this.climateService.getWeatherDaysData.slice(1, quantity + 1)
+    
   }
 
   test(){
