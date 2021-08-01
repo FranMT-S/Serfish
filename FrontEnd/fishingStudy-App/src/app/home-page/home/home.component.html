@@ -11,41 +11,60 @@
                     <mat-icon>menu</mat-icon>
                 </button>
             </mat-toolbar>
-            <!-- <h4 class="m-2">Opciones</h4> -->
+
             <hr class="mx-2">
-            
+
             <div class="mx-2 p-2" style="background-color: rgba(236, 240, 241, 0.55); border-radius: 5px;">
-                
-                <button style="width: 100%; height: 48px; text-align: left;" class="my-2" mat-button (click)="navagate('opening')"><img class="img"  src="../../../assets/sidebar/homepage.png" alt="">Inicio</button>
-                <button style="width: 100%; height: 48px; text-align: left;" class="mb-2" mat-button (click)="navagate('climate')"><img class="img" src="../../../assets/sidebar/dom.png" alt="">Clima</button>
-                <button style="width: 100%; height: 48px; text-align: left;" class="mb-2" mat-button (click)="navagate('calendar')"><img class="img" src="../../../assets/sidebar/calendario.png" alt="">Calendario</button>
-                <button style="width: 100%; height: 48px; text-align: left;" class="mb-2" mat-button (click)="navagate('document')"><img class="img" src="../../../assets/sidebar/agricultura.png" alt="">Documentos</button>                
+                <button style="width: 100%; height: 48px; text-align: left;" class="my-2" mat-button
+                    (click)="navegate('opening')"><img class="img" src="../../../assets/sidebar/homepage.png"
+                        alt="">Inicio</button>
+                <button style="width: 100%; height: 48px; text-align: left;" class="mb-2" mat-button
+                    (click)="navegate('climate')"><img class="img" src="../../../assets/sidebar/dom.png"
+                        alt="">Clima</button>
+                <button style="width: 100%; height: 48px; text-align: left;" class="mb-2" mat-button
+                    (click)="navegate('calendar')"><img class="img" src="../../../assets/sidebar/calendario.png"
+                        alt="">Calendario</button>
+                <button style="width: 100%; height: 48px; text-align: left;" class="mb-2" mat-button
+                    (click)="navegate('document')"><img class="img" src="../../../assets/sidebar/agricultura.png"
+                        alt="">Documentos</button>
+
                 <mat-accordion>
-                    <mat-expansion-panel class="mb-2" (click)="navagate('map')">
+                    <mat-expansion-panel class="mb-2">
                         <mat-expansion-panel-header>
                             <mat-panel-title>
                                 <img class="img" src="../../../assets/sidebar/mapa.png" alt=""> Zonas
                             </mat-panel-title>
                         </mat-expansion-panel-header>
-                        <mat-selection-list [multiple]="false">
-                            <mat-list-option>
-    
-                            </mat-list-option>
-                        </mat-selection-list>
+                        <div style="display: flex;">
+                            <button class="w-100 mb-2" mat-button (click)="navegate('map/map-view')">
+                                <div
+                                    style="display: flex; justify-content: space-between; align-items: center; text-align: center;">
+                                    <p style="margin: 0;">Explorar</p>
+                                    <img class="img float-end" style="margin: 0;" src="../../../assets/map/globe.png"
+                                        alt="world">
+                                </div>
+                            </button>
+                        </div>
+                        <div style="display: flex;">
+                            <button class="w-100" mat-button (click)="navegate('map/card-view')">
+                                <div
+                                    style="display: flex; justify-content: space-between; align-items: center; text-align: center;">
+                                    <p style="margin: 0;">Tarjetas</p>
+                                    <img class="img float-end" style="margin: 0;" src="../../../assets/map/location.png"
+                                        alt="mk">
+                                </div>
+                            </button>
+                        </div>
                     </mat-expansion-panel>
-                    <mat-expansion-panel class="mb-2" (click)="navagate('chart')">
+                    <mat-expansion-panel class="mb-2" (click)="navegate('chart')">
                         <mat-expansion-panel-header>
                             <mat-panel-title>
                                 <img class="img" src="../../../assets/sidebar/estadistica.png" alt=""> Estadística
                             </mat-panel-title>
                         </mat-expansion-panel-header>
-                        <mat-selection-list [multiple]="false">
-                            <mat-list-option>
-                            </mat-list-option>
-                        </mat-selection-list>
                     </mat-expansion-panel>
 
-                    <mat-expansion-panel class="mb-2" (click)="navagate('survey')">
+                    <mat-expansion-panel class="mb-2" (click)="navegate('survey')">
                         <mat-expansion-panel-header>
                             <mat-panel-title>
                                 <img class="img" src="../../../assets/sidebar/encuesta.png" alt=""> Encuestas
@@ -57,30 +76,22 @@
                         </mat-selection-list>
                     </mat-expansion-panel>
                 </mat-accordion>
-                <!-- <button style="width: 96%; height: 48px; text-align: left; position: absolute; bottom: 10px; left: 5px;" mat-button><img class="img" src="../../../assets/sidebar/ajuste.png" alt="">Ajustes</button> -->
             </div>
-            <mat-toolbar  style="position: fixed; bottom: 0; background-color: #ecf0f1;">
-                <span class="example-spacer"></span>
-                <img mat-mini-fab color="primary" 
-                [src] = "imageUrl.url"
-                class=""
-                style="width: 50px; border-radius: 50%; padding: 4px; margin-right: 5px;"
-                >
+
+            <mat-toolbar style="position: sticky; bottom: 0; background-color: #ecf0f1;">
+                <img mat-mini-fab color="primary" [src]="imageUrl.url" class=""
+                    style="width: 50px; border-radius: 50%; padding: 4px; margin-right: 5px;">
                 <span style="font-size: 1rem;">
                     {{usuario.name}}
-                </span> 
-                <button mat-flat-button style="color: rgba(0,0,0,.75);;background-color: rgba(0,0,0,0);" [matMenuTriggerFor]="sideAjustes">
+                </span>
+                <span class="example-spacer"></span>
+                <button mat-flat-button style="color: rgba(0,0,0,.75);background-color: rgba(0,0,0,0);"
+                    [matMenuTriggerFor]="sideAjustes">
                     <mat-icon>settings</mat-icon>
                 </button>
                 <mat-menu #sideAjustes="matMenu">
-                    <!-- <mat-selection-list *ngFor="let option of optionSetting" [multiple]="false">
-                        <mat-list-option *ngIf="isAllowed(option.name)" [routerLink]="option.url" [value]="option.name" (click)="action(option.url)">
-                            {{option.name}}
-                        </mat-list-option>
-                    </mat-selection-list> -->
-
                     <mat-selection-list [multiple]="false">
-                        <mat-list-option (click)="action('setting')">
+                        <mat-list-option *ngIf="usuario.role=='admin'" (click)="action('setting')">
                             Gestión de usuarios
                         </mat-list-option>
                         <mat-list-option (click)="action('edit-profile')">
@@ -94,35 +105,33 @@
             </mat-toolbar>
         </ng-scrollbar>
     </mat-sidenav>
-       
+
     <mat-sidenav-content>
         <ng-scrollbar>
             <mat-toolbar color="primary" class="toolsticky">
-                <button mat-icon-button (click)="snav.toggle()"><mat-icon>menu</mat-icon></button>
+                <button mat-icon-button (click)="snav.toggle()">
+                    <mat-icon>menu</mat-icon>
+                </button>
                 <h1>Menu</h1>
-                    <span class="example-spacer"></span>
-                        <img mat-mini-fab color="primary" 
-                        [src] = "imageUrl.url"
-                        style="width: 50px; border-radius: 50%; padding: 4px; margin-right: 5px;"
-                        >
-                        <span>{{usuario.name}}</span> 
-                        <button mat-icon-button [matMenuTriggerFor]="menu">
-                            <mat-icon>keyboard_arrow_down</mat-icon>
-                        </button>
-                    <mat-menu #menu="matMenu">
-                        <button mat-menu-item (click)="action('edit-profile')">
-                            <span style="color: rgba(0,0,0,.54)"><i class="fas fa-user-edit fa-lg me-3"></i>Editar</span>
-                        </button>
-                        <button mat-menu-item (click)="logout()">
-                            <span style="color: rgba(0,0,0,.54)"><i class="fas fa-door-open fa-lg me-3"></i>Cerrar</span>
-                        </button>
-                    </mat-menu>
+                <span class="example-spacer"></span>
+                <img mat-mini-fab color="primary" [src]="imageUrl.url"
+                    style="width: 50px; border-radius: 50%; padding: 4px; margin-right: 5px;">
+                <span>{{usuario.name}}</span>
+                <button mat-icon-button [matMenuTriggerFor]="menu">
+                    <mat-icon>keyboard_arrow_down</mat-icon>
+                </button>
+                <mat-menu #menu="matMenu">
+                    <button mat-menu-item (click)="action('edit-profile')">
+                        <span style="color: rgba(0,0,0,.54)"><i class="fas fa-user-edit fa-lg me-3"></i>Editar</span>
+                    </button>
+                    <button mat-menu-item (click)="logout()">
+                        <span style="color: rgba(0,0,0,.54)"><i class="fas fa-door-open fa-lg me-3"></i>Cerrar</span>
+                    </button>
+                </mat-menu>
             </mat-toolbar>
-            <div >
+            <div>
                 <router-outlet></router-outlet>
             </div>
         </ng-scrollbar>
     </mat-sidenav-content>
-
-    
 </mat-sidenav-container>

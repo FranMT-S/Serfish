@@ -9,7 +9,7 @@
     position: sticky;
     height: 56px;
     top: 0;
-    z-index: 100;
+    z-index: 1;
 }
 
 ng-scrollbar {
