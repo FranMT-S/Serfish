@@ -2,7 +2,7 @@ const { Router } = require("express");
 const expressFileUpload = require('express-fileupload');
 
 const { validarJWT } = require("../middlewares/validar-jwt");
-const { fileUpload, returnImage } = require("../controllers/upload");
+const { fileUpload, returnFile } = require("../controllers/upload");
 const { getDocuments, deleteDocument } = require("../controllers/documents");
 
 const router = Router();
@@ -12,7 +12,7 @@ router.use(expressFileUpload());
 //Establecer imagen de usuario
 router.put('/:tipo/:id', validarJWT, fileUpload);
 //Obtener imagen de usuario
-router.get('/:tipo/:imagen', returnImage);
+router.get('/:tipo/:imagen', returnFile);
 
 //Obtener documentos
 router.get('/getDocuments', getDocuments);

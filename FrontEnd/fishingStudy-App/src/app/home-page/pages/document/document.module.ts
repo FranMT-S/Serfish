@@ -6,6 +6,7 @@ import { DocumentComponent } from './document/document.component';
 import { MaterialModule } from '../../../material/material/material.module';
 import { PrimengModule } from 'src/app/primeng/primeng.module';
 
+
 @NgModule({
   declarations: [
     DocumentComponent
@@ -13,7 +14,8 @@ import { PrimengModule } from 'src/app/primeng/primeng.module';
   imports: [
     CommonModule,
     DocumentRoutingModule,
-    PrimengModule
+    PrimengModule,
+    MaterialModule
   ]
 })
 export class DocumentModule { }

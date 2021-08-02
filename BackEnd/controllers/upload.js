@@ -28,17 +28,25 @@ const fileUpload = async(req = request, res = response) => {
     }
 
     //procesar el archivo
-    const file = req.files.imagen; // ! files.imagen contiene el archivo enviado
+    const file = req.files.imagen || req.files.archivo; // ! files.imagen contiene el archivo enviado
     const nombreCortado = file.name.split('.')
     const extensionArchivo = nombreCortado[nombreCortado.length - 1];
 
     //Validar extension
-    const extensionesValidas = ['png', 'jpg', 'jpeg', 'gif', 'pdf', 'xlsx', 'xls', 'pptx', 'ppt', 'docx', 'doc', 'txt']; // TODO agregar las demas extensiones necesarias
+    const extensionesValidasImagen = ['png', 'jpg', 'jpeg', 'gif'];
+    const extensionesValidasArchivo = ['pdf', 'xlsx', 'xls', 'pptx', 'ppt', 'docx', 'doc']; // TODO agregar las demas extensiones necesarias
 
-    if (!extensionesValidas.includes(extensionArchivo)) {
+
+    if (tipo === "usuarios" && (!extensionesValidasImagen.includes(extensionArchivo))) {
         return res.status(400).json({
             ok: false,
-            msg: 'No es una extension permitida'
+            msg: 'No es una extension permitida para la imagen'
+        });
+    }
+    if (tipo === "documentos" && (!extensionesValidasArchivo.includes(extensionArchivo))) {
+        return res.status(400).json({
+            ok: false,
+            msg: 'No es una extension permitida para el archivo'
         });
     }
     //Generar el nombre del archivo
@@ -83,24 +91,37 @@ const fileUpload = async(req = request, res = response) => {
     }
 }
 
-const returnImage = (req, res) => {
+const returnFile = (req, res) => {
 
     const tipo = req.params.tipo;
     const imagen = req.params.imagen;
 
 
-    const pathImg = path.join(__dirname, `../upload/${tipo}/${ imagen }`);
+    let pathImg = path.join(__dirname, `../upload/${tipo}/${ imagen }`);
 
     if (fs.existsSync(pathImg)) {
         res.sendFile(pathImg);
     } else {
-        const pathImg = path.join(__dirname, `../upload/no-image.png`);
-        res.sendFile(pathImg);
+        if (tipo === "usuarios" && (extensionesValidasImagen.includes(extensionArchivo))) {
+            pathImg = path.join(__dirname, `../upload/no-image.png`);
+            res.sendFile(pathImg);
+        } else if (tipo === "documentos" && (extensionesValidasArchivo.includes(extensionArchivo))) {
+            pathImg = path.join(__dirname, `../upload/no-image.png`);
+            res.status(504).json({
+                ok: false,
+                msg: "El archivo no existe."
+            });
+        } else {
+            res.status(504).json({
+                ok: false,
+                msg: "Ocurrio un error al cargar el archivo. Verifique que esta crgando el archivo con el formato indicado."
+            });
+        }
     }
 
 }
 
 module.exports = {
     fileUpload,
-    returnImage
+    returnFile
 }

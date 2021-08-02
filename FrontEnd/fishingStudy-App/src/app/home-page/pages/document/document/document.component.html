@@ -1,13 +1,41 @@
-<p-fileUpload name="myfile[]" (uploadHandler)="loadFile($event)">
-</p-fileUpload>
+<div id="doc-container" class="m-5">
+    <div class="m-2">
+        <p-fileUpload #fileUploader name="archivo" accept=".xlsx,.xls,.doc,.docx,.ppt,.pptx,.pdf" [customUpload]="true" (uploadHandler)="loadFile($event)"></p-fileUpload>
+    </div>
+    <!-- <p-fileUpload name="myfile[]" (uploadHandler)="loadFile($event)">
+    </p-fileUpload> -->
 
-<label class="buttonUpload" for="upload-file">
+    <!-- <label class="buttonUpload" for="upload-file">
                 <i class="fas fa-upload"></i>
                 <span class="ms-2">Subir archivo</span>
 </label>
 <input id="upload-file" class="form-control-file" type="file" (change)="loadFile($event)">
+<hr> -->
+    <p-table [value]="this.documents" [paginator]="true" [rows]="5" styleClass="p-datatable-striped">
+        <ng-template pTemplate="header">
+            <tr>
+                <th>Nombre</th>
+                <th>Formato</th>
+                <th>Subido por</th>
+                <th>Fecha</th>
+                <th>Archivo</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-documento>
+            <tr>
+                <td [pTooltip]="documento.name.split('.').slice(0, -1).join('.')">{{(documento.name.split('.').slice(0, -1).join('.').length > 33)? (documento.name.split('.').slice(0, -1).join('.') | slice:0:33)+'...':(documento.name.split('.').slice(0, -1).join('.'))}}</td>
+                <td>{{documento.name.split('.')[1]}}</td>
+                <td>{{documento.ownerDocument}}</td>
+                <td>{{documento.uploadDate | date:'medium'}}</td>
+                <td><button pButton type="button" class="p-button-raised p-button-rounded" (click)="descargar(documento.file, documento.name)">&nbsp;<mat-icon>save_alt</mat-icon></button></td>
+                <!-- <td><mat-icon>save_alt</mat-icon>{{documento.file}}</td> -->
+            </tr>
+        </ng-template>
+    </p-table>
 
-<!---
+
+
+    <!---
 <p-treeTable [value]="documents">
     <ng-template pTemplate="header" let-columns>
         <tr>
@@ -27,7 +55,7 @@
 </p-treeTable>
 -->
 
-<div class="row row-cols-1 row-cols-md-3 g-4">
+    <!-- <div class="row row-cols-1 row-cols-md-3 g-4">
     <div *ngFor="let document of documents">
         <div class="card">
             <div class="card-header">{{document.file}}</div>
@@ -38,4 +66,5 @@
             </div>
         </div>
     </div>
+</div> -->
 </div>

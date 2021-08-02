@@ -47,15 +47,11 @@ export class FileUploadService {
 
   async loadFile( file : File,
         type: 'documentos',
-        name:string,
-        ownerDocument:string
   ){
       
     try{
           const formData = new FormData();
-          formData.append('imagen',file);
-          formData.append('name',name);
-          formData.append('ownerDocument',ownerDocument);
+          formData.append('archivo',file);
           if( type === 'documentos'){
               const url = `${_baseUrl}/upload/${type}`;
               const res = await fetch( url, {

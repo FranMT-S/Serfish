@@ -4,8 +4,8 @@ import { ScrollTopModule } from 'primeng/scrolltop';
 import { CardModule } from 'primeng/card';
 import {FileUploadModule} from 'primeng/fileupload';
 import {HttpClientModule} from '@angular/common/http';
-import {TreeTableModule} from 'primeng/treetable';
-
+import {TableModule} from 'primeng/table';
+import { TooltipModule } from 'primeng/tooltip';
 
 
 @NgModule({
@@ -15,7 +15,8 @@ import {TreeTableModule} from 'primeng/treetable';
     CardModule,
     FileUploadModule,
     HttpClientModule,
-    TreeTableModule
+    TableModule,
+    TooltipModule
   ]
 })
 export class PrimengModule { }

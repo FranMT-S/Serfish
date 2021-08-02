@@ -12,3 +12,8 @@
     color: #ff4081;
     border-color: rgba(0, 0, 0, .12)
 }
+
+th,
+td {
+    text-align: center!important;
+}
