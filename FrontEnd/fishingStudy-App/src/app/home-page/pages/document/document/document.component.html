@@ -1,1 +1,41 @@
-<p>document works!</p>
+<p-fileUpload name="myfile[]" (uploadHandler)="loadFile($event)">
+</p-fileUpload>
+
+<label class="buttonUpload" for="upload-file">
+                <i class="fas fa-upload"></i>
+                <span class="ms-2">Subir archivo</span>
+</label>
+<input id="upload-file" class="form-control-file" type="file" (change)="loadFile($event)">
+
+<!---
+<p-treeTable [value]="documents">
+    <ng-template pTemplate="header" let-columns>
+        <tr>
+            <th *ngFor="let document of documents">
+                {{document.name}}
+            </th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
+        <tr>
+            <td *ngFor="let document of documents; let i = index">
+                <p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"></p-treeTableToggler>
+                {{rowData[document.name]}} {{rowData[document.file]}}
+            </td>
+        </tr>
+    </ng-template>
+</p-treeTable>
+-->
+
+<div class="row row-cols-1 row-cols-md-3 g-4">
+    <div *ngFor="let document of documents">
+        <div class="card">
+            <div class="card-header">{{document.file}}</div>
+            <div class="card-body text-primary">
+                <h5 class="card-title">{{document.name}}</h5>
+                <p class="card-text">{{document.ownerDocument}}</p>
+                <p class="card-text">{{document.uploadDate | date: 'short' }}</p>
+            </div>
+        </div>
+    </div>
+</div>

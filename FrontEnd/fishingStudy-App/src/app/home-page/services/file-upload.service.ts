@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
-import { refImage } from '../interfaces/interfaces';
+import { refImage, Documento } from '../interfaces/interfaces';
+import { HttpClient} from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 const _baseUrl:string = environment.baseUrl;
 
@@ -10,41 +12,70 @@ const _baseUrl:string = environment.baseUrl;
   providedIn: 'root'
 })
 export class FileUploadService {
+
   private imageURLS:refImage[] = [];
-  constructor() { }
+  constructor(private http:HttpClient) { }
 
   async updateImage( file : File,
                      type: 'usuarios',
-                     id:string
+                     id?:string
     ){
     try{
-        const url = `${_baseUrl}/upload/${type}/${id}`;
+        
         const formData = new FormData();
         formData.append('imagen',file);
-
-        const res = await fetch( url, {
-          method:'PUT',
-          headers:{
-            'x-token':localStorage.getItem('token') || ''
-          },
-          body : formData
-        });
-        const data = await res.json();
-        
-        if(data.ok){
-          return data.nombreArchivo;
-        }else{
-          return false;
+        if( type === 'usuarios' ){
+          const url = `${_baseUrl}/upload/${type}/${id}`;
+          const res = await fetch( url, {
+            method:'PUT',
+            headers:{
+              'x-token':localStorage.getItem('token') || ''
+            },
+            body : formData
+          });
+          const data = await res.json();
+          if(data.ok){
+            return data.nombreArchivo;
+          }else{
+            return false;
+          }
         }
-       
-
     }catch(error){
-
       return false;
-
     }
   }
 
+  async loadFile( file : File,
+        type: 'documentos',
+        name:string,
+        ownerDocument:string
+  ){
+      
+    try{
+          const formData = new FormData();
+          formData.append('imagen',file);
+          formData.append('name',name);
+          formData.append('ownerDocument',ownerDocument);
+          if( type === 'documentos'){
+              const url = `${_baseUrl}/upload/${type}`;
+              const res = await fetch( url, {
+                method:'POST',
+                headers:{
+                  'x-token':localStorage.getItem('token') || ''
+                },
+                body : formData
+              });
+            const data = await res.json();
+              if(data.ok){
+                return data.nombreArchivo;
+              }else{
+                return false;
+              }
+          }
+    }catch(error){
+      return false;
+    }
+  }
   
   addRefImageProfile(imgRef:refImage){
       this.imageURLS.push(imgRef)
@@ -56,7 +87,10 @@ export class FileUploadService {
     })
   }
 
-
+  getDocuments(){
+    const url = `${_baseUrl}/upload/getDocuments`;
+    return  this.http.get<{documents:Documento[]}>(url)
+  }
 
 
 }
