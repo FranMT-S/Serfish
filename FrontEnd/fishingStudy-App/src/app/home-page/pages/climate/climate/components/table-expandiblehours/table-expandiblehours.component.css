@@ -1,5 +1,6 @@
 table {
-  width: 100%;
+  width: 60%;
+  align-items: center;
 }
 
 tr.example-detail-row {
@@ -44,4 +45,19 @@ tr.example-element-row:not(.example-expanded-row):active {
 
 .example-element-description-attribution {
   opacity: 0.5;
+}
+
+.example-element-description-attribution {
+  font-size: 15px;
+}
+.backgroud {
+  width: 100%;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  background-image: url("../../../../../../../assets/clima/91.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-attachment: fixed;
+  background-size: cover;
 }

@@ -146,15 +146,7 @@ export class ClimateComponent implements OnInit {
     this.expandedElement = this.weatherCurrentData[0][0];
   }
 
-  getWheaterDaysInterval(quantity:number = 8){
-    return this.climateService.getWeatherDaysData.slice(1, quantity + 1)
-    
-  }
-
-  test(){
-    console.log(this.weatherDaysData)
-    console.log(this.weatherCurrentData)
-  }
+  
 }
 
 

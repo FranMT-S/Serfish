@@ -4,16 +4,13 @@ import { Current, Daily } from '../../../interfaces/climate';
 import { Input } from '@angular/core';
 import { KelvilCelsiusPipe } from '../../../pipes/kelvil-celsius.pipe';
 import { MsKmhPipe } from '../../../pipes/ms-kmh.pipe';
-import {MatPaginator} from '@angular/material/paginator';
-
-
-
+import { ClimateService } from '../../../services/climate.service';
 
 
 @Component({
-  selector: 'app-table-expandible',
-  templateUrl: './table-expandible.component.html',
-  styleUrls: ['./table-expandible.component.css'],
+  selector: 'app-table-expandiblehours',
+  templateUrl: './table-expandiblehours.component.html',
+  styleUrls: ['./table-expandiblehours.component.css'],
   animations: [
     trigger('detailExpand', [
       state('collapsed', style({height: '0px', minHeight: '0'})),
@@ -22,30 +19,27 @@ import {MatPaginator} from '@angular/material/paginator';
     ]),
   ],
 })
-
-
-
-export class TableExpandibleComponent implements OnInit {
+export class TableExpandiblehoursComponent implements OnInit {
   // Pipes
   kelvilCelsiu = new KelvilCelsiusPipe();
   msKmhPipe = new MsKmhPipe();
 
-  dataDays:Daily[]  = []
-  @Input()DaysOrHours:String = "Days"
-  @Input() dataDay!:Daily[]; 
+  dataDays:Current[]  = []
+  @Input()DaysOrHours:String = "Hours"
+  @Input() dataDay!:Current[]; 
   columnsToDisplayDay = ['dt', 'temp', 'humidity','weather'];
 
   expandedElement:boolean = true;
 
-  constructor() { }
-
-  ngOnInit(): void {
-    console.log(this.DaysOrHours)
-    this.dataDays=this.dataDay;
+  constructor(private ClimateService:ClimateService)  {
 
 
 
-    
+   }
+
+   async ngOnInit() {
+    await this.ClimateService.getWeatherCurrentHoursDays()
+    this.dataDays=this.ClimateService.getWeatherHoursData.slice(1,48)
     
    
   }
@@ -53,3 +47,9 @@ export class TableExpandibleComponent implements OnInit {
 
   
 }
+
+
+
+  
+
+
