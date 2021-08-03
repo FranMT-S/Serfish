@@ -10,6 +10,7 @@ export class ClimateService {
   private _baseUrl: string = "https://api.openweathermap.org/data/2.5";
   private _lat: string = "14.1";
   private _lon: string = "-87.2167";
+  // 14.065589474799324, -87.17750973447704 coordenadas tegucigalpa
   private _exclude: string = "minutely,alerts";
   private _appid: string = "90b92f0c5ee2d6c71c554b178ff6e3f5";
   dataReady:boolean=false;
