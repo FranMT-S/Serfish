@@ -15,13 +15,13 @@ router.put('/:tipo/:id', validarJWT, fileUpload);
 router.get('/:tipo/:imagen', returnFile);
 
 //Obtener documentos
-router.get('/getDocuments', getDocuments);
+router.get('/getDocuments', validarJWT, getDocuments);
 
 //Crear documentos
 router.post('/:tipo', validarJWT, fileUpload);
 
 //Eliminar documento
-router.delete("/:tipo/:id", deleteDocument);
+router.delete("/:tipo/:id", validarJWT, deleteDocument);
 
 
 

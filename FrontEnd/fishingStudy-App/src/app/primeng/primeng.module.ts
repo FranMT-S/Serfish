@@ -6,6 +6,8 @@ import {FileUploadModule} from 'primeng/fileupload';
 import {HttpClientModule} from '@angular/common/http';
 import {TableModule} from 'primeng/table';
 import { TooltipModule } from 'primeng/tooltip';
+import { FieldsetModule } from 'primeng/fieldset';
+import { AccordionModule } from 'primeng/accordion';
 
 
 @NgModule({
@@ -16,7 +18,9 @@ import { TooltipModule } from 'primeng/tooltip';
     FileUploadModule,
     HttpClientModule,
     TableModule,
-    TooltipModule
+    TooltipModule,
+    FieldsetModule,
+    AccordionModule
   ]
 })
 export class PrimengModule { }

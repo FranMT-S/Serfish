@@ -9,14 +9,19 @@ const DocumentoSchema = Schema({
     name: { // * Este nombre es el que se muestra a los usuarios
         type: String
     },
-    uploadDate: {
-        type: String,
-        default: Date.now()
-    },
     ownerDocument: {
         type: Schema.Types.ObjectId,
         ref: 'Usuario',
         required: true
+    },
+    organizacion: {
+        type: Schema.Types.ObjectId,
+        ref: 'Organizacion',
+        required: true
+    },
+    uploadDate: {
+        type: String,
+        default: Date.now()
     }
 
 });
