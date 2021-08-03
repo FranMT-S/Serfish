@@ -26,7 +26,7 @@
             <ng-template pTemplate="body" let-documento>
                 <tr>
                     <td [pTooltip]="documento.name.split('.').slice(0, -1).join('.')">{{(documento.name.split('.').slice(0, -1).join('.').length > 33)? (documento.name.split('.').slice(0, -1).join('.') | slice:0:33)+'...':(documento.name.split('.').slice(0, -1).join('.'))}}</td>
-                    <td> {{documento.name.split('.')[1]}}</td>
+                    <td> {{documento.name.split('.').pop()}}</td>
                     <td>{{documento.ownerDocument}}</td>
                     <td>{{documento.uploadDate | date:'medium'}}</td>
                     <td>

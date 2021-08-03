@@ -105,7 +105,8 @@ export class DocumentComponent implements OnInit {
             title:'Eliminado!',
             text:'Archivo eliminado correctamente',
             icon:'success',
-            confirmButtonColor: '#2F6FC6',
+            showConfirmButton: false,
+            timer: 1500
           })
           this.getDocuments();
         }
