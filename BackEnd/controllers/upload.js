@@ -54,6 +54,11 @@ const fileUpload = async(req = request, res = response) => {
     const nombreArchivo = `${ uuidv4() }.${ extensionArchivo }`;
 
     //path para guardar el archivo
+    // crear directorio si no existe
+    const filePath = `./upload/${ tipo }`;
+    if (!fs.existsSync(filePath)) {
+        fs.mkdirSync(filePath);
+    }
     const path = `./upload/${ tipo }/${ nombreArchivo }`;
     //Mover el archivo
     file.mv(path, (err) => {
