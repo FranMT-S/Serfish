@@ -53,15 +53,9 @@ export interface refImage{
   }
 
 export interface Documento {
+    _id               : string;
     file             : string;
     name             : string;
     uploadDate       : string;
     ownerDocument    : string;
 }
-
-export interface TreeNode {
-    data?: any;
-    children?: TreeNode[];
-    leaf?: boolean;
-    expanded?: boolean;
-  }

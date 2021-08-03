@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { refImage, Documento } from '../interfaces/interfaces';
-import { HttpClient} from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { HttpClient, HttpHeaders} from '@angular/common/http';
 
 const _baseUrl:string = environment.baseUrl;
 
@@ -88,5 +87,9 @@ export class FileUploadService {
     return  this.http.get<{documents:Documento[]}>(url)
   }
 
+  deleteDocument(document:Documento){
+    const url = `${_baseUrl }/upload/documentos/${document._id}`;
+    return this.http.delete( url);
+  }
 
 }

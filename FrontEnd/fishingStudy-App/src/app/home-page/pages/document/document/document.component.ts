@@ -17,6 +17,7 @@ export class DocumentComponent implements OnInit {
   documents: Documento[] = [];
 
   document: Documento = {
+    _id:'',
     file : '',        
     name : '',           
     uploadDate : '',      
@@ -26,6 +27,10 @@ export class DocumentComponent implements OnInit {
   constructor(private fileUploadService:FileUploadService, private AuthService:AuthService) { }
 
   ngOnInit(): void {
+    this.getDocuments();
+  }
+
+  getDocuments(){
     this.fileUploadService.getDocuments().subscribe( ({documents}) =>{
       documents.forEach(doc => { doc.file = `${environment.baseUrl}/upload/documentos/${doc.file}`})
       this.documents = documents
@@ -58,5 +63,32 @@ export class DocumentComponent implements OnInit {
     a.click();
     document.body.removeChild(a);
   }
-
+  
+  deleteDocument(document:Documento){
+    Swal.fire({
+      title: 'Borrar documento',
+      text: "¿Esta seguro que desea eliminar este archivo de forma permanente?",
+      icon: 'question',
+      iconColor:'#3085d6',
+      showCancelButton: true,
+      confirmButtonColor: '#2F6FC6',
+      cancelButtonColor: '#2F6FC6',
+      confirmButtonText: 'Si',
+      cancelButtonText: 'No'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.fileUploadService.deleteDocument(document).subscribe( res => {
+          Swal.fire({
+            title:'Eliminado!',
+            text:'Archivo eliminado correctamente',
+            icon:'success',
+            confirmButtonColor: '#2F6FC6',
+          })
+          this.getDocuments();
+        }
+        )
+      }
+    })
+  }
+  
 }
