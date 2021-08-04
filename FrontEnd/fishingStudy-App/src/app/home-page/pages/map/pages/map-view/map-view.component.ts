@@ -131,7 +131,8 @@ export class MapViewComponent implements AfterViewInit, OnDestroy {
   flyTo(index: number) {
     console.log(this.arrayMarker[index])
     this.mapbox.flyTo({
-      center: this.arrayMarker[index].newMarker!.getLngLat()
+      center: this.arrayMarker[index].newMarker!.getLngLat(),
+      zoom: 14
     });
   }
   removeMarker(index: number) {

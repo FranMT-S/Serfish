@@ -1,1 +1,35 @@
-<p>card-view works!</p>
+
+<div class="row mt-3">
+    <!-- <div class="col"></div> -->
+    <div class="col" style="text-align: center;">
+        <h1>Zonas de Estudio</h1>
+        <hr>
+    </div>
+
+</div>
+
+<div class="row container">
+    <div class="col-2"></div>
+    <div class="col">
+        <div class="row">
+
+            <div class="col-4 mb-2"
+                *ngFor="let zona of propiedades">
+
+                <div class="card">
+                    <app-mini-mapa [lnglat]="zona.lngLat" class="card-img-top"></app-mini-mapa>
+                    <div class="card-body">
+                        <h5 class="card-title">{{zona.titulo}}</h5>
+                        <p class="card-text">{{zona.descripcion}}</p>
+                    </div>
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+
+    </div>
+</div>
