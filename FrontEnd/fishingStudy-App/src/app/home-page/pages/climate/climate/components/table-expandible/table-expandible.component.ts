@@ -42,10 +42,10 @@ export class TableExpandibleComponent implements OnInit {
     await this.climateServices.getWeatherCurrentHoursDays()
     this.dataDays=this.climateServices.getWeatherDaysData.slice(1,8);
     this.dataReady = this.climateServices.dataReady;
+    
 
 
-
-    console.log(this.dataDays)
+    // console.log(this.dataDays)
     this.dataDays.forEach( 
       (dayData,i) => {
         // Este push simboliza un dia
@@ -68,7 +68,7 @@ export class TableExpandibleComponent implements OnInit {
       }
     )
 
-    console.log(this.weatherCurrentData)
+    // console.log(this.weatherCurrentData)
   }
 
 
