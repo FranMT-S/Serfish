@@ -6,6 +6,7 @@
   <table mat-table
        [dataSource]="dataDays" multiTemplateDataRows
        class="mat-elevation-z8" 
+       fixedLayout =true;
        >
   
 
@@ -35,9 +36,9 @@
     <ng-container matColumnDef="weather">
         <th mat-header-cell *matHeaderCellDef > Clima </th>
         <td mat-cell *matCellDef="let element"> 
-            <p style="font-size: 1rem;">
+           
                 {{element.weather[0].description | titlecase}}
-            </p>
+            
             
         </td>
     </ng-container>
@@ -94,7 +95,7 @@
           <div class=" col-4 ">
             <mat-list>            
             <mat-list-item>
-              <img style="width: 100px; margin-bottom: 10px; bottom    : 10%; "
+              <img style="width: 100px; margin-bottom: 10px;"
               [src]=" element.weather[0].icon | codeImg " alt=""> 
             </mat-list-item>
           
@@ -105,6 +106,8 @@
 
           
           </div> 
+
+          
            
         
         </div> 
