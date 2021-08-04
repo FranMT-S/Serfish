@@ -9,7 +9,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
-
+import {MatDatepickerModule} from '@angular/material/datepicker';
 // edit-profile
 import { MatRadioModule } from '@angular/material/radio';
 
@@ -38,7 +38,7 @@ exports:[
   MatToolbarModule,
   MatCardModule,
   MatSidenavModule,
-
+  MatDatepickerModule,
   MatRadioModule,
 
   MatExpansionModule,
