@@ -2,13 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import {animate, state, style, transition, trigger} from '@angular/animations';
 import { Current, Daily } from '../../../interfaces/climate';
 import { Input } from '@angular/core';
-import { KelvilCelsiusPipe } from '../../../pipes/kelvil-celsius.pipe';
-import { MsKmhPipe } from '../../../pipes/ms-kmh.pipe';
-import {MatPaginator} from '@angular/material/paginator';
+
+import { ClimateService } from '../../../services/climate.service';
 
 
-
-
+interface weatherData {
+  icon: string;
+  nameData: string;
+  data: string;
+}
 
 @Component({
   selector: 'app-table-expandible',
@@ -27,28 +29,52 @@ import {MatPaginator} from '@angular/material/paginator';
 
 export class TableExpandibleComponent implements OnInit {
   // Pipes
-  kelvilCelsiu = new KelvilCelsiusPipe();
-  msKmhPipe = new MsKmhPipe();
 
   dataDays:Daily[]  = []
-  @Input()DaysOrHours:String = "Days"
-  @Input() dataDay!:Daily[]; 
-  columnsToDisplayDay = ['dt', 'temp', 'humidity','weather'];
+  dataReady:boolean=false;
 
+  columnsToDisplayDay = ['dt', 'temp', 'humidity','weather'];
   expandedElement:boolean = true;
 
-  constructor() { }
+  //[dia][columna][filas]
+  weatherCurrentData:weatherData[][][] = [];
+  constructor(private climateServices:ClimateService) { }
 
-  ngOnInit(): void {
-    console.log(this.DaysOrHours)
-    this.dataDays=this.dataDay;
-
-
+  async ngOnInit() {
 
     
+    await this.climateServices.getWeatherCurrentHoursDays()
+    this.dataDays=this.climateServices.getWeatherDaysData.slice(1,8);
+    this.dataReady = this.climateServices.dataReady;
     
-   
+
+
+    // console.log(this.dataDays)
+    this.dataDays.forEach( 
+      (dayData,i) => {
+        // Este push simboliza un dia
+        this.weatherCurrentData.push(
+          // Este arreglo posee las columnas 
+          [
+            // Estos arreglo posee las filas
+            [
+              { icon: "fas fa-wind fa-2x me-2", nameData: "Viento.", data: `${dayData.wind_speed} km/h` },
+              { icon: "fas fa-sun fa-2x me-2", nameData: "UV.", data: `${dayData.uvi}` },
+
+            ],
+            [
+              { icon: "fas fa-compress-arrows-alt fa-2x me-2", nameData: "Presion.", data: `${dayData.pressure} hPa` },
+              { icon: "fas fa-cloud fa-2x me-2", nameData: "Nubes.", data: `${dayData.clouds} %` },
+               
+            ]
+          ]
+        )
+      }
+    )
+
+    // console.log(this.weatherCurrentData)
   }
+
 
 
   

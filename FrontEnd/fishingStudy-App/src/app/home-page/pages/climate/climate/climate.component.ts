@@ -98,6 +98,7 @@ export class ClimateComponent implements OnInit {
       });
 
     await this.climateService.getWeatherCurrentHoursDays()
+   
     this.currentHoursDaysWeather = this.climateService.getCurrentHoursDaysWeather
 
     this.weatherHoursData = this.climateService.weatherHoursData.slice(0, 6)
@@ -144,9 +145,11 @@ export class ClimateComponent implements OnInit {
 
     this.dataReady = this.climateService.dataReady;
     this.expandedElement = this.weatherCurrentData[0][0];
+    console.log(this.weatherCurrentData)
   }
 
-  
+
+
 }
 
 

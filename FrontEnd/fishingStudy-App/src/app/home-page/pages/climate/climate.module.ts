@@ -10,6 +10,7 @@ import { MsKmhPipe } from './pipes/ms-kmh.pipe';
 import { CodeImgPipe } from './pipes/code-img.pipe';
 import { TableExpandibleComponent } from './climate/components/table-expandible/table-expandible.component';
 import { TableExpandiblehoursComponent } from './climate/components/table-expandiblehours/table-expandiblehours.component';
+import { TranslateDescWeatherPipe } from './pipes/translate-desc-weather.pipe';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { TableExpandiblehoursComponent } from './climate/components/table-expand
     MsKmhPipe,
     CodeImgPipe,
     TableExpandibleComponent,
-    TableExpandiblehoursComponent
+    TableExpandiblehoursComponent,
+    TranslateDescWeatherPipe
   ],
   imports: [
     CommonModule,
