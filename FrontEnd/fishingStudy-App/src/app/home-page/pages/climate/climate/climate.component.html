@@ -147,10 +147,9 @@
             <mat-card-footer>
                 <div class="row my-4 mx-1">
                     <div class="col">
-                        <button mat-raised-button color="accent" (click)="test()"> 
+                        <button mat-raised-button color="accent"  routerLink = "table-8-days"> 
                             Próximos 8 días
                         </button>
-                       <app-table-expandible [dataDay]="getWheaterDaysInterval(8)" DaysOrHours = "Dia"></app-table-expandible>
                        
                     </div>
                 </div>

@@ -70,10 +70,6 @@ export class SettingComponent implements OnInit {
 }
 
 
-
-
-
-
 // @ViewChild('TableOneSort', {static: true}) sort!:MatSort;
 // @ViewChild('TableOnePaginator', {static: true}) paginator!:MatPaginator;
 

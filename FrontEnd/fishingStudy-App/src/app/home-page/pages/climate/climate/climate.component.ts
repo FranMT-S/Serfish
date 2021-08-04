@@ -98,6 +98,7 @@ export class ClimateComponent implements OnInit {
       });
 
     await this.climateService.getWeatherCurrentHoursDays()
+   
     this.currentHoursDaysWeather = this.climateService.getCurrentHoursDaysWeather
 
     this.weatherHoursData = this.climateService.weatherHoursData.slice(0, 6)
@@ -144,17 +145,11 @@ export class ClimateComponent implements OnInit {
 
     this.dataReady = this.climateService.dataReady;
     this.expandedElement = this.weatherCurrentData[0][0];
-  }
-
-  getWheaterDaysInterval(quantity:number = 8){
-    return this.climateService.getWeatherDaysData.slice(1, quantity + 1)
-    
-  }
-
-  test(){
-    console.log(this.weatherDaysData)
     console.log(this.weatherCurrentData)
   }
+
+
+
 }
 
 
