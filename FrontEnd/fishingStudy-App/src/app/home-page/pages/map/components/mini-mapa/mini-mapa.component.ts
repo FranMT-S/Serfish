@@ -17,6 +17,7 @@ import * as mapboxgl from 'mapbox-gl';
 export class MiniMapaComponent implements AfterViewInit {
 
   @Input() lnglat: [number, number] = [0, 0];
+  @Input() color:string="";
   @ViewChild('mapa') divMapa!: ElementRef;
 
   ngAfterViewInit(): void {
@@ -24,11 +25,13 @@ export class MiniMapaComponent implements AfterViewInit {
       container: this.divMapa.nativeElement,
       style: 'mapbox://styles/mapbox/dark-v10',
       center: this.lnglat,
-      zoom: 15,
+      zoom: 10,
       interactive: false
     });
 
-    new mapboxgl.Marker()
+    new mapboxgl.Marker({
+      color:this.color
+    })
     .setLngLat(this.lnglat)  
     .addTo(map);
   }

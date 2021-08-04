@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../../../../environments/environment.prod';
 import { tap } from 'rxjs/operators';
+import { PlaceName } from '../interfaces/interfaces';
 
 interface MarkerResponse {
   ok: boolean;
@@ -65,5 +66,9 @@ export class MapService {
       .append('x-token', localStorage.getItem('token') || '')
     return this.http.delete(url, { headers })
       .subscribe(console.log)
+  }
+
+  getPlaceName(lng:string,lat:string){
+    return this.http.get<PlaceName>(`https://api.mapbox.com/geocoding/v5/mapbox.places/${lng},${lat}.json?access_token=pk.eyJ1IjoiamVhbmx1Yy1ib3F1aW4iLCJhIjoiY2twZ2gxd3ZpMDJrNzJ1b2x6cHk5c2g5biJ9.M-5ncjMZSY7kMrN9vIsn4g&types=place`)
   }
 }
