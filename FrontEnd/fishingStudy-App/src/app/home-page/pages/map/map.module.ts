@@ -5,7 +5,7 @@ import { MapRoutingModule } from './map-routing.module';
 import { MiniMapaComponent } from './components/mini-mapa/mini-mapa.component';
 import { MapViewComponent } from './pages/map-view/map-view.component';
 import { CardViewComponent } from './pages/card-view/card-view.component';
-
+import { MaterialModule } from '../../../material/material/material.module';
 
 @NgModule({
   declarations: [
@@ -15,7 +15,8 @@ import { CardViewComponent } from './pages/card-view/card-view.component';
   ],
   imports: [
     CommonModule,
-    MapRoutingModule
+    MapRoutingModule,
+    MaterialModule
   ]
 })
 export class MapModule { }
