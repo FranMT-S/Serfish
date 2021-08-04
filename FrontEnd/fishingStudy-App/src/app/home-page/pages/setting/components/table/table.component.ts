@@ -51,24 +51,10 @@ export class TableComponent implements OnInit, AfterViewInit {
   }
 
   editUser(uid:string){
-    this.router.navigateByUrl(`/home-page/edit-profile/${uid}`)
-    console.log(uid)
-    // this.userService.getUsers(uid)
-    //   .subscribe(console.log)
+    this.router.navigateByUrl(`/home-page/edit-profile/${uid}/edit-profile/${uid}`)
   }
   enableOrDisableUser(uid:string){
     console.log("Hijo manda usuario al padre")
     this.onEnableOrDisableUser.emit(this.dataSource.data.find((user)=>user.uid==uid))
-    // if(this.icon === "check"){
-    //   console.log("Habilitar")
-    //   console.log(this.dataSource.data.find((user)=>user.uid==uid))
-    //   this.onEnableOrDisableUser.emit(this.dataSource.data.find((user)=>user.uid==uid))
-    //   // this.dataSource.data = this.dataSource.data.filter(user=>user.uid!=uid)
-    // }else if(this.icon === "delete_outline"){
-    //   console.log("Desabilitar")
-    //   console.log(this.dataSource.data.find((user)=>user.uid==uid))
-    //   this.onEnableOrDisableUser.emit(this.dataSource.data.find((user)=>user.uid==uid))
-    //   // this.dataSource.data = this.dataSource.data.filter(user=>user.uid!=uid)
-    // }
   }
 }

@@ -5,6 +5,7 @@ const { request, response } = require("express");
 const { v4: uuidv4 } = require('uuid');
 const { updateImg } = require("../helpers/update-file");
 const Documento = require('../models/documento');
+const Usuario = require("../models/usuario");
 
 const fileUpload = async(req = request, res = response) => {
 
@@ -53,6 +54,11 @@ const fileUpload = async(req = request, res = response) => {
     const nombreArchivo = `${ uuidv4() }.${ extensionArchivo }`;
 
     //path para guardar el archivo
+    // crear directorio si no existe
+    const filePath = `./upload/${ tipo }`;
+    if (!fs.existsSync(filePath)) {
+        fs.mkdirSync(filePath);
+    }
     const path = `./upload/${ tipo }/${ nombreArchivo }`;
     //Mover el archivo
     file.mv(path, (err) => {
@@ -60,7 +66,7 @@ const fileUpload = async(req = request, res = response) => {
             return res.status(500).json({
                 ok: false,
                 msg: 'Error al mover el archivo'
-            })
+            });
         }
     });
     //Actualizar base de datos
@@ -68,7 +74,10 @@ const fileUpload = async(req = request, res = response) => {
         updateImg(tipo, id, nombreArchivo);
     }
     if (tipo == 'documentos') {
+        // obtener id de organizacion del usuario
+        const { organizacion } = await Usuario.findById(req.uid);
         let data = {};
+        data.organizacion = req.body.organizacion || String(organizacion);
         data.file = nombreArchivo;
         data.name = file.name;
         data.ownerDocument = id;
@@ -102,11 +111,11 @@ const returnFile = (req, res) => {
     if (fs.existsSync(pathImg)) {
         res.sendFile(pathImg);
     } else {
-        if (tipo === "usuarios" && (extensionesValidasImagen.includes(extensionArchivo))) {
+        if (tipo === "usuarios") {
             pathImg = path.join(__dirname, `../upload/no-image.png`);
             res.sendFile(pathImg);
-        } else if (tipo === "documentos" && (extensionesValidasArchivo.includes(extensionArchivo))) {
-            pathImg = path.join(__dirname, `../upload/no-image.png`);
+        } else if (tipo === "documentos") {
+            // pathImg = path.join(__dirname, `../upload/no-image.png`);
             res.status(504).json({
                 ok: false,
                 msg: "El archivo no existe."

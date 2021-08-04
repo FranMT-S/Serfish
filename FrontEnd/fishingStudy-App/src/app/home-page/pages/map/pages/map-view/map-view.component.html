@@ -1,1 +1,52 @@
-<div id=mapa></div>
+<div class="animate__animated animate__fadeIn">
+    <div #mapa class="mapa"></div>
+    <div class="zoom">
+        <button class="zoomButton" mat-stroked-button color="accent" (click)="zoom('P')">
+            <i class="fas fa-plus"></i>
+        </button>
+        <button class="zoomButton" mat-stroked-button color="accent" (click)="zoom('M')">
+            <mat-icon>remove</mat-icon>
+        </button>
+        <p style="color: #dddddd; margin: 0;">
+            Lat | Lon
+        </p>
+        <p style="color: #dddddd; margin: 0;">
+            {{center.lat | number:'2.2-2'}} | {{center.lng | number:'2.2-2'}}
+        </p>
+    </div>
+    <div class="marker">
+        <mat-action-list style="padding: 0;">
+            <div class="barScroll">
+                <button mat-list-item class="colorText" (click)="addMarker()">Agregar&nbsp;<i
+                        class="fas fa-plus"></i></button>
+
+                <button mat-list-item class="colorText" [ngStyle]="{'color': marker.color}"
+                    *ngFor="let marker of arrayMarker; let i=index" (click)="flyTo(i)" (dblclick)="removeMarker(i)">
+                    Marker {{i+1}}
+                </button>
+            </div>
+        </mat-action-list>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- prueba Fallida de los lista de agregar marcadores con PrimeNG -->
+<!-- <p-listbox [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" 
+    [style]="{
+            'width':'10rem','background-color':' rgba(255, 64, 128, .2)',
+            'position':'fixed', 'top':'60px', 'right':'20px',
+            'border-style':'none'
+             }">
+</p-listbox> -->

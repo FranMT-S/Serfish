@@ -31,6 +31,8 @@ app.use("/api/organizaciones", require("./routes/organizaciones"));
 app.use("/api/login", require("./routes/login"));
 app.use("/api/upload", require("./routes/upload"));
 app.use("/api/calendar", require("./routes/calendar"));
+app.use("/api/markers", require("./routes/markers"));
+
 
 // Paso final
 // Levantar el servico

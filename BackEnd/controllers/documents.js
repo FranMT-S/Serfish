@@ -1,10 +1,12 @@
-const { response } = require('express');
+const { request, response } = require('express');
 const Documento = require('../models/documento');
 const fs = require('fs');
+const Usuario = require("../models/usuario");
 
-const getDocuments = async(req, res = response) => {
+const getDocuments = async(req = request, res = response) => {
 
     try {
+        const { organizacion } = await Usuario.findById(req.uid);
         //const documents = await Documento.find();
         const documents = await Documento.aggregate([{
                 $lookup: {
@@ -36,9 +38,19 @@ const getDocuments = async(req, res = response) => {
                 $set: {
                     "ownerDocument": "$ownerDocument.name"
                 }
+            }, {
+                $match: {
+                    "organizacion": organizacion
+                }
             }
         ]);
-        // console.log(documents);
+
+        documents.forEach(doc => {
+            if (!fs.existsSync(`./upload/documentos/${doc.file}`)) {
+                doc.file = '';
+            }
+        });
+
         res.status(200).json({
             ok: true,
             documents
@@ -66,14 +78,15 @@ const deleteDocument = async(req = request, res = response) => {
             });
         }
         await Documento.findByIdAndDelete(docId);
-        fs.unlinkSync(`./upload/${ tipo }/${ docExists.file }`)
+        if (fs.existsSync(`./upload/${ tipo }/${ docExists.file }`)) {
+            fs.unlinkSync(`./upload/${ tipo }/${ docExists.file }`)
+        }
         res.status(200).json({
             ok: true,
             msg: "El documento se ha eliminado correctamente."
         });
 
     } catch (error) {
-
         response.status(500).json({
             ok: false,
             msg: "Por favor contáctese con el administrador"

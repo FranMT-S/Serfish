@@ -8,6 +8,9 @@ import { KelvilCelsiusPipe } from './pipes/kelvil-celsius.pipe';
 import { UnixTimePipe } from './pipes/unix-time.pipe';
 import { MsKmhPipe } from './pipes/ms-kmh.pipe';
 import { CodeImgPipe } from './pipes/code-img.pipe';
+import { TranslateDescWeatherPipe } from './pipes/translate-desc-weather.pipe';
+import { DaysTableComponent } from './components/days-table/days-table.component';
+import { HoursTableComponent } from './components/hours-table/hours-table.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +18,10 @@ import { CodeImgPipe } from './pipes/code-img.pipe';
     KelvilCelsiusPipe,
     UnixTimePipe,
     MsKmhPipe,
-    CodeImgPipe
+    CodeImgPipe,
+    TranslateDescWeatherPipe,
+    DaysTableComponent,
+    HoursTableComponent
   ],
   imports: [
     CommonModule,

@@ -84,12 +84,18 @@ export class FileUploadService {
 
   getDocuments(){
     const url = `${_baseUrl}/upload/getDocuments`;
-    return  this.http.get<{documents:Documento[]}>(url)
+    const headers = new HttpHeaders()
+      .append('x-token', localStorage.getItem('token') || '')
+
+    return this.http.get<{ documents: Documento[] }>(url, { headers })
   }
 
   deleteDocument(document:Documento){
     const url = `${_baseUrl }/upload/documentos/${document._id}`;
-    return this.http.delete( url);
+    const headers = new HttpHeaders()
+      .append('x-token', localStorage.getItem('token') || '')
+
+    return this.http.delete(url, { headers });
   }
 
 }

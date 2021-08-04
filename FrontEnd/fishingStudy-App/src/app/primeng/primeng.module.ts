@@ -8,6 +8,8 @@ import {TableModule} from 'primeng/table';
 import { TooltipModule } from 'primeng/tooltip';
 import {CalendarModule} from 'primeng/calendar';
 
+import { FieldsetModule } from 'primeng/fieldset';
+import { AccordionModule } from 'primeng/accordion';
 
 
 @NgModule({
@@ -19,7 +21,9 @@ import {CalendarModule} from 'primeng/calendar';
     HttpClientModule,
     TableModule,
     TooltipModule,
-    CalendarModule
+    CalendarModule,
+    FieldsetModule,
+    AccordionModule
   ]
 })
 export class PrimengModule { }
