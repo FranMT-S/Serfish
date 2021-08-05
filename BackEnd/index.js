@@ -31,6 +31,7 @@ app.use(express.static('public'));
 
 // Definicion de rutas y controladores
 app.use("/api/usuarios", require("./routes/usuarios"));
+app.use("/api/contact", require("./routes/contact"));
 app.use("/api/organizaciones", require("./routes/organizaciones"));
 app.use("/api/login", require("./routes/login"));
 app.use("/api/upload", require("./routes/upload"));
