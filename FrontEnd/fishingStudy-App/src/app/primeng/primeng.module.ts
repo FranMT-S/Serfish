@@ -7,9 +7,10 @@ import {HttpClientModule} from '@angular/common/http';
 import {TableModule} from 'primeng/table';
 import { TooltipModule } from 'primeng/tooltip';
 import {CalendarModule} from 'primeng/calendar';
-
+import {FullCalendarModule} from 'primeng/fullcalendar';
 import { FieldsetModule } from 'primeng/fieldset';
 import { AccordionModule } from 'primeng/accordion';
+import {DialogModule} from 'primeng/dialog';
 
 
 @NgModule({
@@ -23,7 +24,9 @@ import { AccordionModule } from 'primeng/accordion';
     TooltipModule,
     CalendarModule,
     FieldsetModule,
-    AccordionModule
+    AccordionModule,
+    FullCalendarModule,
+    DialogModule
   ]
 })
 export class PrimengModule { }

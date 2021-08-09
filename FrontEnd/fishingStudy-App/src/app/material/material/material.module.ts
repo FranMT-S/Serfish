@@ -10,6 +10,9 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatMomentDateModule } from '@angular/material-moment-adapter';
+import {MatButtonToggleModule} from '@angular/material/button-toggle';
+
 // edit-profile
 import { MatRadioModule } from '@angular/material/radio';
 
@@ -26,6 +29,7 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { MatNativeDateModule } from '@angular/material/core';
 
 @NgModule({
 exports:[
@@ -40,11 +44,12 @@ exports:[
   MatSidenavModule,
   MatDatepickerModule,
   MatRadioModule,
-
+  MatNativeDateModule,
+  MatMomentDateModule,
   MatExpansionModule,
   MatListModule,
   MatTabsModule,
-
+  MatButtonToggleModule,
   MatTableModule,
   MatChipsModule,
   MatPaginatorModule,

@@ -24,6 +24,9 @@ export class CalendarComponent implements OnInit {
     }else if(value === "E"){
       this.router.navigateByUrl(`home-page/calendar/event-setting`)
     }
+    else if(value === "L"){
+      this.router.navigateByUrl(`home-page/calendar/event-list`)
+    }
   }
 
 }

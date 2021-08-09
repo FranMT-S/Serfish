@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CalendarOptions } from '@fullcalendar/angular';
+
 import { CalendarService } from '../../services/calendar.service';
 import { Evento, ShowEvent } from '../../interfaces/event';
 
@@ -10,41 +11,52 @@ import { Evento, ShowEvent } from '../../interfaces/event';
 })
 export class ViewCalendarComponent implements OnInit {
 
-  events:Evento[] = [];
+  events:ShowEvent[] = [];
   
+  event:ShowEvent = {
+    title : '',
+    start : new Date(),
+    end   : new Date()
+  }
+
+  data:ShowEvent[] = []
+
+  
+  constructor( private calendarService:CalendarService) { }
   
   calendarOptions: CalendarOptions = {
-    initialView: 'dayGridMonth',
-    //this.calendarEvents
-    /**events: [
-      { title: 'event 1', date: '2019-04-01' },
-      { title: 'event 2', date: '2019-04-02' }
-    ]
-*/  
-    //events : this.calendarEvents
-
-  /*events : this.calendarEvents.forEach((element:ShowEvent) => {
-  {element.name
-    element.startDate}
-  })*/
-
-};
-
- 
-  constructor( private calendarService:CalendarService) { }
-
-  ngOnInit(): void {
+        initialView: 'dayGridMonth',
+        headerToolbar:{
+          left:'prev,next,today',
+          center:'title',
+          right:'dayGridMonth,timeGridWeek,timeGridDay'
+        },
+        locale:'es',
+        events : this.data
+        
+  }
   
-    
-}  
+  ngOnInit()	:void{
+    this.getEvents();
+
+  }  
+
+  toggleWeekends() {
+    this.calendarOptions.weekends = !this.calendarOptions.weekends // toggle the boolean!
+  }
 
   getEvents(){
-    this.calendarService.getEvents().subscribe( ({events}) =>{
-      this.events = events;
     
-    })
-  }
+    ///this.calendarService.getEventPlan().subscribe( res => {
+    ///  console.log( 'res',res);
+    ///  this.event.title = res.
+    ///  this.event.start = res.startDate
+    ///  this.event.end = res.endDate
+    /// console.log( this.event.title);
+    ///});
+    
+   
+  } 
  
   
-
 }

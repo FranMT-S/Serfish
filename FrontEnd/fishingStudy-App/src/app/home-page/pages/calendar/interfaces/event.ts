@@ -1,12 +1,14 @@
 export interface Evento {
-    id         : string;
+    _id         : string;
     name       : string;
     description: string;
+    location   : string;
     startDate  : Date;
-    enddDate   : Date;
+    endDate   : Date;
 }
 
 export interface ShowEvent{
-    name       : string;
-    startDate  : Date;
+    title : string;
+    start : Date;
+    end   : Date;
 }

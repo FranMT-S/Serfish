@@ -9,6 +9,10 @@ const EventoSchema = Schema({
         type: String,
         required: true
     },
+    location: {
+        type: String,
+        required: true
+    },
     startDate: {
         type: Date,
         required: true
@@ -17,7 +21,6 @@ const EventoSchema = Schema({
         type: Date,
         required: true
     }
-
 });
 
 EventoSchema.method("toJSON", function() {

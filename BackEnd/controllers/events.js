@@ -4,7 +4,7 @@ const Evento = require('../models/evento');
 
 const createEvent = async(req = request, res = response) => {
 
-    const { name, description, startDate, endDate } = req.body;
+    const { name, description, location, startDate, endDate } = req.body;
     try {
         const event = new Evento(req.body);
 
@@ -28,7 +28,7 @@ const getEvents = async(req = request, res = response) => {
 
     try {
         const events = await Evento.find();
-        res.json({
+        res.status(200).json({
             ok: true,
             events
         });
@@ -39,6 +39,39 @@ const getEvents = async(req = request, res = response) => {
         });
     }
 };
+
+const updateEvent = async(req = request, res = response) => {
+
+    const id = req.params.id;
+
+    try {
+        const event = await Evento.findById(id);
+
+        const eventExist = await Evento.findById(event.id);
+        if (!eventExist) {
+            return res.status(404).json({
+                ok: false,
+                msg: "El evento no se encuentra en la BD."
+            });
+        }
+        const changeEvent = {
+            ...req.body
+        }
+
+        const updateEvent = await Evento.findByIdAndUpdate(id, changeEvent, { new: true })
+        return res.status(200).json({
+            ok: true,
+            event: updateEvent
+        });
+
+    } catch (error) {
+        res.status(500).json({
+            ok: false,
+            msg: "Por favor contáctese con el administrador"
+        });
+    }
+
+}
 
 const deleteEvent = async(req = request, res = response) => {
 
@@ -69,6 +102,7 @@ const deleteEvent = async(req = request, res = response) => {
 module.exports = {
     createEvent,
     getEvents,
+    updateEvent,
     deleteEvent
 
 }

@@ -13,9 +13,10 @@ export class EventsSettingComponent implements OnInit {
   
   eventForm: FormGroup = this.fb.group({
     name: ["", [Validators.required], []],
-    description: ["", [Validators.required, Validators.email], []],
+    description: ["", [Validators.required], []],
+    location: ["", [Validators.required], []],
     startDate: ["", [Validators.required], []],
-    endDate: ["", [Validators.required], []],
+    endDate: ["", [Validators.required], []]
   });
 
   constructor(private fb: FormBuilder,

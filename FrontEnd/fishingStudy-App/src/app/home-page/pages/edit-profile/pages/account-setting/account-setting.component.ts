@@ -60,7 +60,7 @@ export class AccountSettingComponent implements OnInit {
       .pipe(
         switchMap(params => {
           this.uid = params.uid;
-          console.log("raro", this.uid)
+       
           return this.userService.getUsers(params.uid);
         })
       )
