@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, FormGroupDirective, Validators } from '@angular/forms';
 import { MatTableDataSource } from '@angular/material/table';
 import { AuthService } from 'src/app/auth/services/auth.service';
 import { Usuario } from '../../interfaces/interfaces';
@@ -40,7 +40,7 @@ export class SettingComponent implements OnInit {
       });
   }
 
-  register() {
+  register(formDirective: FormGroupDirective) {
     this.authService.register(this.miFormulario)
       .subscribe(ok => {
         if (ok === true) {
@@ -49,6 +49,15 @@ export class SettingComponent implements OnInit {
             title: 'El usuario se creo de forma exitosa',
             showConfirmButton: false,
             timer: 1500
+          }).then(()=>{
+            this.userServices.getUsers()
+              .subscribe(() => {
+                this.dataSource.data = this.userServices.getEnableUsers;
+              });
+            this.selected = "";
+            formDirective.resetForm();
+            this.miFormulario.reset();
+            this.selectedIndex = 0;
           });
         } else {
           Swal.fire("Detectamos un error.", `${ok}`, "error");

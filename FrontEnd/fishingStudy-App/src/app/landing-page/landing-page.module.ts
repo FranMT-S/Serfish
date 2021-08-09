@@ -15,7 +15,7 @@ import { SharedModule } from '../shared/shared.module';
 import { SectionPlansComponent } from './components/section-plans/section-plans.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { SectionContactUsComponent } from './components/section-contact-us/section-contact-us.component';
-
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -34,6 +34,7 @@ import { SectionContactUsComponent } from './components/section-contact-us/secti
     CommonModule,
     LandingPageRoutingModule,
     SharedModule,
+    ReactiveFormsModule,
     MaterialModule,
     PrimengModule,
     NgsRevealModule,
