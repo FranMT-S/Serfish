@@ -39,7 +39,7 @@ const sendEmail = (username, email, token, ) => {
                                     font-size: 16px;
                                     margin: 0px 0px 15px;
                                     cursor: pointer;">
-                        <a href="http://localhost:4200/auth/reset-password/${token}" style="color: white; text-decoration: none;">Restablecer contraseña</a>
+                        <a href="http://serfish.herokuapp.com/auth/reset-password/${token}" style="color: white; text-decoration: none;">Restablecer contraseña</a>
                     </button>
                 </div>
             </div>
