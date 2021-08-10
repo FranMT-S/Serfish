@@ -1,12 +1,14 @@
 const { response } = require('express');
 const Evento = require('../models/evento');
-
+const Usuario = require("../models/usuario");
 
 const createEvent = async(req = request, res = response) => {
-
-    const { name, description, location, startDate, endDate } = req.body;
     try {
-        const event = new Evento(req.body);
+
+        const { organizacion } = await Usuario.findById(req.uid);
+        let data = req.body;
+        data.organizacion = organizacion;
+        const event = new Evento(data);
 
         await event.save();
 
@@ -25,14 +27,25 @@ const createEvent = async(req = request, res = response) => {
 };
 
 const getEvents = async(req = request, res = response) => {
-
+    const eventId = req.header('eventId') || false;
     try {
-        const events = await Evento.find();
-        res.status(200).json({
-            ok: true,
-            events
-        });
+        if (eventId) {
+            const evento = await Evento.findById(eventId);
+            const events = [evento]
+            res.status(200).json({
+                ok: true,
+                events
+            });
+        } else {
+            const { organizacion } = await Usuario.findById(req.uid);
+            const events = await Evento.find({ organizacion });
+            res.status(200).json({
+                ok: true,
+                events
+            });
+        }
     } catch (error) {
+        console.log(error);
         res.status(500).json({
             ok: false,
             msg: "Por favor contáctese con el administrador"
@@ -71,7 +84,7 @@ const updateEvent = async(req = request, res = response) => {
         });
     }
 
-}
+};
 
 const deleteEvent = async(req = request, res = response) => {
 

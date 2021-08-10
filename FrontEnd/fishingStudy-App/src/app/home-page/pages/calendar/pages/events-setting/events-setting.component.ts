@@ -1,6 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { CalendarService } from '../../services/calendar.service';
+import { ActivatedRoute } from '@angular/router';
+import { switchMap } from 'rxjs/operators';
+
+
+
 import Swal from 'sweetalert2';
 
 @Component({
@@ -10,20 +15,49 @@ import Swal from 'sweetalert2';
 })
 export class EventsSettingComponent implements OnInit {
 
-  
+  @Input() id!: string;
+
   eventForm: FormGroup = this.fb.group({
-    name: ["", [Validators.required], []],
+    title: ["", [Validators.required], []],
     description: ["", [Validators.required], []],
     location: ["", [Validators.required], []],
-    startDate: ["", [Validators.required], []],
-    endDate: ["", [Validators.required], []]
+    start: ["", [Validators.required], []],
+    end: ["", [Validators.required], []]
   });
 
   constructor(private fb: FormBuilder,
-              private calendarService:CalendarService
+              private calendarService:CalendarService,
+              private activatedRoute: ActivatedRoute
            ) { }
 
   ngOnInit(): void {
+   
+    this.activatedRoute.params
+    .subscribe(params => {
+      this.id = params.id
+      if(this.id){
+        this.calendarService.getEvents(this.id).subscribe(res => {
+          if(res.ok){
+            this.eventForm.get("title")?.patchValue(res.events[0].title);
+            this.eventForm.get("description")?.patchValue(res.events[0].description);
+            this.eventForm.get("location")?.patchValue(res.events[0].location);
+            /* this.eventForm.get("start")?.patchValue(res.events[0].start);
+            this.eventForm.get("end")?.patchValue(res.events[0].end); */
+          }
+        });
+      }
+      console.log(this.eventForm.value)
+    });
+
+  }
+
+  action(){
+    
+    if(typeof this.id === 'undefined'){
+      this.createEvent();
+    }else{
+      this.updateEvent();
+    }
   }
 
   createEvent(){
@@ -35,7 +69,7 @@ export class EventsSettingComponent implements OnInit {
           title: 'Evento creado exitosamente',
           showConfirmButton: false,
           timer: 1500
-        });
+        }).then(() => { this.eventForm.reset(); });
       }else{
         Swal.fire({
           icon: 'warning',
@@ -45,7 +79,27 @@ export class EventsSettingComponent implements OnInit {
           );
       }
     })
-    this.eventForm.reset();
+  }
+
+  updateEvent() {
+    this.calendarService.updateEvent({ _id:this.id, ...this.eventForm.value}).
+    subscribe( res => {
+      if(res){
+        Swal.fire({
+          icon: 'success',
+          title: 'Evento actualizado exitosamente',
+          showConfirmButton: false,
+          timer: 1500
+        });
+      }else{
+        Swal.fire({
+          icon: 'warning',
+          title : 'Se detecto un error al actualizar el evento',
+          text:'Verifique los datos ingresados'
+        }
+          );
+      }
+    });
   }
 
 }

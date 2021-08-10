@@ -25,6 +25,10 @@ const routes: Routes = [
         component:EventsSettingComponent
       },
       {
+        path:"event-edit/:id",
+        component:EventsSettingComponent
+      },
+      {
         path:"event-list",
         component:EventListComponent
       },

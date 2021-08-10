@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CalendarOptions } from '@fullcalendar/angular';
 
 import { CalendarService } from '../../services/calendar.service';
-import { Evento, ShowEvent } from '../../interfaces/event';
+import { Evento } from '../../interfaces/event';
 
 @Component({
   selector: 'app-view-calendar',
@@ -11,15 +11,7 @@ import { Evento, ShowEvent } from '../../interfaces/event';
 })
 export class ViewCalendarComponent implements OnInit {
 
-  events:ShowEvent[] = [];
-  
-  event:ShowEvent = {
-    title : '',
-    start : new Date(),
-    end   : new Date()
-  }
-
-  data:ShowEvent[] = []
+  data:Evento[] = []
 
   
   constructor( private calendarService:CalendarService) { }

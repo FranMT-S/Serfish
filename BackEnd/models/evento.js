@@ -1,7 +1,7 @@
 const { Schema, model } = require("mongoose");
 
 const EventoSchema = Schema({
-    name: {
+    title: {
         type: String,
         required: true
     },
@@ -13,12 +13,17 @@ const EventoSchema = Schema({
         type: String,
         required: true
     },
-    startDate: {
+    start: {
         type: Date,
         required: true
     },
-    endDate: {
+    end: {
         type: Date,
+        required: true
+    },
+    organizacion: {
+        type: Schema.Types.ObjectId,
+        ref: 'Organizacion',
         required: true
     }
 });

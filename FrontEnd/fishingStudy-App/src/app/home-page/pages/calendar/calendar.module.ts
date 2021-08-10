@@ -16,7 +16,6 @@ import { ViewCalendarComponent } from './pages/view-calendar/view-calendar.compo
 import { EventsSettingComponent } from './pages/events-setting/events-setting.component';
 import { EventListComponent } from './pages/event-list/event-list.component';
 import { NgxMatDatetimePickerModule, NgxMatTimepickerModule } from '@angular-material-components/datetime-picker';
-import { EditEventComponent } from './pages/edit-event/edit-event.component';
 
 FullCalendarModule.registerPlugins([ 
   dayGridPlugin,
@@ -29,8 +28,7 @@ FullCalendarModule.registerPlugins([
     CalendarComponent,
     ViewCalendarComponent,
     EventsSettingComponent,
-    EventListComponent,
-    EditEventComponent
+    EventListComponent
   ],
   imports: [
     CommonModule,

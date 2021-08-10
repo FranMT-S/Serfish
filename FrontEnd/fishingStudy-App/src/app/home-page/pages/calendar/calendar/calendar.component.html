@@ -9,16 +9,16 @@
             <button class="my-2 btn-opt" mat-button (click)="mostrar('C')"><img class="imgIcon"
                     src="../../../../assets/calendar/fecha.png" alt="">Calendario</button>
 
-            <button mat-button [matMenuTriggerFor]="menu"><img class="imgIcon "
-                src="../../../../assets/calendar/programar_evento.png " alt=" ">Administrar eventos</button>
-            <mat-menu #menu="matMenu">
-                <button mat-menu-item (click)="mostrar('E')"><img class="imgIcon"
-                    src="../../../../assets/calendar/calendario.png" alt="">Crear evento
-                </button>
+            <button mat-button (click)="mostrar('E')"><img class="imgIcon"
+                        src="../../../../assets/calendar/calendario.png" alt="">Crear evento
+            </button>
+            <!-- <button mat-button [matMenuTriggerFor]="menu"><img class="imgIcon "
+                        src="../../../../assets/calendar/programar_evento.png " alt=" ">Administrar eventos</button>
+                    <mat-menu #menu="matMenu">
                 <button mat-menu-item (click)="mostrar('E')"><img class=" imgIcon "
                     src="../../../../assets/calendar/calendario2.png " alt=" ">Editar evento
                 </button>
-            </mat-menu>
+            </mat-menu> -->
 
             <button class="mb-2 btn-opt " mat-button (click)="mostrar( 'L') "><img class="imgIcon "
                         src="../../../../assets/calendar/listado.png " alt=" ">Lista de eventos</button>

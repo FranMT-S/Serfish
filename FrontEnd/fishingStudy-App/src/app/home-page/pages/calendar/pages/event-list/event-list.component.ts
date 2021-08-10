@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import Swal from 'sweetalert2';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 
 import { Evento } from '../../interfaces/event';
 import { CalendarService } from '../../services/calendar.service';
@@ -17,17 +18,18 @@ export class EventListComponent implements OnInit {
   displayBasic: boolean = false;
 
   editEventForm: FormGroup = this.fb.group({
-    name: ["", [Validators.required], []],
+    title: ["", [Validators.required], []],
     description: ["", [Validators.required], []],
     location: ["", [Validators.required], []],
-    startDate: ["", [Validators.required], []],
-    endDate: ["", [Validators.required], []]
+    start: ["", [Validators.required], []],
+    end: ["", [Validators.required], []]
   });
 
 
 
   constructor( private calendarService:CalendarService,
-               private fb: FormBuilder
+               private fb: FormBuilder,
+               private router: Router
     ) { }
 
   ngOnInit(): void {
@@ -36,8 +38,14 @@ export class EventListComponent implements OnInit {
 
   getEvents(){
     this.calendarService.getEvents().subscribe( res =>{
-      this.events = res.events;
+      if(res.ok){
+        this.events = res.events;
+      }
     })
+  }
+
+  updateEvent(event:Evento){
+    this.router.navigateByUrl(`home-page/calendar/event-edit/${event._id}`)
   }
 
   deleteEvent(event:Evento){
@@ -60,11 +68,12 @@ export class EventListComponent implements OnInit {
             icon:'success',
             showConfirmButton: false,
             timer: 1500
-          })
+          }).then(() => { this.getEvents();});
         })
       }
     })
-   
+    
+
   }
 
   
