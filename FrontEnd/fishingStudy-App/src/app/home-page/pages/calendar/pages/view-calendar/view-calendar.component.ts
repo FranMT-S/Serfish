@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CalendarOptions } from '@fullcalendar/angular';
 
 import { CalendarService } from '../../services/calendar.service';
-import { Evento } from '../../interfaces/event';
+import { ShowEvent } from '../../interfaces/event';
 
 @Component({
   selector: 'app-view-calendar',
@@ -11,22 +11,12 @@ import { Evento } from '../../interfaces/event';
 })
 export class ViewCalendarComponent implements OnInit {
 
-  data:Evento[] = []
+  data:ShowEvent[] = []
 
   
   constructor( private calendarService:CalendarService) { }
   
-  calendarOptions: CalendarOptions = {
-        initialView: 'dayGridMonth',
-        headerToolbar:{
-          left:'prev,next,today',
-          center:'title',
-          right:'dayGridMonth,timeGridWeek,timeGridDay'
-        },
-        locale:'es',
-        events : this.data
-        
-  }
+  calendarOptions!: CalendarOptions;
   
   ngOnInit()	:void{
     this.getEvents();
@@ -39,15 +29,24 @@ export class ViewCalendarComponent implements OnInit {
 
   getEvents(){
     
-    ///this.calendarService.getEventPlan().subscribe( res => {
-    ///  console.log( 'res',res);
-    ///  this.event.title = res.
-    ///  this.event.start = res.startDate
-    ///  this.event.end = res.endDate
-    /// console.log( this.event.title);
-    ///});
+    this.calendarService.getEvents().subscribe( res => {
+      res.events.forEach((event)=>{
+        this.data.push({title: event.title, start: event.start, end: event.end})
+      });
+      
+      this.calendarOptions = {
+        initialView: 'dayGridMonth',
+        headerToolbar: {
+          left: 'prev,next,today',
+          center: 'title',
+          right: 'dayGridMonth,timeGridWeek,timeGridDay'
+        },
+        locale: 'es',
+        events: this.data
+
+      };
+    });
     
-   
   } 
  
   

@@ -46,7 +46,7 @@ export class EventsSettingComponent implements OnInit {
           }
         });
       }
-      console.log(this.eventForm.value)
+      /* console.log(this.eventForm.value) */
     });
 
   }

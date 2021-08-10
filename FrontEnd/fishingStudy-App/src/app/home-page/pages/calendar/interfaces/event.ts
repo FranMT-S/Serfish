@@ -7,6 +7,12 @@ export interface Evento {
     _id          : string;
 }
 
+export interface ShowEvent{
+    title: string;
+    start: Date;
+    end: Date;
+}
+
 export interface EventResponse{
     ok : boolean;
     events : Evento[];
