@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Evento } from '../../interfaces/event';
-import { CalendarService } from '../../services/calendar.service';
 import Swal from 'sweetalert2';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+
+import { Evento } from '../../interfaces/event';
+import { CalendarService } from '../../services/calendar.service';
 
 @Component({
   selector: 'app-event-list',
@@ -64,11 +65,6 @@ export class EventListComponent implements OnInit {
       }
     })
    
-  }
-
-  editEvent(event:Evento){
-    this.displayBasic = true;
-    console.log(event);
   }
 
   

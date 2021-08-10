@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { environment } from '../../../../../environments/environment.prod';
+import { environment } from '../../../../../environments/environment';
 import { HttpClient,HttpHeaders } from '@angular/common/http';
 import { FormGroup } from '@angular/forms';
 import { Evento, ShowEvent } from '../interfaces/event';
@@ -44,11 +44,4 @@ export class CalendarService {
     return this.http.delete(url, { headers });
   }
   
-  getEventPlan(){
-    const url = `${this._baseUrl}/calendar`;
-    const headers = new HttpHeaders()
-    .append('x-token', localStorage.getItem('token') || '')
-   
-    return  this.http.get<Evento>(url,{headers});
-  }
 }
