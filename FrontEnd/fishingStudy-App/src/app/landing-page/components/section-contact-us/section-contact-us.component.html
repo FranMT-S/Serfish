@@ -10,22 +10,22 @@
         <div class="row py-2">
             <form [formGroup]="contactUsMail" autocomplete="off" #formDirective="ngForm" (ngSubmit)="mail(formDirective)" class="col col-sm-6 mb-5 me-2 p-3 d-flex row" style="background-color: rgba(63, 81, 181, 0.065); border-radius: 15px;">
                 <mat-form-field appearance="fill">
-                    <mat-label>Nombre completo <small style="color:red">*</small></mat-label>
+                    <mat-label>Nombre completo <sup style="color:red">*</sup></mat-label>
                     <input matInput formControlName="nombre">
                 </mat-form-field>
                 <div *ngIf="contactUsMail.get('email')?.invalid && contactUsMail.get('email')?.errors && (contactUsMail.get('email')?.dirty || contactUsMail.get('email')?.touched)">
-                    <small class="text-danger" *ngIf="contactUsMail.get('email')?.hasError('email')">Ingrese un email válido.</small>
+                    <sup class="text-danger" *ngIf="contactUsMail.get('email')?.hasError('email')">Ingrese un email válido.</sup>
                 </div>
                 <mat-form-field appearance="fill">
-                    <mat-label>Email <small style="color:red">*</small></mat-label>
+                    <mat-label>Email <sup style="color:red">*</sup></mat-label>
                     <input matInput formControlName="email">
                 </mat-form-field>
                 <mat-form-field appearance="fill">
-                    <mat-label>Organización o empresa <small style="color:red">*</small></mat-label>
+                    <mat-label>Organización o empresa <sup style="color:red">*</sup></mat-label>
                     <input matInput formControlName="organizacion">
                 </mat-form-field>
                 <mat-form-field appearance="fill">
-                    <mat-label>Mensaje <small style="color:red">*</small></mat-label>
+                    <mat-label>Mensaje <sup style="color:red">*</sup></mat-label>
                     <textarea matInput cols="30" rows="8" formControlName="mensaje"></textarea>
                     <!-- <textarea name="" id="" cols="30" rows="10"></textarea> -->
                 </mat-form-field>
