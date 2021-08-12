@@ -8,7 +8,8 @@ line {
     height: 30px;
     margin-right: 15px;
 }
-.prueba{
+
+.prueba {
     position: fixed;
     top: 56px;
     bottom: 0;
@@ -19,4 +20,17 @@ line {
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
+}
+
+.btn-opt {
+    width: 100%;
+    height: 48px;
+    text-align: left;
+}
+
+.container {
+    width: 100%;
+    border-radius: 10px;
+    background-color: #fafafa;
+    color: #414042;
 }

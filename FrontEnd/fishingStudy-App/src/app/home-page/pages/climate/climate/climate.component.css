@@ -24,28 +24,76 @@ background: linear-gradient(to right, rgba(44, 62, 80, 0.5), rgba(41, 127, 185, 
 background-repeat: no-repeat; */
 /* } */
 
-.dataMeteorology p{
-    padding-top: 5px;
-    font-size: 1rem;
-    margin-right: 5px;
+.dataMeteorology p {
+  padding-top: 5px;
+  font-size: 1rem;
+  margin-right: 5px;
 }
 
-.spinnerDataReady{
-    height: 100vh;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.spinnerDataReady {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.backgroud{
-    width: 100%;
-    position: absolute;
-    top: 56px;
-    bottom: 0;
-    background-image: url("../../../../../assets/clima/91.png");
-    background-repeat: no-repeat;
-    background-position: center;
-    background-attachment: fixed;
-    background-size: cover;
+.backgroud {
+  width: 100%;
+  position: absolute;
+  top: 56px;
+  bottom: 0;
+  background-image: url("../../../../../assets/clima/91.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-attachment: fixed;
+  background-size: cover;
+}
+
+table {
+  width: 100%;
+}
+
+tr.example-detail-row {
+  height: 0;
+}
+
+tr.example-element-row:not(.example-expanded-row):hover {
+  background: whitesmoke;
+}
+
+tr.example-element-row:not(.example-expanded-row):active {
+  background: #efefef;
+}
+
+.example-element-row td {
+  border-bottom-width: 0;
+}
+
+.example-element-detail {
+  overflow: hidden;
+  display: flex;
+}
+
+.example-element-diagram {
+  min-width: 80px;
+  border: 2px solid black;
+  padding: 8px;
+  font-weight: lighter;
+  margin: 8px 0;
+  height: 104px;
+}
+
+.example-element-symbol {
+  font-weight: bold;
+  font-size: 40px;
+  line-height: normal;
+}
+
+.example-element-description {
+  padding: 16px;
+}
+
+.example-element-description-attribution {
+  opacity: 0.5;
 }

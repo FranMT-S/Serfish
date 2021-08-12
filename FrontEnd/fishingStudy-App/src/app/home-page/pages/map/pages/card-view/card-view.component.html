@@ -1,35 +1,37 @@
+<div class="prueba"></div>
 
-<div class="row mt-3">
-    <!-- <div class="col"></div> -->
-    <div class="col" style="text-align: center;">
-        <h1>Zonas de Estudio</h1>
-        <hr>
-    </div>
-
-</div>
-
-<div class="row container">
-    <div class="col-2"></div>
-    <div class="col">
-        <div class="row">
-
-            <div class="col-4 mb-2"
-                *ngFor="let zona of propiedades">
-
-                <div class="card">
-                    <app-mini-mapa [lnglat]="zona.lngLat" class="card-img-top"></app-mini-mapa>
-                    <div class="card-body">
-                        <h5 class="card-title">{{zona.titulo}}</h5>
-                        <p class="card-text">{{zona.descripcion}}</p>
-                    </div>
-                </div>
-
-            </div>
-
-
+    <div class="row mt-3">
+        <!-- <div class="col"></div> -->
+        <div class="col" style="text-align: center;">
+            <h1>Zonas de Estudio</h1>
+            <hr>
         </div>
-
-
-
+    
     </div>
-</div>
+    
+    <div class="row container">
+        <div class="col-2"></div>
+        <div class="col">
+            <div class="row">
+                
+                <div class="col-4 mb-2" *ngFor="let zona of propiedades">
+                    <div class="card" style="border-radius: 10px;">
+                        <app-mini-mapa [lnglat]="zona.lngLat" [color]="zona.color" class="card-img-top"></app-mini-mapa>
+                        <div class="card-body">
+                            <h5 class="card-title">{{zona.titulo}}</h5>
+                            <!-- <p class="card-text">{{zona.descripcion}}</p> -->
+                            <button class="w-100 mt-1" mat-raised-button color="accent">Recoleccion de datos</button>
+                            <button class="w-100 mt-2" mat-stroked-button color="accent">Ver clima</button>
+                            <button class="w-100 mt-2" mat-stroked-button color="accent">Explorar</button>
+                        </div>
+                    </div>
+                    
+                </div>
+                
+                
+            </div>
+            
+            
+            
+        </div>
+    </div>

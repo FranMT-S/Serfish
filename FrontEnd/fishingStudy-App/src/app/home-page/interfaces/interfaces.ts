@@ -51,3 +51,11 @@ export interface UpdatePasswordResponse {
 export interface refImage{
     url:string,
   }
+
+export interface Documento {
+    _id               : string;
+    file             : string;
+    name             : string;
+    uploadDate       : string;
+    ownerDocument    : string;
+}

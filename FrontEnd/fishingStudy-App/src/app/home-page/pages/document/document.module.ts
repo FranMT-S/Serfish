@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 
 import { DocumentRoutingModule } from './document-routing.module';
 import { DocumentComponent } from './document/document.component';
+import { MaterialModule } from '../../../material/material/material.module';
+import { PrimengModule } from 'src/app/primeng/primeng.module';
 
 
 @NgModule({
@@ -11,7 +13,9 @@ import { DocumentComponent } from './document/document.component';
   ],
   imports: [
     CommonModule,
-    DocumentRoutingModule
+    DocumentRoutingModule,
+    PrimengModule,
+    MaterialModule
   ]
 })
 export class DocumentModule { }
