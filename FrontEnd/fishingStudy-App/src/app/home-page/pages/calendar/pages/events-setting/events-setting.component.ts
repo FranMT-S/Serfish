@@ -41,6 +41,7 @@ export class EventsSettingComponent implements OnInit {
             this.eventForm.get("title")?.patchValue(res.events[0].title);
             this.eventForm.get("description")?.patchValue(res.events[0].description);
             this.eventForm.get("location")?.patchValue(res.events[0].location);
+          
             /* this.eventForm.get("start")?.patchValue(res.events[0].start);
             this.eventForm.get("end")?.patchValue(res.events[0].end); */
           }

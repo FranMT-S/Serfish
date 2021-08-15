@@ -1,43 +1,49 @@
-<div class="container">
-    <div class="row">
+<div>
+    <div class="m-3">
+        <h1>Crea tus eventos</h1>
+        <hr>
+        <div class="mt-5">
+            <div class="row">
 
-        <form [formGroup]="eventForm" (ngSubmit)="action()" autocomplete="off">
+                <form [formGroup]="eventForm" (ngSubmit)="action()" autocomplete="off">
 
-            <div class="col-md-6 ">
-                <mat-form-field class="w-100" appearance="fill">
-                    <mat-label>Titulo evento</mat-label>
-                    <input matInput formControlName="title">
-                    <mat-icon class="me-2" matSuffix>event_available</mat-icon>
-                </mat-form-field>
-            </div>
-            <div class="col-md-6">
-                <mat-form-field class="w-100" appearance="fill">
-                    <mat-label>Descripcion</mat-label>
-                    <input matInput formControlName="description">
-                    <mat-icon class="" matSuffix>description</mat-icon>
-                </mat-form-field>
-            </div>
+                    <div class="col-md-6 ">
+                        <mat-form-field class="w-100" appearance="fill">
+                            <mat-label>Titulo evento</mat-label>
+                            <input matInput formControlName="title">
+                            <mat-icon class="me-2" matSuffix>event_available</mat-icon>
+                        </mat-form-field>
+                    </div>
 
-            <div class="col-md-6">
-                <mat-form-field class="w-100" appearance="fill">
-                    <mat-label>Locacion</mat-label>
-                    <input matInput formControlName="location">
-                    <mat-icon class="" matSuffix>fmd_good</mat-icon>
-                </mat-form-field>
-            </div>
+                    <div class="col-md-6">
+                        <mat-form-field class="w-100" appearance="fill">
+                            <mat-label>Descripcion</mat-label>
+                            <textarea matInput formControlName="description"></textarea>
+                            <mat-icon class="" matSuffix>description</mat-icon>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-6">
+                        <mat-form-field class="w-100" appearance="fill">
+                            <mat-label>Locacion</mat-label>
+                            <input matInput formControlName="location">
+                            <mat-icon class="" matSuffix>fmd_good</mat-icon>
+                        </mat-form-field>
+                    </div>
 
-            <div class="col-md-6">
-                <p-calendar class="p-grid p-fluid" formControlName="start" [showTime]="true" [showIcon]="true" placeholder="Fecha de inicio"></p-calendar>
-            </div>
-            <div class="col-md-6 mt-2">
-                <p-calendar class="p-grid p-fluid" formControlName="end" [showTime]="true" [showIcon]="true" placeholder="Fecha de fin"></p-calendar>
-            </div>
+                    <div class="col-md-6">
+                        <p-calendar class="p-grid p-fluid" formControlName="start" [showTime]="true" [showIcon]="true" placeholder="Fecha de inicio"></p-calendar>
+                    </div>
+                    <div class="col-md-6 mt-2">
+                        <p-calendar class="p-grid p-fluid" formControlName="end" [showTime]="true" [showIcon]="true" placeholder="Fecha de fin"></p-calendar>
+                    </div>
 
-            <div class="col-12 d-flex flex-sm-row flex-column mt-2 mt-3">
-                <button type="submit" mat-stroked-button color="accent" [disabled]="eventForm.invalid">Guardar
+                    <div class="col-12 d-flex flex-sm-row flex-column mt-2 mt-3">
+                        <button type="submit" mat-stroked-button color="accent" [disabled]="eventForm.invalid">Guardar
                             evento</button>
-            </div>
-        </form>
+                    </div>
+                </form>
 
+            </div>
+        </div>
     </div>
 </div>

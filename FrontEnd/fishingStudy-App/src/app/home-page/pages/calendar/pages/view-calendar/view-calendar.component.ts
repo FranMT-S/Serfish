@@ -32,12 +32,25 @@ export class ViewCalendarComponent implements OnInit {
 
       this.calendarOptions = {
         initialView: 'dayGridMonth',
+        locale: 'es',
         headerToolbar: {
-          left: 'prev,next,today',
+          left: 'prevYear,prev,next,nextYear,today',
           center: 'title',
           right: 'dayGridMonth,timeGridWeek,timeGridDay'
         },
-        locale: 'es',
+        buttonText:{
+          today:'hoy',
+          month:'mes',
+          week:'semana',
+          day:'dia'
+        },
+        allDayText:'Todo el dia',
+        slotLabelFormat : {
+          hour:'2-digit',
+          minute:'2-digit',
+
+        },
+      
         events: this.data
 
       };
