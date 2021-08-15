@@ -1,0 +1,13 @@
+.backgroud {
+    width: 100%;
+    position: absolute;
+    top: 56px;
+    bottom: 0;
+    min-height: 100vh;
+    background-image: url("../../../../../../assets/clima/91.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
+    background-size: cover;
+  }
+  

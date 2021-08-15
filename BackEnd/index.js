@@ -37,6 +37,9 @@ app.use("/api/login", require("./routes/login"));
 app.use("/api/upload", require("./routes/upload"));
 app.use("/api/markers", require("./routes/markers"));
 
+app.use("/api/encuestas", require("./routes/encuestas"));
+app.use("/api/datos-biologicos", require("./routes/datos-biologicos"));
+
 // Manejar cualquier otra ruta
 app.get('*', (req, res) => {
     res.sendFile(path.resolve(__dirname, 'public/index.html'));
