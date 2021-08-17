@@ -1,0 +1,24 @@
+<div class="backgroud">
+</div>
+<mat-card class="m-5" style="background-color: #fafafa;">
+  <div class="container mt-4">
+    <h1>Datos Biologicos</h1>
+    <hr>
+    <div  class="p-5" style="display: block">
+      <canvas baseChart
+        [datasets]="barChartData"
+        [labels]="barChartLabels"
+        [options]="barChartOptions"
+        [legend]="barChartLegend"
+        [chartType]="barChartType">
+      </canvas>
+      <button class="float-end" mat-button mat-raised-button color="primary" (click)="randomize()">Update</button>
+    </div>
+  </div>
+</mat-card>
+<mat-card class="m-5">
+  Hola
+</mat-card>
+<mat-card class="m-5">
+  Hola
+</mat-card>
