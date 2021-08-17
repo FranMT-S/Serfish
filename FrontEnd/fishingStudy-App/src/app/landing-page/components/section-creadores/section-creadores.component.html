@@ -7,46 +7,73 @@
       </svg>
     </div>
     <div class="row pt-2 pb-2" [ngsRevealSet]="{ reset:true, delay:100}" [ngsInterval]="200" [ngsSelector]="'.example-card'">
-        <div  *ngFor="let creator of creators" class="col-12 col-sm-12 col-md-6 col-lg-2 mb-4 ">
-            <div class="container"  >  
-            <mat-card class="example-card" >
-              
-                   
-                    <img style="width:100px; height: 100px; border-radius: 50%;  " src=" https://material.angular.io/assets/img/examples/shiba1.jpg" alt="">
-                    
-               
-                
-                
-                <mat-card-content class="content">
-                    <mat-card-title  class="nombre">{{creator.Name}}</mat-card-title>
-                    <mat-card-subtitle class="role" >{{creator.role}}</mat-card-subtitle>
-                    <p  class="info">
-                        {{creator.Info}}
-                    </p>
-                    <ul>
-                        <li class="mt-1" style="list-style: none;">
-                            
-                        </li>
-                    </ul>
-                </mat-card-content>
-                <mat-card-actions>
-                    <ul id="social">
-                        <li>
-                            <i class="fab fa-facebook fa-lg"></i>
-                        </li>
-                        <li>
-                            <i class="fab fa-youtube fa-lg"></i>
-                        </li>
-                        <li>
-                            <i class="fab fa-twitter fa-lg"></i>
-                        </li>
-                        <li>
-                            <i class="fab fa-instagram fa-lg"></i>
-                        </li>
-                    </ul>
-                </mat-card-actions>
-            </mat-card>
+        
+        <!-- <div class="row">
+            <div class="col">
+              1 of 3
             </div>
+            <div class="col">
+              2 of 3
+            </div>
+            <div class="col">
+              3 of 3
+            </div>
+          </div> -->
+        <div class="container">  
+           <div  *ngFor="let row of creators" class="row-separate">
+               <div class="row">
+                   <div *ngFor="let creator of row" class="col-md-4 ">
+                        <mat-card class="example-card" >                 
+                            <img class="autor" src="{{creator.img}}" alt="">             
+                            <mat-card-content class="content">
+                                <mat-card-title  class="nombre">{{creator.Name}}</mat-card-title>
+                                <mat-card-subtitle class="role" >{{creator.role}}</mat-card-subtitle>
+                                <p  class="info">
+                                    {{creator.Info}}
+                                </p>
+
+                                
+                                <ul>
+                                    <li class="mt-1" style="list-style: none;">                                               
+                                    </li>
+                                </ul>
+                                <hr>
+                                <p  class="info">
+                                    Participacion
+                                </p>
+                                <div class="detail-progress" *ngFor="let job of creator.participation">
+                                    <mat-card-title  class="labor">{{job.labor}}</mat-card-title>
+  
+
+                                    <mat-progress-bar 
+                                    value={{job.percent}}
+                                    class="progress"
+                                    > 
+                                      
+                                    </mat-progress-bar>
+                                </div>
+                            </mat-card-content>
+
+                            <mat-card-actions>
+                                <ul id="social">
+                                    <li>
+                                        <i class="fab fa-facebook fa-lg"></i>
+                                    </li>
+                                    <li>
+                                        <i class="fab fa-youtube fa-lg"></i>
+                                    </li>
+                                    <li>
+                                        <i class="fab fa-twitter fa-lg"></i>
+                                    </li>
+                                    <li>
+                                        <i class="fab fa-instagram fa-lg"></i>
+                                    </li>
+                                </ul>
+                            </mat-card-actions>
+                        </mat-card>
+                    </div>
+               </div>
+           </div>
         </div>
     </div>
 </div>

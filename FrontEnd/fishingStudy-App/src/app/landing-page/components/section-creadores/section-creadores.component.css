@@ -12,8 +12,8 @@ ul#social li{
 
 .container{
     justify-items: center;
-    width:280px;
-    height: 310px;
+    width:100%;
+    height: 100%;
     box-shadow: inset 5px 5px 5px rgba(0,0,0, 0.05) , 
                 inset -5px -5px 5px rgba(255,255,255, 0.5),
                 5px 5px 5px rgba(0,0,0, 0.05),
@@ -24,7 +24,7 @@ ul#social li{
             
 }
 
-
+/* 
 .example-card{
     
     top: 10px;
@@ -35,7 +35,7 @@ ul#social li{
     border-radius: 10px;
     box-shadow: 0 10px 20px rgba(0,0,0, 0.1);
     
-     transition: 0.5s;
+    transition: 0.5s;
      
 
 
@@ -46,18 +46,29 @@ ul#social li{
     transform: translateY(-50px);
     box-shadow: 0 10px 40px rgba(0,0,0, 0.2);
     background-color: #aecad6;
-background-image: linear-gradient(315deg, #aecad6 0%, #b8d3fe 74%);
-    
-}
+    background-image: linear-gradient(315deg, #aecad6 0%, #b8d3fe 74%);  
+} */
 
-.nombre{
-   
+
+/* .example-card:hover .nombre  ,
+.example-card:hover   .role  ,
+.example-card:hover .info,
+.example-card:hover ul#social li  { 
+   color: #fff;
+} */
+
+
+
+.nombre{   
     text-align: center; 
     font-size: medium;
     z-index: 1;
     transition: 0.5s;
 }
 
+.content .nombre{
+    margin-top: 10px;
+}
 
 .role{
     text-align: center;
@@ -78,10 +89,34 @@ background-image: linear-gradient(315deg, #aecad6 0%, #b8d3fe 74%);
 }
 
 
- .example-card:hover .nombre  ,
- .example-card:hover   .role  ,
- .example-card:hover .info,
- .example-card:hover ul#social li  { 
-    color: #fff;
+
+img.autor{
+    width:200px;
+    height: 230px;
+    border-radius: 50%;  
+    object-fit: cover;;
 }
 
+.row-separate ~ .row-separate{
+
+    margin-top: 20px;
+}
+
+.detail-progress{
+    display: flex;
+    margin-left: 10%;
+}
+.detail-progress .progress{
+    width: 50%;
+}
+
+.detail-progress .labor{
+    width: 100px;
+    text-align: right;
+    font-size:15px;
+}
+
+.detail-progress .labor + .progress{
+    margin-left: 10px;
+    margin-top: 9px;
+}
