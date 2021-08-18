@@ -17,8 +17,4 @@ export class OpeningComponent implements OnInit {
     this.imageUrl = this.authService.getImageUrl();
   }
 
-  logout(){
-    this.authService.logOut();
-  }
-
 }
