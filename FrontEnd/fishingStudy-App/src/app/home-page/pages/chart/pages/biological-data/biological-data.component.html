@@ -1,10 +1,25 @@
 <div class="backgroud">
 </div>
-<mat-card class="m-5" style="background-color: #fafafa;">
+<mat-card class="mx-sm-5 mx-md-5 mx-lg-5 mx-5 mt-5" style="background-color: #fafafa;">
   <div class="container mt-4">
-    <h1>Datos Biologicos</h1>
+    <h1 style="color: #414042;">Datos Biologicos</h1>
+    <span>Extrancion de informacion reciente de la base de datos</span>
     <hr>
-    <div  class="p-5" style="display: block">
+    <div style="display: flex; align-items: center;">
+      <h4 class="me-2" style="color: #414042; margin: 0; padding: 0;">Monitorio: </h4>
+      <mat-form-field [formGroup]="miFormulario" appearance="fill" style="width: 100%;">
+        <mat-label>Seleccione el nombre del pez</mat-label>
+        <mat-select formControlName="name">
+          <mat-option value="Centropomus undecimalis">Centropomus undecimalis</mat-option>
+          <mat-option   *ngFor="let names of commonScientificName"
+                        [value]="names.scientificName">
+            {{names.scientificName}} - {{names.commonName}}      
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <h2 style="color: #414042; text-align: center;">Estructura de talla {{nameSelected}}</h2>
+    <div  class="px-3 pb-2" style="display: block;">
       <canvas baseChart
         [datasets]="barChartData"
         [labels]="barChartLabels"
@@ -12,13 +27,27 @@
         [legend]="barChartLegend"
         [chartType]="barChartType">
       </canvas>
-      <button class="float-end" mat-button mat-raised-button color="primary" (click)="randomize()">Update</button>
+      <!-- <button class="" mat-button mat-raised-button color="primary" (click)="randomize()">Update</button> -->
     </div>
   </div>
 </mat-card>
 <mat-card class="m-5">
-  Hola
+  <pre>
+    {{miFormulario.value|json}}
+  </pre>
 </mat-card>
 <mat-card class="m-5">
-  Hola
+  <h1 style="color: #414042;">Recolencion por mes</h1>
+  <span>Extrancion de la actividad por mes</span>
+  <hr>
+  <div  class="px-3 pb-2" style="display: block;">
+    <canvas baseChart
+      [datasets]="barChartData2"
+      [labels]="barChartDateLabels"
+      [options]="barChartOptions"
+      [legend]="barChartLegend"
+      [chartType]="barChartType2">
+    </canvas>
+    <!-- <button class="" mat-button mat-raised-button color="primary" (click)="randomize()">Update</button> -->
+  </div>
 </mat-card>

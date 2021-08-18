@@ -1,10 +1,9 @@
 /*
-    Ruta: /api/encuestas
+    Ruta: /api/biological-data
 */
 
-
 const { Router } = require("express");
-const { getSurvey } = require("../controllers/encuestas")
+const { getBiologyDataAll, getForkLengthAndIndividuals, getCommonScientificName } = require("../controllers/datos-biologicos")
 const { validarJWT } = require("../middlewares/validar-jwt");
 const { check } = require("express-validator");
 const { validarCampos } = require("../middlewares/validar-campos");
@@ -19,7 +18,9 @@ const router = Router();
 //     validarJWT,
 //     newMarker);
 
-router.get("/", validarJWT, getSurvey)
+router.get("/all", validarJWT, getBiologyDataAll);
+router.get("/forklength-individuals", validarJWT, getForkLengthAndIndividuals);
+router.get("/common-scientific-name", validarJWT, getCommonScientificName);
 
 // router.put("/:id", validarJWT, updateMarker)
 

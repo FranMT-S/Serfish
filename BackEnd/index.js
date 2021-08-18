@@ -37,8 +37,8 @@ app.use("/api/login", require("./routes/login"));
 app.use("/api/upload", require("./routes/upload"));
 app.use("/api/markers", require("./routes/markers"));
 
-app.use("/api/encuestas", require("./routes/encuestas"));
-app.use("/api/datos-biologicos", require("./routes/datos-biologicos"));
+app.use("/api/survey", require("./routes/survey"));
+app.use("/api/biological-data", require("./routes/biologocal-data"));
 
 // Manejar cualquier otra ruta
 app.get('*', (req, res) => {

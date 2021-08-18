@@ -7,6 +7,7 @@ import { ChartRoutingModule } from './chart-routing.module';
 import { ChartsModule } from 'ng2-charts';
 import { BiologicalDataComponent } from './pages/biological-data/biological-data.component';
 import { MaterialModule } from '../../../material/material/material.module';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import { MaterialModule } from '../../../material/material/material.module';
     CommonModule,
     ChartRoutingModule,
     MaterialModule,
-    ChartsModule
+    ChartsModule,
+    ReactiveFormsModule
   ]
 })
 export class ChartModule { }

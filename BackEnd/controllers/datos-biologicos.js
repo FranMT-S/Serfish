@@ -29,10 +29,9 @@ const newMarker = async (req = request, res = response) => {
     }
 }
 
-const getBiologyData = async (req = request, res = response) => {
+
+const getBiologyDataAll = async (req = request, res = response) => {
     const { uid } = req
-    const nombreCientifico = req.header('nombreCientifico');
-    console.log(nombreCientifico)
     try {
         // const { organizacion } = await Usuario.findById(uid);
         // if (!organizacion) {
@@ -41,15 +40,49 @@ const getBiologyData = async (req = request, res = response) => {
         //         msg: "La organizacion no esta registrada."
         //     })
         // }
-        const biologyData = await DatosBiologico.aggregate([
-            { $match: { nombreCientifico } },
-            { $group: { _id: "$longitudHorquilla", count: { $sum: 1 }} },
-            { $sort: { _id: 1 } }
+        const biologyDataAll = await DatosBiologico.aggregate([
+            { $match: {} },
         ]);
-        console.log(biologyData)
         return res.status(200).json({
             ok: true,
-            biologyData
+            biologyDataAll
+        })
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({
+            ok: false,
+            msg: "Por favor contáctese con el administrador"
+        });
+    }
+}
+
+
+const getForkLengthAndIndividuals = async (req = request, res = response) => {
+    const { uid } = req
+    const nombreCientifico = req.header('nombreCientifico');
+    try {
+        // const { organizacion } = await Usuario.findById(uid);
+        // if (!organizacion) {
+        //     return res.status(400).json({
+        //         ok: false,
+        //         msg: "La organizacion no esta registrada."
+        //     })
+        // }
+        const forkLengthAndIndividuals = await DatosBiologico.aggregate([
+            { $match: { nombreCientifico } },
+            { $group: { _id: "$longitudHorquilla", count: { $sum: 1 } } },
+            { $sort: { _id: 1 } },
+            {
+                $project:{
+                    _id:0,
+                    length:"$_id",
+                    currentTotal:"$count"
+                }
+            }
+        ]);
+        return res.status(200).json({
+            ok: true,
+            forkLengthAndIndividuals
         })
     } catch (error) {
         console.log(error);
@@ -62,6 +95,43 @@ const getBiologyData = async (req = request, res = response) => {
 
 
 
+const getCommonScientificName = async (req = request, res = response) => {
+    const { uid } = req
+    try {
+        //*********************FILTAR POR ORGANIZACION "FALTA" */
+        // const { organizacion } = await Usuario.findById(uid);
+        // if (!organizacion) {
+        //     return res.status(400).json({
+        //         ok: false,
+        //         msg: "La organizacion no esta registrada."
+        //     })
+        // }
+        const fishNames = await DatosBiologico.aggregate([
+            { $group: { _id: { nombreCientifico: "$nombreCientifico", nombreComun: "$nombreComun" } } },
+            { $sort: { _id: 1 } },
+            {
+                $project: {
+                    _id: 0,
+                    commonName: "$_id.nombreComun",
+                    scientificName : "$_id.nombreCientifico",
+                }
+            }
+        ]);
+        return res.status(200).json({
+            ok: true,
+            fishNames
+        })
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({
+            ok: false,
+            msg: "Por favor contáctese con el administrador"
+        });
+    }
+}
+
 module.exports = {
-    getBiologyData
+    getBiologyDataAll,
+    getForkLengthAndIndividuals,
+    getCommonScientificName
 }
