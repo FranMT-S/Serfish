@@ -29,6 +29,18 @@ img {
   margin: 1rem;
 }
 
+.background { 
+  width: 100%;
+  position: absolute;
+  top: 56px;
+  bottom: 0px;
+  background-image: url("../../../../assets/clima/91.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-attachment: fixed;
+  background-size: cover;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -57,7 +69,6 @@ img {
   main {
     font-family: "Poppins", sans-serif;
     min-height: 100vh;
-    background: linear-gradient(to right top, #65dfc9, #6cdbeb);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -66,7 +77,7 @@ img {
   .glass {
     background: white;
     min-height: 80vh;
-    width: 80%;
+    width: 90%;
     background: linear-gradient(
       to right bottom,
       rgba(255, 255, 255, 0.7),
@@ -76,6 +87,7 @@ img {
     z-index: 2;
     backdrop-filter: blur(2rem);
     display: flex;
+    margin-top: 56px;
   }
   .circle1,
   .circle2 {
@@ -93,11 +105,11 @@ img {
   
   .circle1 {
     top: 5%;
-    right: 5%;
+    right: 2%;
   }
   .circle2 {
     bottom: 5%;
-    left: 5%;
+    left: 1%;
   }
   .dashboard {
     flex: 1;
