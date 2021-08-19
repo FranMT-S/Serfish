@@ -1,43 +1,38 @@
-<div class="container">
-    <div class="row">
+<h2>Crea tus eventos</h2>
+<svg height="10" width="150">
+    <line x2="300" style="stroke-width:8" />
+</svg>
+<div class="p-field">
+    <form [formGroup]="eventForm" (ngSubmit)="action()" autocomplete="off">
 
-        <form [formGroup]="eventForm" (ngSubmit)="action()" autocomplete="off">
+        <div class="col-md-6 mt-2 p-grid p-fluid">
+            <span class="p-input-icon-right ">
+                <i class="pi pi-calendar-plus" style="font-size: 1.5rem"></i>
+                <input type="text" pInputText  formControlName="title" placeholder="Titulo"/>
+            </span>
+        </div>
 
-            <div class="col-md-6 ">
-                <mat-form-field class="w-100" appearance="fill">
-                    <mat-label>Titulo evento</mat-label>
-                    <input matInput formControlName="title">
-                    <mat-icon class="me-2" matSuffix>event_available</mat-icon>
-                </mat-form-field>
-            </div>
-            <div class="col-md-6">
-                <mat-form-field class="w-100" appearance="fill">
-                    <mat-label>Descripcion</mat-label>
-                    <input matInput formControlName="description">
-                    <mat-icon class="" matSuffix>description</mat-icon>
-                </mat-form-field>
-            </div>
+        <div class="col-md-6 mt-2 p-grid p-fluid">
+            <span class="p-input-icon-right ">
+                <i class="pi pi-map-marker" style="font-size: 1.5rem"></i>
+                <input type="text" pInputText  formControlName="location" placeholder="Locacion"/>
+            </span>
+        </div>
 
-            <div class="col-md-6">
-                <mat-form-field class="w-100" appearance="fill">
-                    <mat-label>Locacion</mat-label>
-                    <input matInput formControlName="location">
-                    <mat-icon class="" matSuffix>fmd_good</mat-icon>
-                </mat-form-field>
-            </div>
+        <div class="col-md-6 mt-2 p-grid p-fluid">
+            <textarea [rows]="2" formControlName="description" placeholder="Descripcion" pInputTextarea [autoResize]=false></textarea>
+        </div>
 
-            <div class="col-md-6">
-                <p-calendar class="p-grid p-fluid" formControlName="start" [showTime]="true" [showIcon]="true" placeholder="Fecha de inicio"></p-calendar>
-            </div>
-            <div class="col-md-6 mt-2">
-                <p-calendar class="p-grid p-fluid" formControlName="end" [showTime]="true" [showIcon]="true" placeholder="Fecha de fin"></p-calendar>
-            </div>
+        <div class="col-md-6">
+            <p-calendar class="p-grid p-fluid" formControlName="start" [showTime]="true" [showIcon]="true" placeholder="Fecha de inicio"></p-calendar>
+        </div>
+        <div class="col-md-6 mt-2">
+            <p-calendar class="p-grid p-fluid" formControlName="end" [showTime]="true" [showIcon]="true" placeholder="Fecha de fin"></p-calendar>
+        </div>
 
-            <div class="col-12 d-flex flex-sm-row flex-column mt-2 mt-3">
-                <button type="submit" mat-stroked-button color="accent" [disabled]="eventForm.invalid">Guardar
-                            evento</button>
-            </div>
-        </form>
+        <div class="col-md-6 mt-2 mb-2">
+            <button pButton type="submit" class="p-button-outlined" [disabled]="eventForm.invalid">Guardar evento</button>
+        </div>
 
-    </div>
+    </form>
 </div>

@@ -10,6 +10,7 @@ import { MaterialModule } from 'src/app/material/material/material.module';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
+import listPlugin from '@fullcalendar/list';
 
 import { CalendarComponent } from './calendar/calendar.component';
 import { ViewCalendarComponent } from './pages/view-calendar/view-calendar.component';
@@ -20,7 +21,8 @@ import { NgxMatDatetimePickerModule, NgxMatTimepickerModule } from '@angular-mat
 FullCalendarModule.registerPlugins([ 
   dayGridPlugin,
   interactionPlugin,
-  timeGridPlugin
+  timeGridPlugin,
+  listPlugin
 ]);
 
 @NgModule({

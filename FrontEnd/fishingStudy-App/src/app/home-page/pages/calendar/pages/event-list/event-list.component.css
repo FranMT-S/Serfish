@@ -5,9 +5,14 @@ td {
 
 th {
     color: white!important;
-    background-color: #47b1b1 !important;
+    background-color: #2F6FC6 !important;
 }
 
 .btn {
-    margin-right: 1rem;
+    margin: 0.5rem;
+}
+
+line {
+    stroke: #ff4081;
+    stroke-width: 15;
 }

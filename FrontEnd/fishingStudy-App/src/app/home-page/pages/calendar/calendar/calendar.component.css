@@ -1,5 +1,8 @@
 .imgIcon {
     width: 30px;
     height: 30px;
-    margin-right: 15px;
+}
+
+.btn {
+    margin: 0.5rem;
 }
