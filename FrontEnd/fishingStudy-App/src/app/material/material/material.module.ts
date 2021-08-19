@@ -12,6 +12,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
+import { MatStepperModule } from '@angular/material/stepper';
 
 // edit-profile
 import { MatRadioModule } from '@angular/material/radio';
@@ -54,6 +55,7 @@ exports:[
   MatChipsModule,
   MatPaginatorModule,
   MatSortModule,
+  MatStepperModule,
 
   MatProgressSpinnerModule
   

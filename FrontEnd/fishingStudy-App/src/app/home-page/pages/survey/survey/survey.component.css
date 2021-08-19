@@ -1,0 +1,27 @@
+.back {
+    position: fixed;
+    top: 56px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    background-image: url("../../../../../assets/clima/90.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+th,
+td {
+    text-align: center!important;
+}
+
+th {
+    color: white!important;
+    background-color: #3F51B5!important;
+}
+
+.btn {
+    margin: 1rem;
+    color: #47b1b1;
+}

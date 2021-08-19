@@ -4,7 +4,7 @@
 
 
 const { Router } = require("express");
-const { getSurvey } = require("../controllers/encuestas")
+const { getSurvey, newSurvey } = require("../controllers/encuestas");
 const { validarJWT } = require("../middlewares/validar-jwt");
 const { check } = require("express-validator");
 const { validarCampos } = require("../middlewares/validar-campos");
@@ -19,7 +19,14 @@ const router = Router();
 //     validarJWT,
 //     newMarker);
 
-router.get("/", validarJWT, getSurvey)
+router.get("/", validarJWT, getSurvey);
+
+router.post("/", [
+    validarJWT,
+    check("comunidad", "El nombre de la comunidad es obligatorio.").not().isEmpty(),
+    check("especies", "No agrego especies en la encuesta.").not().isEmpty(),
+    validarCampos
+], newSurvey);
 
 // router.put("/:id", validarJWT, updateMarker)
 

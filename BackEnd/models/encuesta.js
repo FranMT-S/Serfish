@@ -4,7 +4,7 @@ const { Schema, model } = require("mongoose");
 const EncuestaSchema = Schema({
     fecha: {
         type: Date,
-        required: true
+        default: Date.now()
     },
     comunidad: {
         type: String,
