@@ -56,7 +56,7 @@
                         <button class="col-4 m-2" mat-raised-button type="button" color="warn" aria-label="Añadir especie" (click)="clearEspeciesForm(formDirective)">Limpiar Formulario</button>
                     </div>
                     <hr>
-                    <div>
+                    <div *ngIf="isVisible()">
                         <h5>Especies agregadas:</h5><br>
                         <p-table [value]="this.especies" [autoLayout]="true" [paginator]="true" [rows]="10" styleClass="p-datatable-gridlines">
                             <ng-template pTemplate="header">

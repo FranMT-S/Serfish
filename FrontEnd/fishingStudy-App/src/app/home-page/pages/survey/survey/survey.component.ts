@@ -61,6 +61,10 @@ export class SurveyComponent implements OnInit {
     })
   }
 
+  isVisible(){
+    return this.especies.length != 0;
+  }
+
   especieValida():any{
     return this.survey?.get("no_nombreComun")?.valid &&
     this.survey?.get("no_nombreCientifico")?.valid &&
