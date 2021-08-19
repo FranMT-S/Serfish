@@ -35,6 +35,7 @@ app.use("/api/contact", require("./routes/contact"));
 app.use("/api/organizaciones", require("./routes/organizaciones"));
 app.use("/api/login", require("./routes/login"));
 app.use("/api/upload", require("./routes/upload"));
+app.use("/api/calendar", require("./routes/calendar"));
 app.use("/api/markers", require("./routes/markers"));
 
 app.use("/api/survey", require("./routes/survey"));

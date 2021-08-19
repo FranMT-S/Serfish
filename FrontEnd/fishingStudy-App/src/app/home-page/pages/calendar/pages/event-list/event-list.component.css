@@ -1,0 +1,13 @@
+th,
+td {
+    text-align: center!important;
+}
+
+th {
+    color: white!important;
+    background-color: #47b1b1 !important;
+}
+
+.btn {
+    margin-right: 1rem;
+}

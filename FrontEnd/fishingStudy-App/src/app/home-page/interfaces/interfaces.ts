@@ -59,3 +59,4 @@ export interface Documento {
     uploadDate       : string;
     ownerDocument    : string;
 }
+
