@@ -27,6 +27,8 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
+import {MatProgressBarModule} from '@angular/material/progress-bar';;
+
 @NgModule({
 exports:[
   MatButtonModule,
@@ -38,13 +40,13 @@ exports:[
   MatToolbarModule,
   MatCardModule,
   MatSidenavModule,
-
+  
   MatRadioModule,
 
   MatExpansionModule,
   MatListModule,
   MatTabsModule,
-
+  MatProgressBarModule,
   MatTableModule,
   MatChipsModule,
   MatPaginatorModule,

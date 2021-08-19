@@ -11,7 +11,9 @@
         <button class="me-1" mat-button (click)="scrollingSmooth('about')">Acerca de nosotros</button>
         <button class="me-1" mat-button (click)="scrollingSmooth('features')">Servicio</button>
         <button class="me-1" mat-button (click)="scrollingSmooth('pricing')">Planes</button>
+        <button class="me-1" mat-button (click)="scrollingSmooth('creators')">Creadores</button>
         <button class="me-1" mat-button (click)="scrollingSmooth('contact-us')">Contactanos</button>
+        <button class="me-1" mat-button routerLink="/team/">Equipo</button>
         <button class="me-1" mat-stroked-button color="primary" routerLink="/auth/">Ingresar</button>
     </div>
     <!-- <button mat-icon-button>
@@ -35,10 +37,15 @@
         <mat-icon>workspace_premium</mat-icon>
         <span>Planes</span>
       </button>
+      <button mat-menu-item (click)="scrollingSmooth('creators')">
+        <mat-icon>Creadores</mat-icon>
+        <span>Creadores</span>
+      </button>
       <button mat-menu-item (click)="scrollingSmooth('contact-us')">
         <mat-icon>contact_mail</mat-icon>
         <span>Contactanos</span>
       </button>
+      
       <button mat-menu-item routerLink="/auth/">
         <mat-icon>login</mat-icon>
         <span>Ingresar</span>

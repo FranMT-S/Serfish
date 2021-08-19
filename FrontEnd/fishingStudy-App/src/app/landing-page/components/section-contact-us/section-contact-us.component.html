@@ -8,27 +8,29 @@
             <p>Para obtener nuestros servicios</p>
         </div>
         <div class="row py-2">
-            <div class="col col-sm-6 mb-5 me-2 p-3 d-flex row" style="background-color: rgba(63, 81, 181, 0.065); border-radius: 15px;">
+            <form [formGroup]="contactUsMail" autocomplete="off" #formDirective="ngForm" (ngSubmit)="mail(formDirective)" class="col col-sm-6 mb-5 me-2 p-3 d-flex row" style="background-color: rgba(63, 81, 181, 0.065); border-radius: 15px;">
                 <mat-form-field appearance="fill">
-                    <mat-label>Nombre completo</mat-label>
-                    <input matInput>
+                    <mat-label>Nombre completo <small style="color:red">*</small></mat-label>
+                    <input matInput formControlName="nombre">
+                </mat-form-field>
+                <div *ngIf="contactUsMail.get('email')?.invalid && contactUsMail.get('email')?.errors && (contactUsMail.get('email')?.dirty || contactUsMail.get('email')?.touched)">
+                    <small class="text-danger" *ngIf="contactUsMail.get('email')?.hasError('email')">Ingrese un email válido.</small>
+                </div>
+                <mat-form-field appearance="fill">
+                    <mat-label>Email <small style="color:red">*</small></mat-label>
+                    <input matInput formControlName="email">
                 </mat-form-field>
                 <mat-form-field appearance="fill">
-                    <mat-label>Email</mat-label>
-                    <input matInput>
+                    <mat-label>Organización o empresa <small style="color:red">*</small></mat-label>
+                    <input matInput formControlName="organizacion">
                 </mat-form-field>
                 <mat-form-field appearance="fill">
-                    <mat-label>Organización o empresa</mat-label>
-                    <input matInput>
-                </mat-form-field>
-                <mat-form-field appearance="fill">
-                    <mat-label>Mensaje</mat-label>
-                    <textarea matInput cols="30" rows="8"></textarea>
+                    <mat-label>Mensaje <small style="color:red">*</small></mat-label>
+                    <textarea matInput cols="30" rows="8" formControlName="mensaje"></textarea>
                     <!-- <textarea name="" id="" cols="30" rows="10"></textarea> -->
                 </mat-form-field>
-
-                <button mat-raised-button color="accent">Enviar</button>
-            </div>
+                <button mat-raised-button color="accent" [disabled]="contactUsMail.invalid">Enviar</button>
+            </form>
             <div class="col col-sm-6">
                 <span>LA CONEXIÓN ES TODO</span>
                 <h3>Contáctese con</h3>

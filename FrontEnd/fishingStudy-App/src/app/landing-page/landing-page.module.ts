@@ -15,7 +15,8 @@ import { SharedModule } from '../shared/shared.module';
 import { SectionPlansComponent } from './components/section-plans/section-plans.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { SectionContactUsComponent } from './components/section-contact-us/section-contact-us.component';
-
+import { ReactiveFormsModule } from '@angular/forms';
+import { SectionCreadoresComponent } from './components/section-creadores/section-creadores.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { SectionContactUsComponent } from './components/section-contact-us/secti
     SectionFunctionComponent,
     SectionPlansComponent,
     FooterComponent,
-    SectionContactUsComponent
+    SectionContactUsComponent,
+    SectionCreadoresComponent
   ],
   exports:[
     LandingComponent
@@ -34,6 +36,7 @@ import { SectionContactUsComponent } from './components/section-contact-us/secti
     CommonModule,
     LandingPageRoutingModule,
     SharedModule,
+    ReactiveFormsModule,
     MaterialModule,
     PrimengModule,
     NgsRevealModule,

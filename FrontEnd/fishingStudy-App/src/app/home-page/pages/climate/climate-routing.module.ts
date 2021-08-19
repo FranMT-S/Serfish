@@ -1,7 +1,8 @@
-import { NgModule } from '@angular/core';
+import { NgModule, Component } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ClimateComponent } from './climate/climate.component';
-import { TableExpandibleComponent } from './climate/components/table-expandible/table-expandible.component';
+import { DaysTableComponent } from './components/days-table/days-table.component';
+import { HoursTableComponent } from './components/hours-table/hours-table.component';
 
 const routes: Routes = [
   {
@@ -10,8 +11,13 @@ const routes: Routes = [
     pathMatch:"full"
   },
   {
+    path: "table-expandiblehours",
+    component:HoursTableComponent
+
+  },
+  {
     path:"table-8-days",
-    component: TableExpandibleComponent
+    component: DaysTableComponent
   }
 ];
 

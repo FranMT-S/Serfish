@@ -23,7 +23,7 @@ export class ToolbarComponent implements OnInit {
   getScreenSize(event?:any) {
     this.scrHeight = window.innerHeight;
     this.scrWidth = window.innerWidth;
-    console.log(this.scrHeight, this.scrWidth);
+    //console.log(this.scrHeight, this.scrWidth);
 }
 
   constructor( private readonly themeService:ThemeService) { 
@@ -34,7 +34,7 @@ export class ToolbarComponent implements OnInit {
   ngOnInit(): void {
     this.themeService.getThemeOptions()
       .subscribe(resp => {
-        console.log(resp);
+        //console.log(resp);
         this.options=resp;
       })
   }
