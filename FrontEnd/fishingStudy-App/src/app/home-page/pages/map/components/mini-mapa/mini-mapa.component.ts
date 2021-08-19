@@ -16,7 +16,7 @@ import * as mapboxgl from 'mapbox-gl';
 })
 export class MiniMapaComponent implements AfterViewInit {
 
-  @Input() lnglat: [number, number] = [0, 0];
+  @Input() lnglat: number[] = [0, 0];
   @Input() color:string="";
   @ViewChild('mapa') divMapa!: ElementRef;
 
@@ -24,7 +24,7 @@ export class MiniMapaComponent implements AfterViewInit {
     const map = new mapboxgl.Map({
       container: this.divMapa.nativeElement,
       style: 'mapbox://styles/mapbox/dark-v10',
-      center: this.lnglat,
+      center: {lng:this.lnglat[0],lat:this.lnglat[1]},
       zoom: 10,
       interactive: false
     });
@@ -32,7 +32,7 @@ export class MiniMapaComponent implements AfterViewInit {
     new mapboxgl.Marker({
       color:this.color
     })
-    .setLngLat(this.lnglat)  
+    .setLngLat({lng:this.lnglat[0],lat:this.lnglat[1]})  
     .addTo(map);
   }
 

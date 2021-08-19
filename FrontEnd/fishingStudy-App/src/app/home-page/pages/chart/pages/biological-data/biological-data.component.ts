@@ -4,7 +4,7 @@ import { Label } from 'ng2-charts';
 import { ChartService } from '../../services/chart.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { switchMap, tap } from 'rxjs/operators';
-import { FishName, DataActivityMonth, Background, DateAndIndex, dataFrom1BarChart } from '../../interfaces/interfaces';
+import { FishName, DataActivityMonth, Background, DateAndIndex, dataFrom1BarChart, DataActivityYear } from '../../interfaces/interfaces';
 
 @Component({
   selector: 'app-biological-data',
@@ -14,14 +14,6 @@ import { FishName, DataActivityMonth, Background, DateAndIndex, dataFrom1BarChar
 export class BiologicalDataComponent implements OnInit {
   public barChartOptions: ChartOptions = {
     responsive: true,
-    // title: {
-    //   display: true,
-    //   // fullWidth:true,
-    //   fontSize: 25,
-    //   fontColor: "#414042",
-    //   text: "Estructura de talla Centropomus undecimalis"
-    // },
-    // We use these empty structures as placeholders for dynamic theming.
     scales: {
       xAxes: [{
         scaleLabel: {
@@ -44,25 +36,48 @@ export class BiologicalDataComponent implements OnInit {
       }]
     },
     showLines: true,
-    plugins: {
-      datalabels: {
-        anchor: 'end',
-        align: 'end',
-      }
-    }
   };
-  public barChartLabels: Label[] = ['2006', '2007', '2008', '2009', '2010', '2011', '2012'];
-  public barChartDateLabels: Label[] = [];
+  public barChartOptions2: ChartOptions = {
+    responsive: true,
+    scales: {
+      xAxes: [{
+        scaleLabel: {
+          display: true,
+          labelString: "Fecha",
+          fontSize: 18,
+          fontColor: "#414042"
+        }
+      }],
+      yAxes: [{
+        ticks: {
+          beginAtZero: true
+        },
+        scaleLabel: {
+          display: true,
+          labelString: "Individuos capturados",
+          fontSize: 18,
+          fontColor: "#414042"
+        }
+      }]
+    },
+    showLines: true,
+  };
+
+  public barChartLabels: Label[] = [];
+  public barChartDateLabelsMonth: Label[] = [];
+  public barChartDateLabelsYear: Label[] = [];
+
   public barChartType: ChartType = 'bar';
   public barChartType2: ChartType = 'line';
+  public barChartType3: ChartType = 'bar';
   public barChartLegend = true;
+  public barChartLegend2 = false;
+  public barChartLegend3 = false;
 
 
-  public barChartData: ChartDataSets[] = [
-    { data: [65, 59, 80, 81, 56, 55, 40], label: 'Series A' },
-    { data: [28, 48, 40, 19, 86, 27, 90], label: 'Series B' }
-  ];
+  public barChartData: ChartDataSets[] = [];
   public barChartData2: ChartDataSets[] = [];
+  public barChartData3: ChartDataSets[] = [];
 
 
   miFormulario: FormGroup = this.fb.group({
@@ -72,20 +87,12 @@ export class BiologicalDataComponent implements OnInit {
   commonScientificName: FishName[] = [];
   color: Background[] = [
     {
-      background: "#34495ee6",
-      hoverBackground: "#2c3e50"
-    },
-    {
       background: "#3498dbe6",
       hoverBackground: "#2980b9"
     },
     {
       background: "#1abc9ce6",
       hoverBackground: "#16a085"
-    },
-    {
-      background: "#e67d22e0",
-      hoverBackground: "#d35400"
     },
     {
       background: "#9b58b6e6",
@@ -97,16 +104,31 @@ export class BiologicalDataComponent implements OnInit {
     },
   ]
   nameSelected: string = "Centropomus undecimalis";
+  spinner1: boolean = true;
+  spinner2: boolean = true;
+  spinner3: boolean = true;
+
   constructor(private chartService: ChartService,
-    private fb: FormBuilder
-  ) { }
+    private fb: FormBuilder) { }
 
   ngOnInit(): void {
-    var bgColor = this.color[Math.floor(Math.random() * (6 - 0) + 0)]
+    var bgColor = this.color[Math.floor(Math.random() * (4 - 0) + 0)]
     var temp = [];
+    // this.chartService.getLabelActivityMonth() Obtiene los labels de las tres graficas.
+    this.chartService.getLabelActivityMonth()
+      .subscribe(res => {
+        this.barChartDateLabelsMonth = res.labelDate.map(data => `${(data.month > 9) ? data.month : "0" + data.month}-${data.year}`)
+
+        this.barChartDateLabelsYear = res.labelDate.map(data => `${data.year}`);
+        let result = this.barChartDateLabelsYear.filter((item, index) => {
+          return this.barChartDateLabelsYear.indexOf(item) === index;
+        })
+        this.barChartDateLabelsYear = result
+      })
 
     this.chartService.getScientificCommunName()
       .pipe(
+        //tap se encargar de obtener todos los datos registrados para reflejarlos en el selector
         tap(res => {
           this.commonScientificName = res.fishNames.map(data => {
             const csName = {
@@ -116,37 +138,81 @@ export class BiologicalDataComponent implements OnInit {
             return csName
           })
         }),
-        switchMap(() => this.chartService.getAllDataActivityMonth(this.commonScientificName))
+        //Transformamos el observable a getAllDataActivityMonth para graficar obtener los registros de cada tipo de pez
+        switchMap(() => this.chartService.getAllDataActivityMonth(this.commonScientificName)),
+        tap(res => {
+          this.barChartData2 = []
+          res.forEach((data, index) => {
+            var countIndex = 0;
+            const dataOriginal: DataActivityMonth[] = data.dataActivityMonth;
+            const processedDatas: DateAndIndex[] = data.dataActivityMonth.map(data => {
+              const processedData: DateAndIndex = {
+                fecha: `${(data.month > 9) ? data.month : "0" + data.month}-${data.year}`,
+                index: countIndex
+              }
+              countIndex += 1;
+              return processedData
+            })
+            // console.log(processedDatas)
+            const barCharData: dataFrom1BarChart = {
+              data: [],
+              label: ""
+            }
+            barCharData.label = dataOriginal[0].nombreCientifico;
+            for (let i = 0; i < this.barChartDateLabelsMonth.length; i++) {
+              const currentMonthActivity = processedDatas.find(data => data.fecha == this.barChartDateLabelsMonth[i]);
+              if (currentMonthActivity) {
+                barCharData.data.push(dataOriginal[currentMonthActivity.index].cantidad);
+              } else {
+                barCharData.data.push(0);
+              }
+            }
+            //Salimos del ciclo for
+            if (index > 4) {
+              barCharData.hidden = true;
+            }
+            this.barChartData2.push(barCharData)
+          })
+          this.spinner2 = false;
+          this.barChartLegend2 = true;
+        }),
+        switchMap(() => this.chartService.getAllDataActivityYear(this.commonScientificName))
       ).subscribe(res => {
-        this.barChartData2=[]
-        res.forEach(data => {
+        console.log(res)
+        this.barChartData3 = []
+        res.forEach((data, index) => {
           var countIndex = 0;
-          const dataOriginal: DataActivityMonth[] = data.dataActivityMonth;
-          const processedDatas: DateAndIndex[] = data.dataActivityMonth.map(data => {
+          const dataOriginal: DataActivityYear[] = data.dataActivityYear;
+          const processedDatas: DateAndIndex[] = data.dataActivityYear.map(data => {
             const processedData: DateAndIndex = {
-              fecha: `${(data.month > 9) ? data.month : "0" + data.month}-${data.year}`,
+              fecha: `${data.year}`,
               index: countIndex
             }
             countIndex += 1;
             return processedData
           })
-          console.log(processedDatas)
-          const barCharData:dataFrom1BarChart={
-            data:[],
-            label:""
+          //   // console.log(processedDatas)
+          const barCharData: dataFrom1BarChart = {
+            data: [],
+            label: ""
           }
           barCharData.label = dataOriginal[0].nombreCientifico;
-          for (let i = 0; i < this.barChartDateLabels.length; i++){
-            const currentMonthActivity = processedDatas.find(data => data.fecha == this.barChartDateLabels[i]);
-            if (currentMonthActivity){
+          for (let i = 0; i < this.barChartDateLabelsYear.length; i++) {
+            const currentMonthActivity = processedDatas.find(data => data.fecha == this.barChartDateLabelsYear[i]);
+            if (currentMonthActivity) {
               barCharData.data.push(dataOriginal[currentMonthActivity.index].cantidad);
-            }else{
+            } else {
               barCharData.data.push(0);
             }
           }
           //Salimos del ciclo for
-          this.barChartData2.push(barCharData)
+          if (index > 4) {
+            barCharData.hidden = true;
+          }
+          this.barChartData3.push(barCharData)
         })
+        this.spinner3 = false;
+        this.barChartLegend3 = true;
       })
 
     this.chartService.getForkLengthIndividuals("Centropomus undecimalis")
@@ -156,47 +222,52 @@ export class BiologicalDataComponent implements OnInit {
         this.barChartData = [
           { data: temp, label: this.nameSelected, backgroundColor: bgColor.background, hoverBackgroundColor: bgColor.hoverBackground, borderColor: bgColor.background }
         ]
+        this.spinner1 = false;
       })
 
     this.miFormulario.get("name")?.valueChanges
       .pipe(
-        tap(res => this.nameSelected = res),
+        tap(res => {
+          this.nameSelected = res
+          this.spinner1 = true;
+        }),
         switchMap(res => this.chartService.getForkLengthIndividuals(res))
       )
       .subscribe(res => {
-        bgColor = this.color[Math.floor(Math.random() * (6 - 0) + 0)]
+        bgColor = this.color[Math.floor(Math.random() * (4 - 0) + 0)]
         this.barChartLabels = res.forkLengthAndIndividuals.map(data => `${data.length}`)
         temp = res.forkLengthAndIndividuals.map(data => data.currentTotal)
         this.barChartData = [
           { data: temp, label: this.nameSelected, backgroundColor: bgColor.background, hoverBackgroundColor: bgColor.hoverBackground, borderColor: bgColor.background }
         ]
+        this.spinner1 = false;
       });
-
-    this.chartService.getLabelActivityMonth()
-      .subscribe(res => {
-        this.barChartDateLabels = res.labelDate.map(data => `${(data.month > 9) ? data.month : "0" + data.month}-${data.year}`)
+  }
+  showAllData(value: string) {
+    if (value == "year") {
+      this.barChartData3 = this.barChartData3.map(data => {
+        data.hidden = false;
+        return data
       })
- 
+    } else if (value === "month") {
+      this.barChartData2 = this.barChartData2.map(data => {
+        data.hidden = false;
+        return data
+      })
+    }
+  }
+  hiddenAllData(value: string) {
+    if (value == "year") {
+      this.barChartData3 = this.barChartData3.map(data => {
+        data.hidden = true;
+        return data
+      })
+    } else if (value === "month") {
+      this.barChartData2 = this.barChartData2.map(data => {
+        data.hidden = true;
+        return data
+      })
+    }
   }
 
-  // // events
-  // public chartClicked({ event, active }: { event: MouseEvent, active: {}[] }): void {
-  //   console.log(event, active);
-  // }
-
-  // public chartHovered({ event, active }: { event: MouseEvent, active: {}[] }): void {
-  //   console.log(event, active);
-  // }
-
-  public randomize(): void {
-    // Only Change 3 values
-    this.barChartData[0].data = [
-      Math.round(Math.random() * 100),
-      59,
-      80,
-      (Math.random() * 100),
-      56,
-      (Math.random() * 100),
-      40];
-  }
 }

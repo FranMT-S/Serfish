@@ -26,6 +26,8 @@ export class DocumentComponent implements OnInit {
     ownerDocument: '' 
   };
 
+  cargando:boolean=false;
+
   constructor(private fileUploadService:FileUploadService, private authService:AuthService) { }
 
   ngOnInit(): void {
@@ -45,6 +47,7 @@ export class DocumentComponent implements OnInit {
   }
 
   loadFile(event:any){
+    this.cargando=true;
     this.uploadFile = event.files[0];
     //console.log(this.uploadFile, 'documentos', this.uploadFile.name, this.authService.user.uid)
     this.fileUploadService.loadFile(this.uploadFile, 'documentos').finally(() => {
@@ -63,9 +66,9 @@ export class DocumentComponent implements OnInit {
           this.documents = documents;
         });
       });
+      this.cargando=false;
     });
     this.fileUploader.clear();
-    
   }
 
   descargar(url:any, name:string){

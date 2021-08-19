@@ -159,8 +159,73 @@ const getLabelActivityMonth = async (req = request, res = response) => {
     }
 }
 
+const getDataActivityYear = async (req = request, res = response) => {
+    const { uid } = req
+    const nombreCientifico = req.header('nombreCientifico');
+    try {
+        const dataActivityYear = await Encuesta.aggregate([
+            {
+                //INNER JOIN CON DATOS BIOLOGICO
+                $lookup: {
+                    from: "datosbiologicos",
+                    localField: "_id",
+                    foreignField: "encuesta",
+                    as: "registro"
+                }
+            },
+            {
+                //DESESTRUCTURACION DEL ARREGLO A OBJETOS INDIVIDUALES
+                $unwind: "$registro"
+            },
+            {
+                //PROYECCION DE LOS CAMPOS DESEADOS
+                $project: {
+                    fecha: "$fecha",
+                    year: { $year: "$fecha" },
+                    month: { $month: "$fecha" },
+                    nombreComun: "$registro.nombreComun",
+                    nombreCientifico: "$registro.nombreCientifico"
+                }
+            },
+            {
+                //WHERE SOLO LOS NOMBRES DE COINCIDA
+                $match: { nombreCientifico }
+            },
+            {
+                //GROUP EN BASE DE LOS NOMBRE Y FECHAS
+                //CONTADOR DE ESAS AGRUPACIONES
+                $group: { _id: { nombreCientifico: "$nombreCientifico", nombreComun: "$nombreComun", anio: "$year" }, count: { $sum: 1 } }
+            },
+            {
+                //PROYECCION DE LOS CAMPOS DESEADOS
+                $project: {
+                    _id: 0,
+                    year: "$_id.anio",
+                    nombreComun: "$_id.nombreComun",
+                    nombreCientifico: "$_id.nombreCientifico",
+                    cantidad: "$count"
+                }
+            },
+            {
+                $sort: { year: 1, month: 1 }
+            }
+        ])
+        return res.status(200).json({
+            ok: true,
+            dataActivityYear
+        })
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({
+            ok: false,
+            msg: "Por favor contáctese con el administrador"
+        });
+    }
+}
+
 module.exports = {
     getSurvey,
     getDataActivityMonth,
-    getLabelActivityMonth
+    getLabelActivityMonth,
+    getDataActivityYear
 }

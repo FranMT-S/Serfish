@@ -7,6 +7,7 @@ export interface Background {
 export interface dataFrom1BarChart {
     data: number[];
     label: string;
+    hidden?:boolean;
 }
 
 export interface DateAndIndex {
@@ -66,5 +67,20 @@ export interface DataActivityMonth {
     nombreComun: string;
     nombreCientifico: string;
     cantidad: number;
+}
+// ###############################################
+
+
+//############  DataActivityYear  //############
+export interface ResponseDataActivityYear {
+    ok:               boolean;
+    dataActivityYear: DataActivityYear[];
+}
+
+export interface DataActivityYear {
+    year:             number;
+    nombreComun:      string;
+    nombreCientifico: string;
+    cantidad:         number;
 }
 // ###############################################

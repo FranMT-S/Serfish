@@ -1,37 +1,34 @@
-<div class="prueba"></div>
+<div *ngIf="cargando" class="prueba2 animate__animated animate__fadeIn">
+    <div class="centrarSpinner">
+        <mat-spinner color="accent"></mat-spinner>
+    </div> 
+</div>
+<div class="prueba animate__animated animate__fadeIn"></div>
 
+<div *ngIf="!cargando" class="mx-5 animate__animated animate__fadeIn">
     <div class="row mt-3">
         <!-- <div class="col"></div> -->
-        <div class="col" style="text-align: center;">
+        <div class="col">
             <h1>Zonas de Estudio</h1>
             <hr>
         </div>
-    
     </div>
-    
-    <div class="row container">
-        <div class="col-2"></div>
-        <div class="col">
-            <div class="row">
-                
-                <div class="col-4 mb-2" *ngFor="let zona of propiedades">
-                    <div class="card" style="border-radius: 10px;">
-                        <app-mini-mapa [lnglat]="zona.lngLat" [color]="zona.color" class="card-img-top"></app-mini-mapa>
-                        <div class="card-body">
-                            <h5 class="card-title">{{zona.titulo}}</h5>
-                            <!-- <p class="card-text">{{zona.descripcion}}</p> -->
-                            <button class="w-100 mt-1" mat-raised-button color="accent">Recoleccion de datos</button>
-                            <button class="w-100 mt-2" mat-stroked-button color="accent">Ver clima</button>
-                            <button class="w-100 mt-2" mat-stroked-button color="accent">Explorar</button>
-                        </div>
-                    </div>
-                    
+    <div class="row">
+        
+        <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-3 shadow" *ngFor="let zona of propiedades">
+            <div class="card animate__animated animate__fadeIn" style="border-radius: 10px;">
+                <app-mini-mapa [lnglat]="zona.lngLat" [color]="zona.color" class="card-img-top"></app-mini-mapa>
+                <div class="card-body">
+                    <h5 class="card-title">{{zona.titulo}}</h5>
+                    <!-- <p class="card-text">{{zona.descripcion}}</p> -->
+                    <button class="w-100 mt-1" mat-raised-button color="accent">Recoleccion de datos</button>
+                    <button class="w-100 mt-2" mat-stroked-button color="accent">Ver clima</button>
+                    <button class="w-100 mt-2" mat-stroked-button color="accent">Explorar</button>
                 </div>
-                
-                
             </div>
             
-            
-            
         </div>
+        
     </div>
+</div>
+

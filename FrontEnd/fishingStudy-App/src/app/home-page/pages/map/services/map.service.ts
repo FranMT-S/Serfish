@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../../../../environments/environment.prod';
-import { tap } from 'rxjs/operators';
+import { tap, map } from 'rxjs/operators';
 import { PlaceName } from '../interfaces/interfaces';
+import { combineLatest, Observable } from 'rxjs';
 
 interface MarkerResponse {
   ok: boolean;
@@ -16,6 +17,11 @@ interface Marker {
   lnglat?: string;
   organizacion?: string;
   newMarker?: mapboxgl.Marker;
+}
+interface Coor {
+  lng: number;
+  lat: number;
+  markerColor: string;
 }
 
 @Injectable({
@@ -68,7 +74,23 @@ export class MapService {
       .subscribe(console.log)
   }
 
-  getPlaceName(lng:string,lat:string){
+  getPlaceName(lng: number, lat: number, markerColor: string) {
     return this.http.get<PlaceName>(`https://api.mapbox.com/geocoding/v5/mapbox.places/${lng},${lat}.json?access_token=pk.eyJ1IjoiamVhbmx1Yy1ib3F1aW4iLCJhIjoiY2twZ2gxd3ZpMDJrNzJ1b2x6cHk5c2g5biJ9.M-5ncjMZSY7kMrN9vIsn4g&types=place`)
+      .pipe(
+        map(res => {
+          res.coordinate = [`${lng}`, `${lat}`]
+          res.markerColor = markerColor;
+          return res
+        })
+      )
+  }
+
+  getAllPlaceName(array: Coor[]) {
+    const peticiones: Observable<PlaceName>[] = [];
+    array.forEach(data => {
+      const peticion = this.getPlaceName(data.lng, data.lat, data.markerColor)
+      peticiones.push(peticion)
+    })
+    return combineLatest(peticiones);
   }
 }

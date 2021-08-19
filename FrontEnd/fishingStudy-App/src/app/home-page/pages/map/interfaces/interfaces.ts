@@ -3,6 +3,8 @@ export interface PlaceName {
     query:       number[];
     features:    Feature[];
     attribution: string;
+    coordinate?:string[];
+    markerColor?:string;
 }
 
 export interface Feature {

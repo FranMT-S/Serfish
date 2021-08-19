@@ -3,7 +3,7 @@ import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { UserService } from '../../../services/user.service';
 import { AuthService } from '../../../../auth/services/auth.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { switchMap } from 'rxjs/operators';
+import { switchMap, tap } from 'rxjs/operators';
 import { Usuario } from 'src/app/home-page/interfaces/interfaces';
 import { environment } from '../../../../../environments/environment';
 
@@ -51,7 +51,7 @@ export class EditProfileComponent implements OnInit {
     confirmPassword :["", [Validators.required], [this.authService.samePassword]]
   });
 
-
+  cargando:boolean=true;
   constructor(private fb : FormBuilder,
               private userService : UserService,
               private authService : AuthService,
@@ -64,6 +64,7 @@ export class EditProfileComponent implements OnInit {
   ngOnInit(){
     this.activatedRoute.params
     .pipe(
+      tap(()=>this.cargando=true),
       switchMap( params => {
         this.uid = params.uid;
         return  this.userService.getUsers(params.uid);
@@ -77,7 +78,8 @@ export class EditProfileComponent implements OnInit {
       this.editForm.get('role')?.patchValue(this.prueba.usuario.role)
       this.editForm.get('state')?.patchValue(this.prueba.usuario.state)
       this.imageUrl = this.getImageUrl(this.user);
-      }
+      this.cargando=false
+    }
     );
   }
   

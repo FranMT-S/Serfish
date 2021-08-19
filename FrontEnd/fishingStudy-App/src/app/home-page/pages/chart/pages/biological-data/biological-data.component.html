@@ -1,9 +1,16 @@
-<div class="backgroud">
+<div class="backgroud animate__animated animate__fadeIn">
 </div>
-<mat-card class="mx-sm-5 mx-md-5 mx-lg-5 mx-5 mt-5" style="background-color: #fafafa;">
-  <div class="container mt-4">
-    <h1 style="color: #414042;">Datos Biologicos</h1>
-    <span>Extrancion de informacion reciente de la base de datos</span>
+<mat-card class="m-5 animate__animated animate__fadeIn" style="background-color: #fafafa;">
+  <div class="container mt-2">
+    <div class="row">
+      <div class="col-6">
+        <h1 style="color: #414042;">Datos Biologicos</h1>
+        <span>Extrancion de informacion reciente de la base de datos</span>
+      </div>
+      <div class="col-6 align-self-end justify-content-end float-end" style="text-align: end;">
+        <mat-spinner *ngIf="spinner1" color="accent" diameter=50 class="float-end mb-3"></mat-spinner>
+      </div>
+    </div>
     <hr>
     <div style="display: flex; align-items: center;">
       <h4 class="me-2" style="color: #414042; margin: 0; padding: 0;">Monitorio: </h4>
@@ -11,15 +18,14 @@
         <mat-label>Seleccione el nombre del pez</mat-label>
         <mat-select formControlName="name">
           <mat-option value="Centropomus undecimalis">Centropomus undecimalis</mat-option>
-          <mat-option   *ngFor="let names of commonScientificName"
-                        [value]="names.scientificName">
-            {{names.scientificName}} - {{names.commonName}}      
+          <mat-option *ngFor="let names of commonScientificName" [value]="names.scientificName">
+            {{names.scientificName}} - {{names.commonName}}
           </mat-option>
         </mat-select>
       </mat-form-field>
     </div>
     <h2 style="color: #414042; text-align: center;">Estructura de talla {{nameSelected}}</h2>
-    <div  class="px-3 pb-2" style="display: block;">
+    <div class="px-3 pb-2" style="display: block;">
       <canvas baseChart
         [datasets]="barChartData"
         [labels]="barChartLabels"
@@ -32,22 +38,58 @@
   </div>
 </mat-card>
 <mat-card class="m-5">
-  <pre>
-    {{miFormulario.value|json}}
-  </pre>
+  <div class="container mt-2">
+    <div class="row">
+      <div class="col-6">
+        <h1 style="color: #414042;">Recolección por mes</h1>
+        <span>Extrancion de la actividad por mes</span>
+      </div>
+      <div class="col-6 align-self-end justify-content-end float-end" style="text-align: end;">
+        <mat-spinner *ngIf="spinner2" color="accent" diameter=50 class="float-end mb-3"></mat-spinner>
+      </div>
+    </div>
+    <hr>
+    <div class="px-3 pb-2" style="display: block;">
+      <canvas baseChart
+        [datasets]="barChartData2"
+        [labels]="barChartDateLabelsMonth"
+        [options]="barChartOptions2"
+        [legend]="barChartLegend2"
+        [chartType]="barChartType2">
+      </canvas>
+      <!-- <button class="" mat-button mat-raised-button color="primary" (click)="randomize()">Update</button> -->
+    </div>
+    <div class="row justify-content-end">
+      <button class="me-3" style="width: 150px;" mat-raised-button color="accent" (click)="showAllData('month')">Mostrar</button>
+      <button style="width: 150px;" mat-stroked-button color="accent" (click)="hiddenAllData('month')">Ocultar</button>
+    </div>
+  </div>
 </mat-card>
 <mat-card class="m-5">
-  <h1 style="color: #414042;">Recolencion por mes</h1>
-  <span>Extrancion de la actividad por mes</span>
-  <hr>
-  <div  class="px-3 pb-2" style="display: block;">
-    <canvas baseChart
-      [datasets]="barChartData2"
-      [labels]="barChartDateLabels"
-      [options]="barChartOptions"
-      [legend]="barChartLegend"
-      [chartType]="barChartType2">
+  <div class="container mt-2">
+    <div class="row">
+      <div class="col-6">
+        <h1 style="color: #414042;">Recolección por año</h1>
+        <span>Extrancion de la actividad por año</span>
+      </div>
+      <div class="col-6 align-self-end justify-content-end float-end" style="text-align: end;">
+        <mat-spinner *ngIf="spinner3" color="accent" diameter=50 class="float-end mb-3"></mat-spinner>
+      </div>
+    </div>
+    <hr>
+    <div class="px-3 pb-2" style="display: block;">
+      <canvas baseChart
+      [datasets]="barChartData3"
+      [labels]="barChartDateLabelsYear"
+      [options]="barChartOptions2"
+      [legend]="barChartLegend3"
+      [chartType]="barChartType3">
     </canvas>
-    <!-- <button class="" mat-button mat-raised-button color="primary" (click)="randomize()">Update</button> -->
+      <!-- <button class="" mat-button mat-raised-button color="primary" (click)="randomize()">Update</button> -->
+    </div>
+    <div class="row justify-content-end">
+      <button class="me-3" style="width: 150px;" mat-raised-button color="accent" (click)="showAllData('year')">Mostrar</button>
+      <button style="width: 150px;" mat-stroked-button color="accent" (click)="hiddenAllData('year')">Ocultar</button>
+    </div>
   </div>
 </mat-card>

@@ -23,7 +23,7 @@ export class MapViewComponent implements AfterViewInit, OnDestroy {
   arrayMarker: Marker[] = []
   zoomLevel: number = 6.5
   center = { lat: 14.526323177451724, lng: -86.60740463863459 }
-
+  cargando:boolean=true;
   constructor(private mapService: MapService) { }
 
   // Implementamos el onDestroy ya que los eventos pueden seguir emitiendo valores
@@ -83,6 +83,7 @@ export class MapViewComponent implements AfterViewInit, OnDestroy {
             this.arrayMarker.push({ newMarker, ...marker })
           })
         }
+        this.cargando=false;
       })
   }
 

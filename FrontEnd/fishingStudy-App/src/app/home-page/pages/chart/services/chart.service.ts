@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../../../../environments/environment';
-import { ResponseCommonScientificName, ResponseForkLengthAndIndividual, ResponseLabelYearMonth, ResponseDataActivityMonth, FishName } from '../interfaces/interfaces';
+import { ResponseCommonScientificName, ResponseForkLengthAndIndividual, ResponseLabelYearMonth, ResponseDataActivityMonth, FishName, ResponseDataActivityYear } from '../interfaces/interfaces';
 import { combineLatest, Observable } from 'rxjs';
 
 @Injectable({
@@ -55,7 +55,25 @@ export class ChartService {
       const peticion = this.getDataActivityMonth(data.scientificName)  
       peticiones.push(peticion)
     })
-    
+    return combineLatest(peticiones);
+  }
+
+  getDataActivityYear(name:string){
+    const url = `${this._baseURL}/survey/data-activity-year`;
+    const headers = new HttpHeaders()
+      .append('x-token', localStorage.getItem('token') || '')
+      .append('nombreCientifico',name)
+    return this.http.get<ResponseDataActivityYear>(url, { headers })
+  }
+
+  getAllDataActivityYear(commonScientificName:FishName[]){
+
+    const peticiones:Observable<ResponseDataActivityYear>[] = [];
+
+    commonScientificName.forEach(data=>{
+      const peticion = this.getDataActivityYear(data.scientificName)  
+      peticiones.push(peticion)
+    })
     return combineLatest(peticiones);
   }
 }
