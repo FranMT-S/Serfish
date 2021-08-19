@@ -1,12 +1,10 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
-import { CalendarService } from '../../services/calendar.service';
 import { ActivatedRoute } from '@angular/router';
-import { switchMap } from 'rxjs/operators';
-
-
-
 import Swal from 'sweetalert2';
+
+import { CalendarService } from '../../services/calendar.service';
+
 
 @Component({
   selector: 'app-events-setting',
@@ -16,6 +14,8 @@ import Swal from 'sweetalert2';
 export class EventsSettingComponent implements OnInit {
 
   @Input() id!: string;
+
+   
 
   eventForm: FormGroup = this.fb.group({
     title: ["", [Validators.required], []],
@@ -47,7 +47,7 @@ export class EventsSettingComponent implements OnInit {
           }
         });
       }
-      /* console.log(this.eventForm.value) */
+     
     });
 
   }

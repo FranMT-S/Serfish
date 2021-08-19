@@ -14,8 +14,10 @@ import { CalendarService } from '../../services/calendar.service';
 export class EventListComponent implements OnInit {
 
 
-  events:Evento[] = [];
-  displayBasic: boolean = false;
+  nextEvents:Evento[] = [];
+  pastEvents:Evento[] = [];
+  btnEdit: boolean = false;
+ 
 
   editEventForm: FormGroup = this.fb.group({
     title: ["", [Validators.required], []],
@@ -30,7 +32,7 @@ export class EventListComponent implements OnInit {
   constructor( private calendarService:CalendarService,
                private fb: FormBuilder,
                private router: Router
-    ) { }
+    ) {}
 
   ngOnInit(): void {
     this.getEvents();
@@ -39,7 +41,16 @@ export class EventListComponent implements OnInit {
   getEvents(){
     this.calendarService.getEvents().subscribe( res =>{
       if(res.ok){
-        this.events = res.events;
+        res.events.map( data =>{
+          if (new Date(data.end) > new Date() && !this.nextEvents.includes(data) ){           
+            this.nextEvents.push(data);
+          }else{
+            if (!this.nextEvents.includes(data) ){         
+              this.pastEvents.push(data);
+            }
+           
+          }
+        });
       }
     })
   }
@@ -68,7 +79,11 @@ export class EventListComponent implements OnInit {
             icon:'success',
             showConfirmButton: false,
             timer: 1500
-          }).then(() => { this.getEvents();});
+          })
+          this.pastEvents = [];
+          this.nextEvents = [];
+          this.getEvents();
+         
         })
       }
     })

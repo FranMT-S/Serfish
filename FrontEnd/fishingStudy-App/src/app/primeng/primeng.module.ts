@@ -11,6 +11,9 @@ import {FullCalendarModule} from 'primeng/fullcalendar';
 import { FieldsetModule } from 'primeng/fieldset';
 import { AccordionModule } from 'primeng/accordion';
 import {DialogModule} from 'primeng/dialog';
+import {InputTextareaModule} from 'primeng/inputtextarea';
+import {InputTextModule} from 'primeng/inputtext';
+import {SelectButtonModule} from 'primeng/selectbutton';
 
 
 @NgModule({
@@ -26,7 +29,11 @@ import {DialogModule} from 'primeng/dialog';
     FieldsetModule,
     AccordionModule,
     FullCalendarModule,
-    DialogModule
+    DialogModule,
+    InputTextareaModule,
+    InputTextModule,
+    SelectButtonModule
+    
   ]
 })
 export class PrimengModule { }
