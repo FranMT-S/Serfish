@@ -1,27 +1,3 @@
-/* img {
-    width: 150px;
-    height: 150px;
-    border-radius: 50%;
-    margin: 1rem;
-}
-
-.background { 
-    width: 100%;
-    position: absolute;
-    top: 56px;
-    bottom: -2000px;
-    background-image: url("../../../../assets/clima/91.png");
-    background-repeat: no-repeat;
-    background-position: center;
-    background-attachment: fixed;
-    background-size: cover;
-}
-
-.card {
-    background-color: cyan;
-    margin-top: 20px;
-} */
-
 img {
   width: 150px;
   height: 150px;
@@ -34,7 +10,7 @@ img {
   position: absolute;
   top: 56px;
   bottom: 0px;
-  background-image: url("../../../../assets/clima/91.png");
+  background-image: url("../../../../assets/clima/90.png");
   background-repeat: no-repeat;
   background-position: center;
   background-attachment: fixed;
@@ -96,13 +72,11 @@ img {
     margin-top: 56px;
   }
   .circle1,
-  .circle2 {
-    background: white;
-    background: linear-gradient(
-      to right bottom,
-      rgba(255, 255, 255, 0.8),
-      rgba(255, 255, 255, 0.3)
-    );
+  .circle2,
+  .circle3,
+  .circle4,
+  .circle5 {
+    background: linear-gradient(to right top, #65dfc9, #6cdbeb);
     height: 20rem;
     width: 20rem;
     position: absolute;
@@ -117,6 +91,19 @@ img {
     bottom: 5%;
     left: 1%;
   }
+  .circle3 {
+    top:25%;
+    left: 1%;
+  }
+  .circle4 {
+    bottom: 20%;
+    right: 10%;
+  }
+  .circle5 {
+    bottom: 40%;
+    left: 40%;
+  }
+
   .dashboard {
     flex: 1;
     display: flex;
@@ -127,7 +114,7 @@ img {
     text-align: center;
     background: linear-gradient(
       to right bottom,
-      rgba(255, 255, 255, 0.7),
+      rgba(148, 220, 238, 0.7),
       rgba(255, 255, 255, 0.3)
     );
     border-radius: 2rem;
@@ -220,11 +207,4 @@ img {
     flex-direction: column;
     justify-content: space-between;
     width: 100%;
-  }
-  
-  .percentage {
-    font-weight: bold;
-    background: linear-gradient(to right top, #65dfc9, #6cdbeb);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
   }
