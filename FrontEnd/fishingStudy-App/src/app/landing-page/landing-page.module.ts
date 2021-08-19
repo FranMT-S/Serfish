@@ -16,6 +16,7 @@ import { SectionPlansComponent } from './components/section-plans/section-plans.
 import { FooterComponent } from './components/footer/footer.component';
 import { SectionContactUsComponent } from './components/section-contact-us/section-contact-us.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { SectionCreadoresComponent } from './components/section-creadores/section-creadores.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     SectionFunctionComponent,
     SectionPlansComponent,
     FooterComponent,
-    SectionContactUsComponent
+    SectionContactUsComponent,
+    SectionCreadoresComponent
   ],
   exports:[
     LandingComponent

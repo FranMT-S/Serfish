@@ -1,0 +1,79 @@
+<div class="m-5">
+    <div class="row pt-2" [ngsReveal]="{reset:true,origin:'left', distance:'80px', delay:100, duration:1000}">
+        
+        <h1 class="mb-0">Creadores</h1>
+        <svg height="10" width="300">
+        <line x1="0" y1="0" x2="150" y2="0" style="stroke:#3f51b5;stroke-width:8" />
+      </svg>
+    </div>
+    <div class="row pt-2 pb-2" [ngsRevealSet]="{ reset:true, delay:100}" [ngsInterval]="200" [ngsSelector]="'.example-card'">
+        
+        <!-- <div class="row">
+            <div class="col">
+              1 of 3
+            </div>
+            <div class="col">
+              2 of 3
+            </div>
+            <div class="col">
+              3 of 3
+            </div>
+          </div> -->
+        <div class="container">  
+           <div  *ngFor="let row of creators" class="row-separate">
+               <div class="row">
+                   <div *ngFor="let creator of row" class="col-md-4 ">
+                        <mat-card class="example-card" >                 
+                            <img class="autor" src="{{creator.img}}" alt="">             
+                            <mat-card-content class="content">
+                                <mat-card-title  class="nombre">{{creator.Name}}</mat-card-title>
+                                <mat-card-subtitle class="role" >{{creator.role}}</mat-card-subtitle>
+                                <p  class="info">
+                                    {{creator.Info}}
+                                </p>
+
+                                
+                                <ul>
+                                    <li class="mt-1" style="list-style: none;">                                               
+                                    </li>
+                                </ul>
+                                <hr>
+                                <p  class="info">
+                                    Participacion
+                                </p>
+                                <div class="detail-progress" *ngFor="let job of creator.participation">
+                                    <mat-card-title  class="labor">{{job.labor}}</mat-card-title>
+  
+
+                                    <mat-progress-bar 
+                                    value={{job.percent}}
+                                    class="progress"
+                                    > 
+                                      
+                                    </mat-progress-bar>
+                                </div>
+                            </mat-card-content>
+
+                            <mat-card-actions>
+                                <ul id="social">
+                                    <li>
+                                        <i class="fab fa-facebook fa-lg"></i>
+                                    </li>
+                                    <li>
+                                        <i class="fab fa-youtube fa-lg"></i>
+                                    </li>
+                                    <li>
+                                        <i class="fab fa-twitter fa-lg"></i>
+                                    </li>
+                                    <li>
+                                        <i class="fab fa-instagram fa-lg"></i>
+                                    </li>
+                                </ul>
+                            </mat-card-actions>
+                        </mat-card>
+                    </div>
+               </div>
+           </div>
+        </div>
+    </div>
+</div>
