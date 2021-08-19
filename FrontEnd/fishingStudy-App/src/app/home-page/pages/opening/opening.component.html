@@ -79,7 +79,7 @@ integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG
                                 <mat-card color="accent" class="mt-2" style="width: 100%; text-align: center; border-radius: 20px;  ">
                                     
                                     <mat-card-content>
-                                      <p style="font-size: 1rem;">{{ currentWeather.weather[0].description | titlecase }}</p>
+                                      <p style="font-size: 1.5rem;">{{ currentWeather.weather[0].description | titlecase }}</p>
                                       <img style="width: 200px; " [src]=" currentWeather.weather[0].icon |codeImg " alt="">
                                       <p style="font-size: 2rem;">{{ currentWeather.main.temp_max | kelvilCelsius }}°/{{
                                         currentWeather.main.temp_min | kelvilCelsius }}°</p>
