@@ -1,6 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { KelvilCelsiusPipe } from '../../pipes/kelvil-celsius.pipe';
-import { MsKmhPipe } from '../../pipes/ms-kmh.pipe';
+
 import { Current } from '../../interfaces/climate';
 import { ClimateService } from '../../services/climate.service';
 import { trigger, state, style, transition, animate } from '@angular/animations';
@@ -24,8 +23,7 @@ interface weatherData {
 export class HoursTableComponent implements OnInit {
 
   // Pipes
-  kelvilCelsiu = new KelvilCelsiusPipe();
-  msKmhPipe = new MsKmhPipe();
+
 
   dataDays: Current[] = []
   @Input() DaysOrHours: String = "Hours"
