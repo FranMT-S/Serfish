@@ -40,3 +40,10 @@ img {
   align-items: flex-start;
   /* align-content: flex-start; */
 }
+.prueba img{
+  width: 45px;
+  height: 45px;
+  border-radius: 0;
+  margin: 2px;
+  /* margin: 1rem; */
+}

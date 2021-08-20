@@ -134,9 +134,10 @@ integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG
     </html> -->
 
 
-<div class="row">
+<div class="row mx-5 mt-3">
   <div class="col-6">
-    <div class="dashboard p-4">
+    <mat-card class="p-4">
+      <!-- <mat-card-title>Bienvenidos a SerFish </mat-card-title> -->
       <div class="user">
         <img [src]="imageUrl" alt="UserAvatar" class="img2"><br>
         <div style="display: flex; flex-direction: column;">
@@ -144,29 +145,53 @@ integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG
           <p>{{usuario.role | titlecase }}</p>
         </div>
       </div>
+      <mat-card-subtitle>Te ofrecemos las siguientes herramientas:</mat-card-subtitle>
+  
+  
+        <div class="prueba">
+          <div class="row">
+            <div class="col-12 col-sm-6">
+              <img src="../../../../assets/landingPage/funciones/analitica.png" alt="">
+              <h4 class="mt-1">Estudio estadístico</h4>
+              <p>Reduccion de datos, ofreciendo información clave y precisa de acuerdo a las necesidades del negocio.</p>
+            </div>
+            <div class="col-12 col-sm-6">
+              <img src="../../../../assets/landingPage/funciones/map.png" alt="">
+              <h4 class="mt-1">Zonas de estudio</h4>
+              <p>Monitoreo,control y gestion de zonas y rutas de pesca.</p>
+            </div>
+          </div>
+    
+          <div class="row">
+            <div class="col-12 col-sm-6">
+              <img src="../../../../assets/landingPage/funciones/colaboracion.png" alt="">
+              <h4 class="mt-1">Colaboración</h4>
+              <p>Entorno colaboratorivo para los procesos de trabajo</p>
+            </div>
+            <div class="col-12 col-sm-6">
+              <img src="../../../../assets/landingPage/funciones/advertencia.png" alt="">
+              <h4 class="mt-1">Alertas tempranas</h4>
+              <p>Monitoreo de las condiciones climaticas e informes en tiempo real en caso de alertas</p>
+            </div>
+          </div>
+    
+          <div class="row">
+            <div class="col-12 col-sm-6">
+              <img src="../../../../assets/landingPage/funciones/proteger.png" alt="">
+              <h4 class="mt-1">Seguridad</h4>
+              <p>Proteccion a la confidencialidad e integridad de los datos de su negocio en todo momento.</p>
+            </div>
+            <div class="col-12 col-sm-6">
+              <img src="../../../../assets/landingPage/funciones/smartphone.png" alt="">
+              <h4 class="mt-1">Ingreso Movil</h4>
+              <p>Acceso a todo sus datos desde dispositivos moviles.</p>
+            </div>
+          </div>
+        </div>
+        
+  
 
-      <div class="chart" style="align-items: center;">
-        <canvas baseChart
-          [data]="pieChartData"
-          [labels]="pieChartLabels"
-          [chartType]="pieChartType"
-          [options]="pieChartOptions"
-          [colors]="pieChartColors"
-          [legend]="pieChartLegend">
-        </canvas>
-      </div>
-      <div class="chart" style="align-items: center;">
-        <canvas baseChart
-          [data]="pieChartData"
-          [labels]="pieChartLabels"
-          [chartType]="pieChartType"
-          [options]="pieChartOptions"
-          [colors]="pieChartColors"
-          [legend]="pieChartLegend">
-        </canvas>
-      </div>
-      
-    </div>
+    </mat-card>
   </div>
   <div class="col-6">
     <div class="games me-4">
@@ -191,34 +216,105 @@ integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG
         <h2>Hora y fecha</h2>
         <mat-card color="accent" class="mt-2" style="width: 100%; text-align: center; border-radius: 20px;">
           <mat-card-content>
-            <iframe src="https://free.timeanddate.com/clock/i7xxtuhg/n245/tlhn4/fn5/fs22/fc888/tct/pct/pa0/tt0/tw1/tm1/td2/th2/tb4" frameborder="0" width="266" height="52" allowtransparency="true"></iframe>
+            <iframe
+              src="https://free.timeanddate.com/clock/i7xxtuhg/n245/tlhn4/fn5/fs22/fc888/tct/pct/pa0/tt0/tw1/tm1/td2/th2/tb4"
+              frameborder="0" width="266" height="52" allowtransparency="true"></iframe>
           </mat-card-content>
-        </mat-card>                                  
+        </mat-card>
       </div>
     </div>
   </div>
 </div>
-<div class="row m-3">
-  <div class="col-4">
+
+
+
+<div class="row mx-5 mt-3">
+  <div  class="col-12">
+    <h1 class="mb-0">Analisis de datos</h1>
+    <svg height="5" width="300" style="z-index: 99; background-color:#ff4081;">
+        <line x1="0" y1="0" x2="150" y2="0" style="stroke-width:2"/>
+    </svg>
+    <p>Informacion generales de especies registradas</p>
+  </div>
+
+  <div class="col-6">
     <mat-card>
-      <a class="twitter-timeline" href="https://twitter.com/TwitterDev?ref_src=twsrc%5Etfw">Tweets by TwitterDev</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+      <div class="chart" style="align-items: center;">
+      <canvas baseChart
+        [data]="pieChartData"
+        [labels]="pieChartLabels"
+        [chartType]="pieChartType"
+        [options]="pieChartOptions"
+        [colors]="pieChartColors"
+        [legend]="pieChartLegend">
+      </canvas>
+    </div>
     </mat-card>
   </div>
-  <div class="col-4">
+  <div class="col-6">
     <mat-card>
-      <a class="twitter-timeline" href="https://twitter.com/TwitterDev/lists/national-parks?ref_src=twsrc%5Etfw">A Twitter List by TwitterDev</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-    </mat-card>
-  </div>
-  <div class="col-4">
-    <mat-card>
-      <a class="twitter-timeline" href="https://twitter.com/aquariumss?ref_src=twsrc%5Etfw">Tweets by aquariumss</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+      <div style="display: block">
+        <canvas baseChart
+          [datasets]="barChartData2"
+          [labels]="barChartLabels2"
+          [options]="barChartOptions2"
+          [legend]="barChartLegend2"
+          [chartType]="barChartType2">
+        </canvas>
+      </div>
     </mat-card>
   </div>
 </div>
-<div class="row m-2">
+
+<div class="row mx-5 mt-3">
+  <div  class="col-12">
+    <h1 class="mb-0">Social</h1>
+    <svg height="5" width="300" style="z-index: 99; background-color:#ff4081;">
+        <line x1="0" y1="0" x2="150" y2="0" style="stroke-width:2"/>
+    </svg>
+    <p>Fantástico informacion sobre la vida marina</p>
+  </div>
+  <div class="col-12 col-sm-12 col-md-6 col-lg-4 mb-3">
+    <mat-card>
+      <a class="twitter-timeline" data-width="100%" data-height="470" data-theme="light"
+        href="https://twitter.com/MarineLifeProj?ref_src=twsrc%5Etfw">Tweets by MarineLifeProj</a>
+      <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+    </mat-card>
+  </div>
+  <div class="col-12 col-sm-12 col-md-6 col-lg-4 mb-3">
+    <mat-card>
+      <a class="twitter-timeline" data-width="100%" data-height="470" data-theme="light"
+        href="https://twitter.com/ChecktheSea?ref_src=twsrc%5Etfw">Tweets by ChecktheSea</a>
+      <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+    </mat-card>
+  </div>
+  <div class="col-12 col-sm-12 col-md-6 col-lg-4 mb-3">
+    <mat-card>
+      <a class="twitter-timeline" data-width="100%" data-height="470" data-theme="light"
+        href="https://twitter.com/FutureofFish?ref_src=twsrc%5Etfw">Tweets by FutureofFish</a>
+      <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+      <!-- <a class="twitter-timeline" data-width="300" data-height="470" data-theme="light" href="https://twitter.com/FutureofFish?ref_src=twsrc%5Etfw">Tweets by FutureofFish</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script> -->
+    </mat-card>
+  </div>
+</div>
+
+
+
+
+
+<div class="row mx-5 mt-3">
+  <div  class="col-12">
+    <h1 class="mb-0">Explora</h1>
+    <svg height="5" width="300" style="z-index: 99; background-color:#ff4081;">
+        <line x1="0" y1="0" x2="150" y2="0" style="stroke-width:2"/>
+    </svg>
+    <p>Explora los pronosticos metereologicos de Windy</p>
+  </div>
   <div class="col">
     <mat-card>
-      <iframe width="100%" height="550" src="https://embed.windy.com/embed2.html?lat=10.228&lon=-87.231&detailLat=14.103&detailLon=-87.214&width=650&height=450&zoom=5&level=surface&overlay=wind&product=ecmwf&menu=&message=true&marker=&calendar=now&pressure=&type=map&location=coordinates&detail=&metricWind=default&metricTemp=default&radarRange=-1" frameborder="0"></iframe>
+      <iframe width="100%" height="550"
+        src="https://embed.windy.com/embed2.html?lat=10.228&lon=-87.231&detailLat=14.103&detailLon=-87.214&width=650&height=450&zoom=5&level=surface&overlay=wind&product=ecmwf&menu=&message=true&marker=&calendar=now&pressure=&type=map&location=coordinates&detail=&metricWind=default&metricTemp=default&radarRange=-1"
+        frameborder="0"></iframe>
     </mat-card>
   </div>
 </div>
