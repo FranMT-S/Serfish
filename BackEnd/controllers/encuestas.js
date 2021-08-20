@@ -31,19 +31,19 @@ const newSurvey = async(req = request, res = response) => {
 const getSurvey = async(req = request, res = response) => {
     const { uid } = req.uid;
     try {
-        const { organizacion } = await Usuario.findById(uid);
-        if (!organizacion) {
-            return res.status(400).json({
-                ok: false,
-                msg: "La organizacion no esta registrada."
-            })
-        }
+        // const { organizacion } = await Usuario.findById(uid);
+        // if (!organizacion) {
+        //     return res.status(400).json({
+        //         ok: false,
+        //         msg: "La organizacion no esta registrada."
+        //     })
+        // }
         const encuestas = await Encuesta.find()
             .populate({
                 path: "empleado",
                 model: "Usuario",
                 select: "name role",
-                match: { name: "Encuestador1" },
+                // match: { name: "Encuestador1" },
                 populate: {
                     path: "organizacion",
                     model: "Organizacion",

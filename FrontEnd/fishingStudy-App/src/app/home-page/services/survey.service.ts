@@ -16,7 +16,7 @@ export class SurveyService {
   private _baseUrl: string = environment.baseUrl;
 
   registrarEncuesta(payload: SurveyRequest){
-    const url = `${this._baseUrl}/encuestas`
+    const url = `${this._baseUrl}/survey`
     const headers = new HttpHeaders()
       .append('x-token', localStorage.getItem('token') || '');
     return this.http.post<SurveyResponse>(url, payload, { headers })

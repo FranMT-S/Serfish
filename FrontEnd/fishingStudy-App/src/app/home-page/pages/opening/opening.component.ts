@@ -83,7 +83,7 @@ export class OpeningComponent implements OnInit, AfterViewInit {
   // public pieChartPlugins = [pluginDataLabels];
   public pieChartColors = [
     {
-      backgroundColor: ['rgba(255,0,0,0.3)', 'rgba(0,255,0,0.3)', 'rgba(0,0,255,0.3)'],
+      backgroundColor: ['#3498dbe6', '#1abc9ce6', '#9b58b6e6'],
     },
   ];
   constructor(private authService: AuthService, private ClimateService: ClimateService) { }
@@ -140,8 +140,8 @@ export class OpeningComponent implements OnInit, AfterViewInit {
   public barChartLegend2 = true;
 
   public barChartData2: ChartDataSets[] = [
-    { data: [65, 59, 80, 81, 56, 55, 40], label: 'Robalo' },
-    { data: [28, 48, 40, 19, 86, 27, 90], label: 'Bagre' }
+    { data: [65, 59, 80, 81, 56, 55, 40], label: 'Robalo',backgroundColor: "#1abc9ce6", hoverBackgroundColor:"#16a085", borderColor: "#1abc9ce6" },
+    { data: [28, 48, 40, 19, 86, 27, 90], label: 'Bagre',backgroundColor: "#3498dbe6", hoverBackgroundColor: "#2980b9", borderColor: "#3498dbe6" }
   ];
   /////////
 }
