@@ -16,6 +16,7 @@ import { KelvilCelsiusPipe } from './pages/climate/pipes/kelvil-celsius.pipe';
 import { MsKmhPipe } from './pages/climate/pipes/ms-kmh.pipe';
 import { TranslateDescWeatherPipe } from './pages/climate/pipes/translate-desc-weather.pipe';
 import { UnixTimePipe } from './pages/climate/pipes/unix-time.pipe';
+import { ChartsModule } from 'ng2-charts';
 
 
 
@@ -46,7 +47,8 @@ import { UnixTimePipe } from './pages/climate/pipes/unix-time.pipe';
     MaterialModule,
     ReactiveFormsModule,
     NgScrollbarModule,
-    PrimengModule
+    PrimengModule,
+    ChartsModule
   ],
   exports:[
     CodeImgPipe,
