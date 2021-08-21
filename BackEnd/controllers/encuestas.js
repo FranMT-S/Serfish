@@ -1,15 +1,16 @@
 const { request, response } = require("express");
 const Encuesta = require("../models/encuesta");
 const datosBiologicos = require("../models/datosBiologicos");
+const Usuario = require("../models/usuario");
 
-const newSurvey = async(req = request, res = response) => {
+const newSurvey = async (req = request, res = response) => {
     const { uid } = req;
     try {
         req.body['empleado'] = uid;
         const newSurvey = new Encuesta({ empleado: uid, comunidad: req.body.comunidad });
         //console.log(newSurvey);
         await newSurvey.save();
-        req.body.especies.forEach(async(especie) => {
+        req.body.especies.forEach(async (especie) => {
             especie.encuesta = newSurvey._id;
             newDato = new datosBiologicos(especie);
             //console.log(newDato);
@@ -28,28 +29,41 @@ const newSurvey = async(req = request, res = response) => {
     }
 }
 
-const getSurvey = async(req = request, res = response) => {
-    const { uid } = req.uid;
+const getSurvey = async (req = request, res = response) => {
+    const { uid } = req;
     try {
-        // const { organizacion } = await Usuario.findById(uid);
-        // if (!organizacion) {
-        //     return res.status(400).json({
-        //         ok: false,
-        //         msg: "La organizacion no esta registrada."
-        //     })
-        // }
-        const encuestas = await Encuesta.find()
-            .populate({
-                path: "empleado",
-                model: "Usuario",
-                select: "name role",
-                // match: { name: "Encuestador1" },
-                populate: {
-                    path: "organizacion",
-                    model: "Organizacion",
-                    select: "name"
+        const { organizacion } = await Usuario.findById(uid);
+        if (!organizacion) {
+            return res.status(400).json({
+                ok: false,
+                msg: "La organizacion no esta registrada."
+            })
+        }
+        console.log(organizacion)
+        const encuestas = await Encuesta.aggregate([
+            {
+                $lookup: {
+                    from: "usuarios",
+                    localField: "empleado",
+                    foreignField: "_id",
+                    as: "empleado"
                 }
-            });
+            },
+            {
+                $match: { "empleado.organizacion": organizacion }
+            }
+        ])
+            // .populate({
+            //     path: "empleado",
+            //     model: "Usuario",
+            //     select: "name role",
+            //     // match: { name: "Encuestador1" },
+            //     populate: {
+            //         path: "organizacion",
+            //         model: "Organizacion",
+            //         select: "name"
+            //     }
+            // });
 
         return res.status(200).json({
             ok: true,
@@ -68,7 +82,25 @@ const getDataActivityMonth = async (req = request, res = response) => {
     const { uid } = req
     const nombreCientifico = req.header('nombreCientifico');
     try {
+        const { organizacion } = await Usuario.findById(uid);
+        if (!organizacion) {
+            return res.status(400).json({
+                ok: false,
+                msg: "La organizacion no esta registrada."
+            })
+        }
         const dataActivityMonth = await Encuesta.aggregate([
+            {
+                $lookup: {
+                    from: "usuarios",
+                    localField: "empleado",
+                    foreignField: "_id",
+                    as: "empleado"
+                }
+            },
+            {
+                $match: { "empleado.organizacion": organizacion }
+            },
             {
                 //INNER JOIN CON DATOS BIOLOGICO
                 $lookup: {
@@ -132,7 +164,25 @@ const getDataActivityMonth = async (req = request, res = response) => {
 const getLabelActivityMonth = async (req = request, res = response) => {
     const { uid } = req
     try {
+        const { organizacion } = await Usuario.findById(uid);
+        if (!organizacion) {
+            return res.status(400).json({
+                ok: false,
+                msg: "La organizacion no esta registrada."
+            })
+        }
         const labelDate = await Encuesta.aggregate([
+            {
+                $lookup: {
+                    from: "usuarios",
+                    localField: "empleado",
+                    foreignField: "_id",
+                    as: "empleado"
+                }
+            },
+            {
+                $match: { "empleado.organizacion": organizacion }
+            },
             {
                 $group: { _id: { year: { $year: "$fecha" }, month: { $month: "$fecha" } } }
             },
@@ -164,7 +214,25 @@ const getDataActivityYear = async (req = request, res = response) => {
     const { uid } = req
     const nombreCientifico = req.header('nombreCientifico');
     try {
+        const { organizacion } = await Usuario.findById(uid);
+        if (!organizacion) {
+            return res.status(400).json({
+                ok: false,
+                msg: "La organizacion no esta registrada."
+            })
+        }
         const dataActivityYear = await Encuesta.aggregate([
+            {
+                $lookup: {
+                    from: "usuarios",
+                    localField: "empleado",
+                    foreignField: "_id",
+                    as: "empleado"
+                }
+            },
+            {
+                $match: { "empleado.organizacion": organizacion }
+            },
             {
                 //INNER JOIN CON DATOS BIOLOGICO
                 $lookup: {

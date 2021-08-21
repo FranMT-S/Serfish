@@ -200,25 +200,24 @@ integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG
         <mat-card-content>
           <div class="row">
             <div class="" style="display: flex; flex-wrap: wrap; justify-items: center; ">
-              <mat-card color="accent" class="mt-2" style="width: 100%; text-align: center; border-radius: 20px;">
+              <mat-card color="accent" class="" style="width: 100%; text-align: center;">
                 <mat-card-content>
-                  <p style="font-size: 1.5rem;">{{ currentWeather.weather[0].description | titlecase }}</p>
-                  <img style="width: 200px; " [src]=" currentWeather.weather[0].icon |codeImg " alt="">
+                  <p style="font-size: 1.5rem;">{{ currentWeather.weather[0].description | translateDescWeather:currentWeather.weather[0].main }}</p>
+                  <img [src]=" currentWeather.weather[0].icon |codeImg " alt="">
                   <p style="font-size: 2rem;">{{ currentWeather.main.temp_max | kelvilCelsius }}°/{{
-                    currentWeather.main.temp_min | kelvilCelsius }}°</p>
-                  <p>{{currentWeather.main.humidity}}%</p>
-                  <p>{{currentWeather.wind.speed|msKmh}}km/h</p>
+                    currentWeather.main.temp_min | kelvilCelsius }}°<i class="fas fa-thermometer-half ms-2"></i></p>
+                  <p>{{currentWeather.main.humidity}}%<i class="fas fa-tint ms-2"></i></p>
+                  <p>{{currentWeather.wind.speed|msKmh}}km/h<i class="fas fa-wind ms-2"></i></p>
                 </mat-card-content>
               </mat-card>
             </div>
           </div>
         </mat-card-content>
-        <h2>Hora y fecha</h2>
-        <mat-card color="accent" class="mt-2" style="width: 100%; text-align: center; border-radius: 20px;">
+        <!-- <h2>Hora y fecha</h2> -->
+        <mat-card color="accent" class="mt-4" style="width: 100%; text-align: center; ">
           <mat-card-content>
-            <iframe
-              src="https://free.timeanddate.com/clock/i7xxtuhg/n245/tlhn4/fn5/fs22/fc888/tct/pct/pa0/tt0/tw1/tm1/td2/th2/tb4"
-              frameborder="0" width="266" height="52" allowtransparency="true"></iframe>
+            <div style="position: absolute; background-color: rgba(255, 255, 255, 0); width: 100%; height: 100%; margin: 0; padding: 0;"></div>
+            <div style="text-align:center;padding:1em 0;"> <h3><a style="text-decoration:none;" href="https://www.zeitverschiebung.net/es/city/3600949"><span style="color:gray;">Hora actual en</span><br />Tegucigalpa, Honduras</a></h3> <iframe src="https://www.zeitverschiebung.net/clock-widget-iframe-v2?language=es&size=medium&timezone=America%2FTegucigalpa" width="100%" height="115" frameborder="0" seamless></iframe> </div>
           </mat-card-content>
         </mat-card>
       </div>
