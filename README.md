@@ -10,4 +10,4 @@ Tecnologias implementadas:
 * express
 * mongoDB
 
-Link del servicio: https://serfish.herokuapp.com/landing-page
+Link demo: https://serfish.herokuapp.com/landing-page
