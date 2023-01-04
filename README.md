@@ -13,4 +13,4 @@ Tecnologias implementadas:
 * express
 * mongoDB
 
-Link demo: https://serfish.herokuapp.com/landing-page
+Link demo: https://fran-serfish.onrender.com/landing-page
