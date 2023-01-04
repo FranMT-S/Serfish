@@ -20,7 +20,7 @@ router.get("/", validarJWT, getUsers);
 router.post("/changeState", changeStateUser);
 
 router.post("/", [
-        validarJWT,
+         validarJWT,
         check("name", "El nombre es obligatorio.").not().isEmpty(),
         check("password", "La contraseña es obligatorio.").not().isEmpty(),
         check("email", "El email no es valido.").isEmail(),

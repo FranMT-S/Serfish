@@ -22,8 +22,8 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.miFormulario.reset({
-      email:"biologo1@org1.com",
-      password:"Contraseña.123",
+      email:"jean.boquin.s@gmail.com",
+      password:"pythonjs",
     })
   }
 

@@ -63,6 +63,7 @@ const newUser = async(req = request, res = response) => {
     const { email, password } = req.body;
     try {
         // Paso 0: obtener la organizacion
+       
         const { organizacion } = await Usuario.findById(req.uid);
         // Paso 1: Verificar el email
         const emailExist = await Usuario.findOne({ email });
@@ -91,6 +92,7 @@ const newUser = async(req = request, res = response) => {
             token
         });
     } catch (error) {
+        console.log(error);
         res.status(500).json({
             ok: false,
             msg: "Por favor contáctese con el administrador"
@@ -182,7 +184,9 @@ const updatePassword = async(req = request, res = response) => {
             });
         }
         // actualizar contraseña
+        
         const salt = bcrypt.genSaltSync(); //data generada de manera aletoria.
+        bcrypt.has
         await Usuario.findByIdAndUpdate(uid, { password: bcrypt.hashSync(newPassword, salt) }, { new: true });
 
         return res.status(200).json({

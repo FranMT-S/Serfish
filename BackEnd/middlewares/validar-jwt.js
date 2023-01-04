@@ -2,6 +2,8 @@ const { request, response } = require("express");
 const jwt = require("jsonwebtoken");
 
 const validarJWT = (req = request, resp = response, next) => {
+
+
     const token = req.header('x-token') || req.params.token;
     if (!token) {
         // 401 usuario no autenticado
