@@ -88,7 +88,8 @@ const forgotPassword = async(req = request, res = response) => {
         const token = await generarJWT(user._id, '600s');
 
         //Luego enviamos un correo electronico al usuario que solicita el cambio de contraseña.
-        let info = await sendEmail(user.name, email, token);
+        let url = `${req.protocol + '://' + req.get('host')}` 
+        let info = await sendEmail(user.name, email, token,url);
         console.log("Salido de send")
         res.status(200).json({
             ok: true,

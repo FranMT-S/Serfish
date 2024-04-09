@@ -8,6 +8,7 @@ const sendInfo = async(req = request, res = response) => {
         const { nombre, email, organizacion, mensaje } = req.body;
 
         //Luego enviamos un correo electronico 
+
         await sendThanks(nombre, email, organizacion);
         await sendContact(nombre, email, organizacion, mensaje);
         res.status(200).json({

@@ -1,6 +1,6 @@
 const nodemailer = require("nodemailer");
 
-const sendEmail = (username, email, token, ) => {
+const sendEmail = (username, email, token,url) => {
     // console.log("Email: ",email," ","Token: :",token);
     // create reusable transporter object using the default SMTP transport
     let transporter = nodemailer.createTransport({
@@ -39,7 +39,9 @@ const sendEmail = (username, email, token, ) => {
                                     font-size: 16px;
                                     margin: 0px 0px 15px;
                                     cursor: pointer;">
-                        <a href="http://serfish.herokuapp.com/auth/reset-password/${token}" style="color: white; text-decoration: none;">Restablecer contraseña</a>
+                        <a 
+                        href=``
+                        href="${url}/auth/reset-password/${token}" style="color: white; text-decoration: none;">Restablecer contraseña</a>
                     </button>
                 </div>
             </div>
