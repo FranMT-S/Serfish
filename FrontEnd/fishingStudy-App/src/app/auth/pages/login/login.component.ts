@@ -69,6 +69,7 @@ export class LoginComponent implements OnInit {
             })
           }else{
             // console.log(ok)
+          
             Swal.fire({ background:'rgba(250,250,250,0.96)',
             title: 'Oops!!',
             text: "El correo electronico no esta registrado.",                  
@@ -76,6 +77,8 @@ export class LoginComponent implements OnInit {
             confirmButtonColor: '#3085d6'
           });
           }
+      },error =>{
+        console.log(error)
       });
     }
   }

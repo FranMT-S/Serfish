@@ -40,7 +40,7 @@ const sendEmail = (username, email, token,url) => {
                                     margin: 0px 0px 15px;
                                     cursor: pointer;">
                         <a 
-                        href=``
+                       
                         href="${url}/auth/reset-password/${token}" style="color: white; text-decoration: none;">Restablecer contraseña</a>
                     </button>
                 </div>
@@ -49,6 +49,8 @@ const sendEmail = (username, email, token,url) => {
         `, // html body
     });
 };
+// href="http://serfish.herokuapp.com/auth/reset-password/${token}" style="color: white; text-decoration: none;">Restablecer contraseña</a>
+
 
 const sendThanks = (nombre, email, organizacion) => {
     // Correo al usuario que contacto
