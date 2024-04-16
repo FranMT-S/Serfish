@@ -7,7 +7,7 @@ Usuarios Predefinidos
 admin@admin - admin  
 fran@gmail.com - 1234  
 user1@gmail.com - 1234 (biologo)  
-user1@gmail.com - 1234 (encuestador)  
+user2@gmail.com - 1234 (encuestador)  
 
 
 Tecnologias implementadas:
